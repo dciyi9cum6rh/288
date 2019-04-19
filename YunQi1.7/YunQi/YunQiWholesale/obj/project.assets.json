@@ -13820,11 +13820,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\lab\\YunQi1.7\\YunQi\\YunQiWholesale\\YunQiWholesale.csproj",
+      "projectUniqueName": "D:\\lab\\288\\YunQi1.7\\YunQi\\YunQiWholesale\\YunQiWholesale.csproj",
       "projectName": "YunQiWholesale",
-      "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\YunQiWholesale\\YunQiWholesale.csproj",
+      "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\YunQiWholesale\\YunQiWholesale.csproj",
       "packagesPath": "C:\\Users\\大神\\.nuget\\packages\\",
-      "outputPath": "D:\\lab\\YunQi1.7\\YunQi\\YunQiWholesale\\obj\\",
+      "outputPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\YunQiWholesale\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13843,17 +13843,17 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\lab\\YunQi1.7\\YunQi\\DataEntity\\DataEntity.csproj": {
-              "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\DataEntity\\DataEntity.csproj"
+            "D:\\lab\\288\\YunQi1.7\\YunQi\\DataEntity\\DataEntity.csproj": {
+              "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\DataEntity\\DataEntity.csproj"
             },
-            "D:\\lab\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj": {
-              "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj"
+            "D:\\lab\\288\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj": {
+              "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj"
             },
-            "D:\\lab\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj": {
-              "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj"
+            "D:\\lab\\288\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj": {
+              "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj"
             },
-            "D:\\lab\\YunQi1.7\\YunQi\\Utility\\Utility.csproj": {
-              "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\Utility\\Utility.csproj"
+            "D:\\lab\\288\\YunQi1.7\\YunQi\\Utility\\Utility.csproj": {
+              "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\Utility\\Utility.csproj"
             }
           }
         }

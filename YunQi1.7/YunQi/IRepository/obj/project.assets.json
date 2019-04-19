@@ -2035,11 +2035,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\lab\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj",
+      "projectUniqueName": "D:\\lab\\288\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj",
       "projectName": "IRepository",
-      "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj",
+      "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\IRepository\\IRepository.csproj",
       "packagesPath": "C:\\Users\\大神\\.nuget\\packages\\",
-      "outputPath": "D:\\lab\\YunQi1.7\\YunQi\\IRepository\\obj\\",
+      "outputPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\IRepository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2058,8 +2058,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\lab\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj": {
-              "projectPath": "D:\\lab\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj"
+            "D:\\lab\\288\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj": {
+              "projectPath": "D:\\lab\\288\\YunQi1.7\\YunQi\\DataModel\\DataModel.csproj"
             }
           }
         }
