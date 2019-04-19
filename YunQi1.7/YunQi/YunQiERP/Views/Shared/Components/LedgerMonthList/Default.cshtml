@@ -1,0 +1,50 @@
+﻿@using DataModel
+@model GetLedgerMonthListManageViewModel
+@*9-8.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中判斷9-7傳回之listEmployeeListViewModel!=null and Count>0。*@
+
+@if (Model.listGetLedgerMonthListViewModel != null && Model.listGetLedgerMonthListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示[目前部門員工清單] (含修改與刪除與權限，但應依ViewBag.TR之權限顯示)。
+    <input type="hidden" id="AddMoney" value="@Model.AddMoney" />
+    <input type="hidden" id="MinusMoney" value="@Model.MinusMoney" />
+    <input type="hidden" id="Total" value="@(@Model.AddMoney+@Model.MinusMoney)" />
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>科目名稱</th>
+                    <th>收入</th>
+                    <th>支出</th>
+                    <th>結餘</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.listGetLedgerMonthListViewModel)
+                {
+                    <tr>
+                        <td>@o.AccountingSubject</td>
+                        <td>@o.AddMoney</td>
+                        <td>@o.MinusMoney</td>
+                        <td>@(@o.AddMoney + @o.MinusMoney) </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listEmployeeListViewModel!=null and Count>0)。
+    <h3>沒有總帳管理</h3>
+}
+<script>
+
+    var newAddMoney = parseInt($('#newAddMoney').val());
+    var newMinusMoney = parseInt($('#newMinusMoney').val());
+    var newTotal = parseInt($('#newTotal').val());
+    //Model.MemberTotall 當自己批發總額超過3000 將內容改為紅色 否則為綠色
+    @Model.AddMoney < 0 ? ($("#newAddMoney").css("color", "red")) : ($("#newAddMoney").css("color", "green"));
+    @Model.MinusMoney < 0 ? ($("#newMinusMoney").css("color", "red")) : ($("#newMinusMoney").css("color", "green"));
+    @(@Model.AddMoney+@Model.MinusMoney) < 0 ? ($("#newTotal").css("color", "red")) : ($("#newTotal").css("color", "green"));
+</script>

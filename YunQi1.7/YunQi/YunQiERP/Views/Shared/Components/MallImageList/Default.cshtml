@@ -1,0 +1,48 @@
+﻿@using DataModel
+@model MallImageManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int id = 0;
+}
+@*9-8.系統在View【Views/Shared/Components/MallImageList/Default.cshtml】中判斷9-7傳回之listMallImageListViewModel!=null and Count>0。*@
+@if (Model.listMallImageListViewModel != null && Model.listMallImageListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/MallImageList/Default.cshtml】中顯示[目前商城行銷圖示清單] (含修改與刪除)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>圖示代碼</th>
+                    <th>圖示檔名</th>
+                    <th>圖示</th>
+                    <th>圖示說明</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (MallImageViewModel MLVM in Model.listMallImageListViewModel)
+                {
+                    id += 1;
+                    <tr data-MallImageid="@MLVM.MallImageId">
+                        <td>@MLVM.MallImageId</td>
+                        <td>@MLVM.FileName</td>
+                        <td class="item-pic"><img src="@Url.Action("GetOneMallImage", "MallImage", new { MallImageId = MLVM.MallImageId })" alt="@MLVM.FileName" class="img-responsive" style="max-width:200px;max-height:200px;" /></td>
+                        <td>@Html.Raw(MLVM.MallImageDescription.Replace("\n", "<br />"))</td>
+                        <td>
+                            <a class="btn btn-default btn-edit" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>
+                            <a class="btn btn-default btn-delete" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/MallImageList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetMallImageList", "MallImage")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有商城行銷圖示</h3>
+}

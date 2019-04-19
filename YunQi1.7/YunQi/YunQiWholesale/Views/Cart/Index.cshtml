@@ -1,0 +1,289 @@
+@using DataModel
+@model CartHomesViewModel
+@{
+    ViewBag.Title = "購物車";
+    int n = 0;
+    int total = 0;
+}
+@*6.系統在View【Cart/Index】依5-3傳回值顯示購物車清單、運費、會員個人資料，並將運費資暫存在javascript變數freight。*@
+<div class="cart-content">
+    @*結帳流程*@
+    <div class="flowpath-box container border-bottom">
+        <div id="cartlistFlow" class="flowpath-item active">確認購物細節</div>
+        <i class="fas fa-arrow-circle-right"></i>
+        <div id="personalFlow" class="flowpath-item">確認個人資料</div>
+        <i class="fas fa-arrow-circle-right"></i>
+        <div id="paywayFlow" class="flowpath-item">確認付款方式</div>
+    </div>
+    @*結帳內容*@
+    <div class="paybill-box">
+        <div id="cartlistPanel" class="paybill-panel active">
+            <div class="container">
+                <div class="title-box">
+                    <div class="title">
+                        <i class="fas fa-clipboard-list"></i>購物清單
+                    </div>
+                </div>
+                <div class="carttable-box table-responsive">
+                    <table class="cart-table table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input id="CheckAll" type="checkbox" />
+                                </th>
+                                <th colspan="9"><button type="button" class="btn btn-deleteall btn-maintype" id="ClearCheckAll">刪除勾選</button></th>
+                            </tr>
+                            <tr class="table-header">
+                                <th scope="col" class="table-check" style="width: 10%;">#</th>
+                                <th scope="col" class="table-no" style="width: 10%;">#</th>
+                                <th scope="col" class="table-name" style="width: 20%;">品名</th>
+                                <th scope="col" class="table-pricing" style="width: 10%;">零售</th>
+                                <th scope="col" class="table-size" style="width: 10%;">尺寸</th>
+                                <th scope="col" class="table-color" style="width: 10%;">顏色</th>
+                                <th scope="col" class="table-amount" style="width: 10%; min-width: 96px;">數量</th>
+                                <th scope="col" class="table-suntotal" style="width: 10%;">小計</th>
+                                <th colspan="2" scope="col" style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="CartLists">
+                            @foreach (var item in Model.lstCLVM)
+                            {
+                                n += 1;
+                                total += (item.Price * item.Quantity);
+                                <tr>
+                                    <td>
+                                        <input id="" type="checkbox" data-productid="@item.ProductId" data-producsizeid="@item.ProducSizeId" data-productcolorid="@item.ProductColorId" data-subtotal="@(item.Price*item.Quantity)" data-quantity="@item.Quantity" data-price="@item.Price" data-product="@item.Product" />
+                                    </td>
+                                    <td scope="row">@n</td>
+                                    <td>@item.Product</td>
+                                    <td>@item.Price</td>
+                                    <td>
+                                        <select id="Sel" class="form-control position-static productsize">
+                                            @foreach (var size in item.lstPSVM)
+                                            {
+                                                @if (item.ProducSizeId == size.ProducSizeId)
+                                                {
+                                                    <option selected value="@size.ProducSizeId">@size.ProductSize</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@size.ProducSizeId">@size.ProductSize</option>
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="" class="form-control position-static productcolor">
+                                            @foreach (var color in item.lstPCVM)
+                                            {
+                                                @if (item.ProductColorId == color.ProductColorId)
+                                                {
+                                                    <option selected value="@color.ProductColorId">@color.ProductColor</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@color.ProductColorId">@color.ProductColor</option>
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input id="" type="text" class="form-control cart-quantity" value="@item.Quantity" />
+                                    </td>
+                                    @*<td>@(string.Format("{0:#,###}", item.Price * item.Quantity))</td>*@
+                                    <td>@(item.Price * item.Quantity)</td>
+                                    <td>
+                                        <button type="button" class="btn btn-cart-update btn-maintype" data-productid="@item.ProductId" data-producsizeid="@item.ProducSizeId" data-productcolorid="@item.ProductColorId" data-subtotal="@(item.Price*item.Quantity) " data-producstize="@item.ProductSize" data-productcolor="@item.ProductColor">更新</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-cart-delete btn-maintype" data-productid="@item.ProductId" data-producsizeid="@item.ProducSizeId" data-productcolorid="@item.ProductColorId" data-subtotal="@(item.Price*item.Quantity)">刪除</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">運費(超過3000免運)</th>
+                                <th colspan="5"></th>
+                                @*<th colspan="3">@(string.Format("{0:#,###}", total))</th>*@
+                                <th colspan="3" id="FreightValue">@Model.Freight.FreightValue</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">合計</th>
+                                <th colspan="5"></th>
+                                @*<th colspan="3">@(string.Format("{0:#,###}", total))</th>*@
+                                <th colspan="3" id="cartTotals">@(total + Model.Freight.FreightValue)</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="function-box">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button type="button" class="btn btn-block btn-back btn-maintype"><i class="fas fa-angle-left"></i>返回</button>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button type="button" class="btn btn-block btn-next btn-maintype">下一步<i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="personalPanel" class="paybill-panel">
+            <div class="container">
+                @if (Model.MVM != null)
+                {
+                    <div class="personal-box mb-3">
+                        <div class="title-box">
+                            <div class="title">
+                                <i class="fas fa-user-circle"></i>個人資料
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">姓名：</label>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <input id="MemberNameC" type="text" class="form-control" value="@Model.MVM.MemberName" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">手機：</label>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <input id="MemberMobileC" type="text" class="form-control" value="@Model.MVM.MemberMobile" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">住家/公司電話：</label>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <input id="PhoneC" type="text" class="form-control" value="@Model.MVM.Phone" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">住址：</label>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <input id="ContactAddressC" type="text" class="form-control" value="@Model.MVM.ContactAddress" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">E-Mail：</label>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <input id="eMailC" type="text" class="form-control" value="@Model.MVM.eMail" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                @*送貨資料*@
+                <div class="deliver-box">
+                    <div class="title-box">
+                        <div class="title">
+                            <i class="fas fa-truck"></i>送貨資料
+                        </div>
+                        @if (Model.MVM != null)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">同個人資料</label>
+                            </div>
+                        }
+                        @if (Model.MVM != null)
+                        {
+                            <div class="titlefunction-box">
+                                <select class="btn btn-maintype" id="CartShipaddress">
+                                    <option value="">選擇送貨資料</option>
+                                    @foreach (var o in Model.MDAL)
+                                    {
+                                        <option value="@o.MemberAddressId">@o.MemberName (@o.DeliveryAddress)</option>
+                                    }
+                                </select>
+                                <button  id="StorageMemberDeliveryAddress" type="button" class="btn btn-maintype">儲存至會員中心</button>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">姓名：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="MemberNameCT" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">手機：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="MemberMobileCT" type="text" class="form-control" placeholder="10個數字" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">住家/公司電話：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="PhoneCT" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">住址：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="ContactAddressCT" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">E-Mail：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="eMailCT" type="text" class="form-control" placeholder="英數字與@@" />
+                        </div>
+                    </div>
+                    @*運費*@
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">運費(3001以上免運，離島地區加200)：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="FreightCT" type="text" class="form-control" readonly value="@Model.Freight.FreightValue" />
+                        </div>
+                    </div>
+                </div>
+                <div class="function-box">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button type="button" class="btn btn-block btn-back btn-maintype"><i class="fas fa-angle-left"></i>返回</button>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button type="button" class="btn btn-block btn-next btn-maintype">下一步<i class="fas fa-angle-right"></i></button>
+                            @*<a href='@Url.Action("PostOrder","Cart",new { MemberMobile=jMemberMobile, MemberLevelId =Model.MemberLevelId  })' target="_blank"></a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="paywayPanel" class="paybill-panel">
+            @*<div class="container">
+                    <div class="title-box">
+                        <div class="title">
+                            <i class="fas fa-dollar-sign"></i>請選擇付款方式
+                        </div>
+                    </div>
+                    <div class="payway-box">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">信用卡付款</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">ATM轉帳</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                            <label class="form-check-label" for="inlineRadio2">超商付款</label>
+                        </div>
+                    </div>
+                    <div class="function-box">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <button type="button" class="btn btn-outline-info btn-block btn-pay" id="btnPay">結帳</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<script>
+    // 並將運費資暫存在javascript變數freight
+    freight = new Freight(@Model.Freight.FreightValue,@Model.Freight.OutFreightValue);
+    //20190102 ---棋
+    window.scrollTo(0, 0)
+</script>

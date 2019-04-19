@@ -1,0 +1,59 @@
+﻿@using DataModel
+@model ProductImageListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int id = 0;
+}
+@*9-8.系統在View【Views/Shared/Components/ProductImageList/Default.cshtml】中判斷9-7傳回之listProductImageListViewModel!=null and Count>0。*@
+@if (Model.listProductImageListViewModel != null && Model.listProductImageListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/ProductImageList/Default.cshtml】中顯示[目前商品分類清單] (含修改與刪除與主圖示，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>#</th>
+                    <th>圖示檔名</th>
+                    <th>圖示</th>
+                    <th>主圖示</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ProductImageListViewModel MLVM in Model.listProductImageListViewModel)
+                {
+                    id += 1;
+                    <tr data-productimageid="@MLVM.ProductImageId" data-productid="@MLVM.ProductId">
+                        <td>@id</td>
+                        <td>@MLVM.FileName</td>
+                        <td class="item-pic"><img src="@Url.Action("GetOneProductImage", "Product", new { ProeuctId = MLVM.ProductId,ProductImageId=MLVM.ProductImageId })" alt="@MLVM.FileName" class="img-responsive" style="max-width:200px;max-height:200px;" /></td>
+                        @if (MLVM.IsMajor)
+                        {
+                            <td>yes</td>
+                        }
+                        else
+                        {
+                            <td>no</td>
+                        }
+                            <td>
+                                <a class="btn btn-default btn-edit-productimage" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>
+                                <a class="btn btn-default btn-delete-productimage" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                                <a class="btn btn-default btn-product-majorimage" role="button"><span class="glyphicon glyphicon-star" aria-hidden="true" title="主圖示"></span></a>
+                               @*20181214更新 ---棋*@
+                                @*至頂排序功能改由圖檔名排序*@
+                                @*<a class="btn btn-default btn-product-top" role="button"><span class="glyphicon glyphicon-object-align-top" aria-hidden="true" title="置頂"></span></a>*@
+                            </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/ProductImageList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetProductImageList", "Product")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有商品圖示</h3>
+}

@@ -1,0 +1,67 @@
+﻿@using DataModel
+@model List<MemberLevelViewModel>
+@{
+    ViewData["Title"] = "批發會員";
+    List<int> TR = ViewBag.TR;
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【VipVipMember/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>批發會員</h2>
+    </div>
+    // 7.系統在View【VipMember/Index】顯示會計查詢元件。
+    <form class="form-inline" id="qFrom">
+        <div class="form-group row">
+            <input type="text" class="form-control" id="MemberMobile" name="MemberMobile" placeholder="會員手機..">
+            <input type="text" class="form-control" id="MemberName" name="MemberName" placeholder="會員姓名..">
+            <input type="text" class="form-control" id="ReferrerMobile" name="ReferrerMobile" placeholder="推薦人手機..">
+            <select id="MemberLevelId" class="form-control">
+                <option value="0">全部</option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.MemberLevelId">@item.MemberLevel</option>
+                }
+            </select>
+            <select id="Enabled" class="form-control">
+                <option value="-1">全部</option>
+                <option value="0">停權中</option>
+                <option value="1">使用中</option>
+            </select>
+            <button type="submit" class="btn btn-default" id="btnSearch">查詢</button>
+        </div>
+        @if (TR.Contains(17))
+        {
+            <div class="row">
+                <input type="text" class="form-control" id="NewReferrerMobile" name="NewReferrerMobile" placeholder="新推薦人手機..">
+                <button type="submit" class="btn btn-default" id="btnUpdateReferrer" disabled>變更會員推薦人</button>
+            </div>
+        }
+    </form>
+    <hr />
+    // 8.系統在查詢元件下方安置<Div VipMemberList>以便用來顯示批發會員查詢結果清單。
+    <Div id="MemberList"></Div>
+    @section scripts{
+        <script src="~/lib/jquery.form.min.js"></script>
+        <script src="~/js/VipMember.js"></script>
+        <script>
+            $(function () {
+                VipMemberfunction({
+                    GetMemberUrl: '@Url.Action("GetMember", "VipMember")',
+                    GetMemberListUrl: '@Url.Action("GetMemberList", "VipMember")',
+                    UpdateMemberEnabledUrl: '@Url.Action("UpdateMemberEnabled", "VipMember")',
+                    UpdateMemberLevelUrl: '@Url.Action("UpdateMemberLevel", "VipMember")',
+                    UpdateMemberReferrerUrl: '@Url.Action("UpdateMemberReferrer", "VipMember")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【VipVipMember/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

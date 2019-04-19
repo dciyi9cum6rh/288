@@ -1,0 +1,43 @@
+@using DataModel
+@model ProductCategoryLevelViewModel
+@*78-3.系統在View【Views/Shared/Components/ProductLevelPath/Default.cshtml】中顯示[目前商品分類階層]與目前子分類清單。*@
+<div class="container mb-3">
+    <button id="btnAlltypeClose" type="button" class="btn btn-close btn-maintype mobiletype">關閉</button>
+    <button type="button" class="btn btn-subcategory" id="btnSubCategory" title="點按分類後再點按我切換顥示子分類">子分類</button>
+</div>
+<div class="searchtype-box form-group container mb-3">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+            <input id="ProductCategory" type="text" placeholder="分類名稱" class="form-control" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+            <button type="button" class="btn btn-block btn-maintype" id="btnSeatchProductCategory">搜尋</button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    @*[目前商品分類階層]*@
+    <div class="row mb-3">
+        <nav class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" aria-label="breadcrumb">
+            <ol class="breadcrumb" id="ProductCategoryLevel">
+                @for (int i = Model.ProductLevelPath.Count() - 1; i >= 0; i--)
+                {
+                    <li class="breadcrumb-item">
+                        <a title="單按顥示子分類與商品！" href="#" class="btn btn-alltype ProductLevelPathList" data-productcategoryid="@Model.ProductLevelPath[i].ProductCategoryId">@Model.ProductLevelPath[i].ProductCategory</a>
+                    </li>
+                }
+            </ol>
+        </nav>
+    </div>
+    @*目前子分類清單*@
+    <div class="row mb-3" id="ProductCategoryList">
+        <ul class="nav subtype-list flex-column col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            @foreach (var item in Model.ProductCategory)
+            {
+                <li class="nav-item">
+                    <a title="單按顥示商品，雙按顥示子分類與商品！" class="nav-link text-white" href="#" data-productcategoryid="@item.ProductCategoryId">@item.ProductCategory</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

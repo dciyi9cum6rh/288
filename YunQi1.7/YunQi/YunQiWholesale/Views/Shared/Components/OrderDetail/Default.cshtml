@@ -1,0 +1,44 @@
+@using DataModel
+@model List<CartListViewModel>
+@{
+    //string tmp = Model.Product;
+    int id = 0;
+}
+@*7..系統在View【Views/Shared/Components/OrderDetail/Default.cshtml】中判斷9-7傳回之Model!=null and Count>0。*@
+@if (Model != null && Model.Count > 0)
+{
+    // 8.系統在View【Views / Shared / Components / OrderDetail / Default.cshtml】中顯示[訂單明細]。
+    <div class="table-responsive">
+        <table class="cart-table table table-hover">
+            <thead>
+                <tr class="table-warning">
+                    <th scope="col" class="table-no" style="width: 10%;">#</th>
+                    <th scope="col" class="table-name" style="width: 20%;">品名</th>
+                    <th scope="col" class="table-pricing" style="width: 10%;">零售</th>
+                    <th scope="col" class="table-size" style="width: 10%;">尺寸</th>
+                    <th scope="col" class="table-color" style="width: 10%;">顏色</th>
+                    <th scope="col" class="table-amount" style="width: 10%;">數量</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CartListViewModel item in Model)
+                {
+                    id += 1;
+                    <tr>
+                        <th scope="row">@id</th>
+                        <td>@item.Product</td>
+                        <td>@item.Price</td>
+                        <td>@item.ProductSize</td>
+                        <td>@item.ProductColor</td>
+                        <td>@item.Quantity</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <h3>沒有明細</h3>
+}
+@*9.結束。*@

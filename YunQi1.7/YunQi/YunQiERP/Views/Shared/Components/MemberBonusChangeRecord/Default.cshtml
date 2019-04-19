@@ -1,0 +1,61 @@
+﻿@using DataModel
+@model MemberBonusChangeRecordListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = Model.id;
+}
+@*9-8.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中判斷9-7傳回之listEmployeeListViewModel!=null and Count>0。*@
+@if (Model.listMemberBonusChangeRecordListViewModel != null && Model.listMemberBonusChangeRecordListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示[目前部門員工清單] (含修改與刪除與權限，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>項次</th>
+                    <th>會員手機</th>
+                    <th>異動時間</th>
+                    <th>異動類型</th>
+                    <th>異動前</th>
+                    <th>異動數量</th>
+                    <th>異動後</th>
+                    <th>執行</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.listMemberBonusChangeRecordListViewModel)
+                {
+                <tr>
+                    <td>@o.RecordId</td>
+                    <td>@o.MemberMobile</td>
+                    <td>@o.ChangeTime.ToString("yyyy/MM/dd hh:mm:ss:fff")</td>
+                    <td>@o.Event</td>
+                    <td>@o.BeforeBonus</td>
+                    <td>@o.ChangeBonus</td>
+                    <td>
+                         @o.AfterBonus
+                    </td>
+                    <td>
+                        @if (o.Event == "點數提領")
+                        {
+                            <a class="btn btn-default btn-success" role="button"><span class="glyphicon glyphicon-usd" aria-hidden="true" title="確認撥款"></span></a>
+                            <a class="btn btn-default btn-danger" role="button"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true" title="銀行帳號"></span></a>
+                        }
+                    </td>
+                </tr>
+                    id += 1;
+                }
+            </tbody>
+        </table>
+    </div>
+    // if10.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listEmployeeListViewModel!=null and Count>0)。
+    <h3>沒有會員點數異動</h3>
+}

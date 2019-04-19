@@ -1,0 +1,295 @@
+@media screen and (max-width: 1024px) {
+    .footer-box {
+        .footer-link-box {
+            .qr-box {
+                .qr-code {
+                    a {
+                        img {
+                            height: 100px;
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .header-box {
+        &.bg-dark {
+            padding: 0.5rem 0 !important;
+
+            .navbar-toggler {
+                margin-right: 1rem !important;
+            }
+        }
+
+        .navbar-brand {
+            margin-left: 1rem !important;
+        }
+    }
+
+    .main-content {
+        padding: 4.1rem 0;
+
+        .mobiletype {
+            display: block;
+        }
+
+        .mall-content {
+            .productpanel-box {
+                .productsearch-box {
+                    padding-top: 1rem;
+                }
+
+                .productdetail-box {
+                    .set-box {
+                        .morepic-box {
+                            .morepic-item {
+                                .morepic-pic {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .member-content {
+            .memberpanel-box {
+                .followertriumph-component {
+                    padding-top: 1rem;
+                }
+
+                .mailcenter-component {
+                    padding-top: 1rem;
+                }
+
+                .memberlevel-component {
+                    padding-top: 1rem;
+                }
+
+                .membermove-component {
+                    padding-top: 1rem;
+                }
+
+                .myfavorite-component {
+                    padding-top: 1rem;
+                }
+
+                .myfollower-component {
+                    padding-top: 1rem;
+                }
+
+                .myorder-component {
+                    padding-top: 1rem;
+                }
+
+                .personaldata-component {
+                    padding-top: 1rem;
+                }
+
+                .pointnotes-component {
+                    padding-top: 1rem;
+                }
+
+                .shipaddress-component {
+                    padding-top: 1rem;
+                }
+
+                .wholesaletips-component {
+                    padding-top: 1rem;
+                }
+            }
+        }
+
+        .helpe-content {
+            .helppanel-box {
+                .payway-component {
+                    padding-top: 1rem;
+                }
+
+                .qanda-component {
+                    padding-top: 1rem;
+                }
+
+                .register-component {
+                    padding-top: 1rem;
+                }
+
+                .shipdays-component {
+                    padding-top: 1rem;
+                }
+
+                .shoppingflow-component {
+                    padding-top: 1rem;
+                }
+            }
+        }
+    }
+
+    .alltype-box,
+    .membermenu-box,
+    .helpmenu-box {
+        position: absolute;
+        left: 50%;
+        transform: translate(-200%,0);
+        transition: all linear 1s;
+        z-index: 1000;
+
+        &.active {
+            transform: translate(-50%, 0);
+        }
+    }
+
+    .formobile {
+        display: block;
+    }
+
+    .footer-box {
+        .footer-logo-box {
+            flex-direction: row;
+            margin-bottom: 1rem;
+
+            .footer-logo {
+                height: 136px;
+                width: auto;
+            }
+        }
+
+        .footer-link-box {
+            margin-bottom: 1.5rem;
+
+            .qr-box {
+                justify-content: center;
+
+                .qr-code {
+                    img {
+                        height: auto;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer-box {
+        .footer-link-box {
+            &.contact {
+                text-align: center !important;
+
+                .title {
+                    text-align: center !important;
+                }
+
+                .time,
+                .holiday {
+                    padding-left: 1rem !important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .footer-box {
+        .footer-logo-box {
+            .footer-logo {
+                width: 180px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main-content {
+        .cart-content {
+            .flowpath-box {
+                .fas {
+                    margin: 0 2rem;
+                }
+            }
+
+            .paybill-box {
+                .paybill-panel {
+                    .title-box {
+                        flex-wrap: nowrap;
+
+                        .title {
+                            margin-right: 2rem;
+                            width: auto;
+                        }
+
+                        .titlefunction-box {
+                            width: auto;
+
+                            .btn {
+                                margin-left: 1rem;
+                            }
+                        }
+                    }
+
+                    .carttable-box {
+                        .cart-table {
+                            select {
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .personal-box, .deliver-box {
+                        .form-group {
+                            .col-form-label {
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-box {
+        .footer-logo-box {
+            .footer-logo {
+                width: 136px;
+            }
+        }
+
+        .footer-link-box {
+            .qr-box {
+                .qr-code {
+                    img {
+                        height: 100px;
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .footer-box {
+        .footer-logo-box {
+            .footer-logo {
+                width: 160px;
+            }
+        }
+
+        .footer-link-box {
+            .qr-box {
+                .qr-code {
+                    img {
+                        height: 126px;
+                        width: 126px;
+                    }
+                }
+            }
+        }
+    }
+}

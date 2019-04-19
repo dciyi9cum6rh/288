@@ -1,0 +1,113 @@
+.footer-box {
+    background-color: #C1E2D4 !important;
+    color: $txtColor1;
+    padding: 2rem;
+
+    .footer-logo-box {
+        flex-direction: column;
+
+        .footer-logo {
+            height: auto;
+        }
+    }
+
+    .footer-link-box {
+        .title {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .nav {
+            .nav-link {
+                color: #fff;
+                font-size: 1.2rem;
+                padding: 0 1rem;
+            }
+        }
+
+        .qr-box {
+            align-items: center;
+            display: flex;
+            justify-content: space-around;
+
+            .qr-code {
+                a {
+                    color: #fff;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+                    img {
+                        height: 120px;
+                        width: 120px;
+                    }
+                }
+            }
+        }
+
+        &.contact {
+            .time,
+            .holiday {
+                padding-left: 6rem !important;
+            }
+        }
+    }
+}
+
+.footerdetail-box {
+    background-color: #fdf2f7;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    transform: translate(0, 100%);
+    transition: all 1000ms cubic-bezier(0.000, 0.750, 0.250, 1.000); /* custom */
+    width: 100%;
+    z-index: 2000;
+
+    &.active {
+        transform: translate(0,0);
+    }
+
+    .btn-close {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        z-index: 500;
+    }
+
+    .set-box {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+        width: 100%;
+
+        .card {
+            .card-header {
+                background-color: #c1e2d4;
+                color: #fff;
+            }
+
+            .card-body {
+                background-color: #fdf2f7;
+
+                span {
+                    padding: 0.75rem 0;
+                }
+
+                div {
+                    padding: 0.75rem 1.25rem
+                }
+
+                .list-group {
+                    .list-group-item {
+                        background-color: #fdf2f7;
+                        border: 0 none;
+                    }
+                }
+            }
+        }
+    }
+}

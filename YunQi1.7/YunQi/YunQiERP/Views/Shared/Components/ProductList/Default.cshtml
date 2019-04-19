@@ -1,0 +1,60 @@
+﻿@using DataModel
+@model ProductListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+}
+@*9-8.系統在View【Views/Shared/Components/ProductList/Default.cshtml】中判斷9-7傳回之listProductListViewModel!=null and Count>0。*@
+@if (Model.listProductListViewModel != null && Model.listProductListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/ProductList/Default.cshtml】中顯示[目前商品分類清單] (含修改與刪除與圖示/新圖示/盤整，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>分類名稱</th>
+                    <th>商品代碼</th>
+                    <th>商品名稱</th>
+                    <th>商品圖示</th>
+                    <th>商品說明</th>
+                    <th>零售價</th>
+                    <th>批發價</th>
+                    <th>量批價</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ProductListViewModel MLVM in Model.listProductListViewModel)
+                {
+                    <tr>
+                        <td>@MLVM.ProductCategory</td>
+                        <td>@MLVM.ProductId</td>
+                        <td>@MLVM.Product</td>
+                        <td class="item-pic"><img src="@Url.Action("GetProductImage", "Product", new { ProeuctId = MLVM.ProductId })" alt="@MLVM.Product" class="img-responsive" style="max-width:200px;max-height:200px;" /></td>
+                        <td>@MLVM.ProductDescription</td>
+                        <td>@MLVM.Price</td>
+                        <td>@MLVM.SaleLimitPrice</td>
+                        <td>@MLVM.OfferPrice</td>
+                        <td>
+                            <a class="btn btn-default btn-edit-product" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>
+                            <a class="btn btn-default btn-delete-product" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                            <a class="btn btn-default btn-image-product" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true" title="圖示"></span></a>
+                            <a class="btn btn-default btn-addimage" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true" title="新增圖示"></span></a>
+                            <a class="btn btn-default btn-size" role="button"><span class="glyphicon glyphicon-resize-small" aria-hidden="true" title="尺寸"></span></a>
+                            <a class="btn btn-default btn-color" role="button"><span class="glyphicon glyphicon-text-color" aria-hidden="true" title="顏色"></span></a>
+                            <a class="btn btn-default btn-stock-pro" role="button"><span class="glyphicon glyphicon-asterisk" aria-hidden="true" title="庫存"></span></a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // // 9-10.系統在View【Views/Shared/Components/ProductList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetProductList", "Product")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有商品</h3>
+}

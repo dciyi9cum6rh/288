@@ -1,0 +1,49 @@
+@using PaulMiami.AspNetCore.Mvc.Recaptcha
+@{
+    Layout = null;
+}
+
+@*4.系統在View【Home/Login】中顯示登入介面。*@
+<div class="login-content container pt-5">
+    <form asp-action="Login" asp-controller="Home" method="post" id="Memberlogin">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <section class="login-form">
+                    <div class="form-group row">
+                        <label for="" class="control-label col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">帳號：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="MemberMobileLogin" type="text" class="form-control" name="MemberMobile" />
+                        </div>
+                        @*<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 d-flex align-items-center">
+                                <div class="text-danger">帳號錯誤！</div>
+                            </div>*@
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="control-label col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">密碼：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="MemberPasswordLogin" type="password" class="form-control" name="MemberPassword" />
+                        </div>
+                        @*<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 d-flex align-items-center">
+                                <div class="text-danger">密碼錯誤！</div>
+                            </div>*@
+                    </div>
+                    <div class="form-group row">
+                        <div class="captcha-box col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 offset-sm-0 offset-md-0 offset-lg-3 offset-xl-3"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-0 offset-md-0 offset-lg-3 offset-xl-3 col-md-6 col-lg-6 col-xl-6">
+                            @*<recaptcha />*@
+                            <span class="text-danger" id="recaptchaErrorMessage"></span>
+                        </div>
+                    </div>
+                    <div class="function-box offset-sm-0 offset-md-0 offset-lg-3 offset-xl-3 col-md-6 col-lg-6 col-xl-6">
+                        <button type="button" class="btn btn-maintype" id="LostPassword">忘記密碼</button>
+                        <button type="button" class="btn btn-maintype" id="btnLoginMember">登入</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </form>
+</div>
+
+@*<recaptcha-script />*@

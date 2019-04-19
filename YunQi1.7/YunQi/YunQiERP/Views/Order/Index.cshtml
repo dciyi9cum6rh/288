@@ -1,0 +1,211 @@
+﻿@using DataModel;
+@model List<OrderStateViewModel>
+@{
+    ViewData["Title"] = "銷貨管理";
+    //DateTime dt = DateTime.Now;
+    //string sdt = $"{dt.Year}/{dt.Month}/{dt.Day} 00";
+    //string edt = $"{dt.Year}/{dt.Month}/{dt.Day} 23";
+    //string jasdt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} {dt.Hour:00}:{dt.Minute:00}:{dt.Second:00}";
+    //string jaedt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} 23:59:59";
+    ////string vsdt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} 00";
+    ////string vedt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} 23";
+    //DateTime jsdt = new DateTime(dt.Year, dt.Month, dt.Day, 0, 0, 0);
+    //DateTime jedt = new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59);
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Order/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>銷貨管理</h2>
+    </div>
+    // 7.系統在View【Order/Index】顯示銷貨管理查詢元件。
+    <form class="form-inline" id="qFrom">
+        <div class="form-group">
+            <input id="OrderId" type="text" name="OrderId" class="form-control input-sm" placeholder="銷貨單號...." />
+            <input id="sDate" type="text" name="sDate" class="form-control input-sm" placeholder="訂購日期(起)..." />
+            <input id="eDate" type="text" name="eDate" class="form-control input-sm" placeholder="訂購日期(迄)..." />
+            <input id="MemberMobile" type="text" name="MemberMobile" class="form-control input-sm" placeholder="會員帳號(手機)..." />
+            <select id="OrderState" name="OrderState" class="form-control input-sm">
+                <option value="0">全部</option>
+                @foreach (OrderStateViewModel item in Model)
+                {
+                    <option value="@item.OrderStateId">@item.OrderState</option>
+                }
+            </select>
+            <input id="Product" type="text" name="Product" class="form-control input-sm" placeholder="商品名稱...." />
+        </div>
+        <button type="submit" class="btn btn-default" id="btnSearchOrder" title="輸入條件後查詢">查詢</button>
+    </form>
+    <hr />
+    // 8.系統在查詢元件下方安置<Div Order List>以便用來顯示銷貨單查詢結果清單。
+    <Div id="OrderList"></Div>
+
+    //Model
+    <div id="add-one" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">變更訂單狀態</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PutOrderState" asp-controller="Order" method="post" id="CreateForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-3 control-label">訂單編號</label>
+                                <div class="col-xs-9"><input id="OrderIdP" type="text" name="OrderIdP" class="form-control" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderTime" class="col-xs-3 control-label">訂單狀態</label>
+                                <div class="col-xs-9"><select id="OrderStateP" type="text" name="OrderStateP" class="form-control"></select></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-3 button-right">
+                                    <button type="submit" id="CreateSubmit" class="btn btn-primary">變更狀態</button>
+                                </div>
+                                <div class="col-xs-3 button">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-6 button-right"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    //Model
+    <div id="add-onePU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">出貨資料滙出</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PurchaseReport" asp-controller="Order" method="post" id="CreateFormPU" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">收貨人</label>
+                                <div class="col-xs-3"><input id="MemberName" type="text" name="MemberName" class="form-control" /></div>
+                                <label asp="OrderTime" class="col-xs-2 control-label">地址</label>
+                                <div class="col-xs-5"><input id="ContactAddress" type="text" name="ContactAddress" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">手機</label>
+                                <div class="col-xs-3"><input id="MemberMobileP" type="text" name="MemberMobileP" class="form-control" /></div>
+                                <label asp="OrderTime" class="col-xs-2 control-label">才數</label>
+                                <div class="col-xs-5"><input id="Nnuber" type="text" name="Nnuber" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">重量</label>
+                                <div class="col-xs-3"><input id="Weight" type="text" name="Weight" class="form-control" /></div>
+                                <label asp="OrderTime" class="col-xs-2 control-label">件數</label>
+                                <div class="col-xs-5"><input id="Quantity" type="text" name="Quantity" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">站所</label>
+                                <div class="col-xs-3"><input id="Station" type="text" name="Station" class="form-control" /></div>
+                                <label asp="MemberId" class="col-xs-2 control-label">會員帳號(手機)</label>
+                                <div class="col-xs-5"><input id="MemberId" type="text" name="MemberId" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">貨號</label>
+                                <div class="col-xs-3"><input id="ProductNo" type="text" name="ProductNo" class="form-control" /></div>
+                                <label asp="OrderTime" class="col-xs-2 control-label">貨品內容</label>
+                                <div class="col-xs-5"><textarea rows="4" id="ProductA" name="ProductA" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">電話</label>
+                                <div class="col-xs-3"><input id="Phone" type="text" name="Phone" class="form-control" /></div>
+                                <label asp="OrderTime" class="col-xs-2 control-label">郵區</label>
+                                <div class="col-xs-5"><input id="Postal" type="text" name="Postal" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">付款別</label>
+                                <div class="col-xs-3"><input id="PaymentType" type="text" name="PaymentType" class="form-control" /></div>
+                                <label asp="OrderTime" class="col-xs-2 control-label">代收貨款</label>
+                                <div class="col-xs-5"><input id="InsteadReceive" type="text" name="InsteadReceive" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="OrderIdP" class="col-xs-2 control-label">清除舊出貨資料</label>
+                                <div class="col-xs-3"><input type="checkbox" id="ClearOld" name="ClearOld" class="form-control"></div>
+                                <label asp="OrderIdP" class="col-xs-2 control-label">備註說明</label>
+                                <div class="col-xs-5"><textarea rows="3" id="Memo" name="Memo" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-2 button-right">
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="submit" id="CreateSubmitPU" class="btn btn-primary">滙出</button>
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-4 button-right">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/DatatimeSetting.js" asp-append-version="true"></script>
+            <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.js"></script>
+            <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+            <script src="~/js/jquery-ui-timepicker-addon.js" asp-append-version="true"></script>
+            <script src="~/js/jquery-ui-sliderAccess.js" asp-append-version="true"></script>
+            <script src="~/js/Order.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/DatatimeSetting.min.js" asp-append-version="true"></script>
+            <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.min.css" rel="stylesheet">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.min.css" />
+            <script src="~/js/jquery-ui-timepicker-addon.min.js" asp-append-version="true"></script>
+            <script src="~/js/jquery-ui-sliderAccess.min.js" asp-append-version="true"></script>
+            <script src="~/js/Order.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+            $('#sDate').datetimepicker(opt1);
+            $('#eDate').datetimepicker(opt1);
+            $(function () {
+                Orderfunction(
+                    {
+                        GetOrderListUrl: '@Url.Action("GetOrderList", "Order")',
+                        GetOrderDetailListUrl: '@Url.Action("GetOrderDetailList", "Order")',
+                        GetOrderDetailListNoButtonUrl: '@Url.Action("GetOrderDetailListNoButton", "Order")',
+                        GetOrderStateUrl: '@Url.Action("GetOrderState", "Order")',
+                        GetOrderDataUrl: '@Url.Action("GetOrderData", "Order")',
+                        PostShipmentUrl: '@Url.Action("PostShipment", "Order")',
+                        ValidateProductUrl: '@Url.Action("ValidateProduct", "Order")',
+                        PostOrderDetailUrl: '@Url.Action("PostOrderDetail", "Order")',
+                        GetCurrencyAndOrderUrl: '@Url.Action("GetCurrencyAndOrder", "Order")',
+                        PutOrderUrl: '@Url.Action("PutOrder", "Order")',
+                        DeleteOrderUrl: '@Url.Action("DeleteOrder", "Order")',
+                        DeleteOrderDetailUrl: '@Url.Action("DeleteOrderDetail", "Order")',
+                        UpdateOrderStateIdUrl: '@Url.Action("UpdateOrderState", "Order")',
+                        GetCancelOrderState : '@Url.Action("GetCancelOrderState", "Order")',
+
+                   }
+                );
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Order/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

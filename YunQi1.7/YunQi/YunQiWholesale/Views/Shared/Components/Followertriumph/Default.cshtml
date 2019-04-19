@@ -1,0 +1,128 @@
+@*20181121 ---棋*@
+
+@using DataModel
+@model FollowertriumphManageViewModel
+@{
+}
+
+@if (@Model.listFollowertriumphViewModel != null && @Model.listFollowertriumphViewModel.Count > 0)
+{
+    <div class="followertriumph-component">
+        <div class="container">
+            <div class="title-box border-bottom d-flex align-items-center mb-3">
+                <h2 class="mr-3">我的下線業績</h2>
+                <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+            </div>
+            <div class="search-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                    <input id="MemberMobileWhere" type="text" placeholder="下線手機" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                    <input id="sDateO" type="text" placeholder="日期" class="form-control" value="" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnSerrchFollowertriumph">搜尋</button>
+                </div>
+            </div>
+            <div class="detail-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-1 pb-1">
+                    <div id="FollowertriumphTotal" class="d-flex align-items-center">下線批發總額：@Model.FollowertriumphTotall.Total 元</div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-1 pb-1">
+                    <div id="MemberTotall" class="d-flex align-items-center">我的批發總額： @Model.MemberTotall.Total 元</div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-1 pb-1">
+                    <div id="Bonus" class="d-flex align-items-center">我的營運獎金：@Model.Bonus 元</div>
+                    @* <div id="Bonus" class="d-flex align-items-center"></div>*@
+                </div>
+            </div>
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-maintype" id="FollowertriumphPrePage"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage/@Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-maintype" id="FollowertriumphNextPage"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-maintype" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="FollowertriumphPageList">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="triumphlist-box">
+                @for (int i = 0; i < @Model.listFollowertriumphViewModel.Count; i += 2)
+                {
+                    <div class="row mb-3">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                            <div class="d-flex align-items-center">姓名：@Model.listFollowertriumphViewModel[i].MemberName</div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                            <div class="d-flex align-items-center">手機：@Model.listFollowertriumphViewModel[i].MemberMobile</div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                            <div class="d-flex align-items-center">訂購總額：@Model.listFollowertriumphViewModel[i].Total</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (i + 1 < Model.listFollowertriumphViewModel.Count)
+                        {
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="d-flex align-items-center">姓名：@Model.listFollowertriumphViewModel[i + 1].MemberName</div>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="d-flex align-items-center">手機：@Model.listFollowertriumphViewModel[i + 1].MemberMobile</div>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="d-flex align-items-center">訂購總額：@Model.listFollowertriumphViewModel[i + 1].Total </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h3>沒有下線業績</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+
+<script>
+
+    $(document).ready(function () {
+        // 10.系統設定jCurrentPage=9-7回傳CurrentPage，系統設定jTotallPages=9-7回傳TotalPages。
+        jCurrentPage =@Model.CurrentPage;
+        jTotallPages =@Model.TotalPages;
+
+        //Model.MemberTotall 當自己批發總額超過3000 將內容改為紅色 否則為綠色
+         @Model.MemberTotall.Total >= 3000 ? ($("#MemberTotall").css("color", "green")) : ($("#MemberTotall").css("color", "red"));
+        //Model.FollowertriumphTotal 當我的下線批發總額超過3000 將"我的營運獎金"改為紅色 否則為綠色
+        @Model.MemberTotall.Total  >= 3000 ? ($("#Bonus").css("color", "green")) : ($("#Bonus").css("color", "red"));
+    });
+</script>

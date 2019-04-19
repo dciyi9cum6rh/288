@@ -1,0 +1,63 @@
+﻿@using DataModel
+@model PurchaseDetailListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*9-8.系統在View【Views/Shared/Components/PurchaseDetailList/Default.cshtml】中判斷9-7傳回之listPurchaseDetailListViewModel!=null and Count>0。*@
+@if (Model.listPurchaseDetailListViewModel != null && Model.listPurchaseDetailListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/PurchaseDetailList/Default.cshtml】中顯示[目前進貨清單] (含修改與刪除，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered table-condensed" id="tableProduct">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>商品名稱</th>
+                    <th>尺寸</th>
+                    <th>顏色</th>
+                    <th>進價</th>
+                    <th>數量</th>
+                    <th>商品費用</th>
+                    <th>運費</th>
+                    <th>雜費</th>
+                    <th>進貨總額</th>
+                    <th>進貨總額(NT$)</th>
+                    <th>商品進貨均價(NT$))</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (PurchaseDetailListViewModel MLVM in Model.listPurchaseDetailListViewModel)
+                {
+                    id += 1;
+                <tr>
+                    <td>@MLVM.Product</td>
+                    <td>@MLVM.ProductSize</td>
+                    <td>@MLVM.ProductColor</td>
+                    <td>@String.Format("{0:0.00}", MLVM.PurchasePrice)</td>
+                    <td>@MLVM.Quantity</td>
+                    <td>@String.Format("{0:0.00}", MLVM.ProductFee)</td>
+                    <td>@String.Format("{0:0.00}", MLVM.Freight)</td>
+                    <td>@String.Format("{0:0.00}", MLVM.miscellaneous)</td>
+                    <td>@String.Format("{0:0.00}", MLVM.TotalExpense)</td>
+                    <td>@String.Format("{0:0.00}", MLVM.TotalExpenseNT)</td>
+                    <td>@String.Format("{0:0.00}", MLVM.PurchasePriceTotalNT)</td>
+                    <td>
+                        @*<a class="btn btn-default btn-edit-detaill" role="button" data-purchasedetaiid="@MLVM.PurchaseDetailId" data-purchaseid="@MLVM.PurchaseId"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>*@
+                        <a class="btn btn-default btn-delete-detaill" role="button" data-purchasedetaiid="@MLVM.PurchaseDetailId" data-purchaseid="@MLVM.PurchaseId"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/PurchaseDetailList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetPurchaseDetailList", "Purchase")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有進貨明細</h3>
+}

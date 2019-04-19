@@ -1,0 +1,11 @@
+﻿@using DataModel
+@model List<ProductLevelPathViewModel>
+@*78-3.系統在View【Views/Shared/Components/ProductLevelPath/Default.cshtml】中顯示[目前商品分類階層]。*@
+<div class="container">
+    <ol class="breadcrumb">
+        @for (int i = Model.Count() - 1; i >= 0; i--)
+        {
+            <li><a href="#" class="ProductLevelPathList" title="@Model[i].ProductCategoryId">@Model[i].ProductCategory</a></li>
+        }
+    </ol>
+</div>

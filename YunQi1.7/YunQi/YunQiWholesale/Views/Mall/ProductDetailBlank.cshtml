@@ -1,0 +1,256 @@
+@using DataModel
+@model ProductDetailMallViewModel
+@{
+    ViewBag.Title = "商品介紹";
+    int stock = 0;
+    if (@Model.ProductStock != null)
+    {
+        stock = Model.ProductStock.Stock;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0" />*@
+    <meta name="viewport" content="initial-scale=1 user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    @*<link rel="apple-touch-startup-image" href="assets/spoker.png">
+        <link rel="icon" sizes="192x192" href="~/images/playernew000.png">
+        <link rel="icon" sizes="128x128" href="~/images/playernew000.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="~/images/playernew000.png">
+        <link rel="apple-touch-icon-precomposed" sizes="128x128" href="~/images/playernew000.png">*@
+    <title>@ViewData["Title"] - YunQiWholesale</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png">
+    <link rel="manifest" href="~/favicon/site.webmanifest">
+    <link rel="mask-icon" href="~/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.css" />
+    <link rel="stylesheet" href="~/lib/swiper/css/swiper.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+</head>
+<body >
+    @*<button id="btnProductDetailClose" type="button" class="btn btn-secondary btn-close">關閉</button>*@
+    <div class="set-box">
+        <div class="detail-box container">
+            <div class="row">
+                <div class="detailpic-box col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <img src="@Url.Action("GetProductImage", "Mall", new { ProeuctId = Model.Product.ProductId })" alt="" class="detail-pic" />
+                </div>
+                <div class="detailinfo-box col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="detailinfo-item row pt-1 pb-1">
+                        <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">品名</div>
+                        <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8" id="productD">@Model.Product.Product</div>
+                    </div>
+                    <div class="detailinfo-item row pt-1 pb-1">
+                        <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">零售價</div>
+                        <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8" id="priceD">@Model.Product.Price</div>
+                    </div>
+                    @*20190102 ---棋*@
+                    @if (Model.MemberLevelId <= 0)
+                    {
+                        <div class="detailinfo-item row pt-1 pb-1">
+                            <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">批發價</div>
+                            <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8"><a href="#" class="joinus-link">加入我們</a></div>
+                        </div>
+                        <div class="detailinfo-item row pt-1 pb-1">
+                            <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">量批價</div>
+                            <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8"><a href="#" class="joinus-link">加入我們</a></div>
+                        </div>
+                    }
+                    @if (Model.MemberLevelId == 1 || Model.MemberLevelId == 2)
+                    {
+                        <div class="detailinfo-item row pt-1 pb-1">
+                            <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">批發價</div>
+                            <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8"><a href="#" class="JoinusWholesale-link">升級批發會員</a></div>
+                        </div>
+                        <div class="detailinfo-item row pt-1 pb-1">
+                            <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">量批價</div>
+                            <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8"><a href="#" class="JoinusWholesale-link">升級批發會員</a></div>
+                        </div>
+                    }
+                    @if (Model.MemberLevelId == 3)
+                    {
+                        <div class="detailinfo-item row pt-1 pb-1">
+                            <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">批發價</div>
+                            <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">@Model.Product.SaleLimitPrice</div>
+                        </div>
+                        <div class="detailinfo-item row pt-1 pb-1">
+                            <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">量批價</div>
+                            <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">@Model.Product.OfferPrice</div>
+                        </div>
+
+                    }
+                    <div class="detailinfo-item row" id="product-item">
+                        <div class="responsive col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="accordion" id="accordionChoose">
+                                <div class="card border">
+                                    <div class="card-header" id="headingOne">
+                                        <div class="row">
+                                            <div class="border border-dark col-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center pt-2 pb-2">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <label class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-form-label">尺寸</label>
+                                                        <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                                                            <select id="sizeD" class="form-control">
+                                                                @foreach (var item in Model.ProductSize)
+                                                                {
+                                                                    <option value="@item.ProducSizeId">@item.ProductSize</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="border border-dark col-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center pt-2 pb-2">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <label class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-form-label">顏色</label>
+                                                        <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                                                            <select id="colorD" class="form-control">
+                                                                @foreach (var item in Model.ProductColor)
+                                                                {
+                                                                    <option value="@item.ProductColorId">@item.ProductColor</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="border border-dark col-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center pt-2 pb-2">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <label class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-form-label" id="lblQuantityD">數量(@stock)</label>
+                                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <input id="quantityD" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="border border-dark col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pt-2 pb-2">
+                                                <div class="container">
+                                                    <div class="row  justify-content-between">
+                                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-1 pb-1">
+                                                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseChoose" aria-expanded="true" aria-controls="collapseChoose">展開</button>
+                                                        </div>
+                                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-1 pb-1">
+                                                            <button type="button" class="btn btn-secondary btn-addcart" id="btnAddQuantity">新增</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="collapseChoose" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionChoose">
+                                        <div class="card-body">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detailinfo-item row" id="divmyfavorite">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button type="button" class="btn btn-secondary btn-favorite" data-productid="@Model.Product.ProductId"><i class="fas fa-star"></i>儲存至我的最愛</button>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button type="button" class="btn btn-secondary btn-addcart"><i class="fas fa-cart-plus"></i>儲存至購物車</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="morepic-box">
+            @foreach (var item in Model.ProductImage)
+            {
+                <div class="morepic-item mb-3">
+                    <img src="@Url.Action("GetOneProductImage", "Mall", new { ProeuctId = item.ProductId, ProductImageId= item.ProductImageId})" alt="" class="morepic-pic" />
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+<script src="~/js/DatatimeSetting.js" asp-append-version="true"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.min.css" />
+<script src="~/js/jquery-ui-timepicker-addon.js" asp-append-version="true"></script>
+<script src="~/js/jquery-ui-sliderAccess.js" asp-append-version="true"></script>
+<script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/lib/swiper/js/swiper.js"></script>
+<script src="~/js/ObjectModel.js"></script>
+<script src="~/js/RegularExpression.js"></script>
+<script src="~/js/homepage.js"></script>
+<script>
+     $(function () {
+        Homepagefunction(
+            '@Url.Action("Index", "Mall")',
+            '@Url.Action("Index", "Cart")',
+            '@Url.Action("Login", "Home")',
+            '@Url.Action("main", "Home")',
+            '@Url.Action("Index", "Member")',
+            '@Url.Action("Index", "Joinus")',
+            '@Url.Action("Personaldata", "Member")',
+            '@Url.Action("Memberlevel", "Member")',
+            '@Url.Action("Wholesaletips", "Member")',
+            '@Url.Action("Shipaddress", "Member")',
+            '@Url.Action("Myorder", "Member")',
+            '@Url.Action("Myfavorite", "Member")',
+            '@Url.Action("Myfollower", "Member")',
+            '@Url.Action("Followertriumph", "Member")',
+            '@Url.Action("Pointnotes", "Member")',
+            '@Url.Action("Wishipool", "Member")',
+            '@Url.Action("Membermove", "Member")',
+            '@Url.Action("Mailcenter", "Member")',
+            '@Url.Action("Register", "Joinus")',
+            '@Url.Action("shoppingflow", "Joinus")',
+            '@Url.Action("Payway", "Joinus")',
+            '@Url.Action("Qanda", "Joinus")',
+            '@Url.Action("Shipdays", "Joinus")',
+            '@Url.Action("Success", "Cart")',
+            '@Url.Action("GetProductList", "Mall")',
+            '@Url.Action("GetProductLevelPath", "Mall")',
+            '@Url.Action("GetProductCategoryId", "Mall")',
+            '@Url.Action("GetProductDetail", "Mall")',
+            '@Url.Action("GetOfferProductList", "Mall")',
+            '@Url.Action("JoinMember", "Joinus")',
+            '@Url.Action("Login", "Home")',
+            '@Url.Action("PutMember", "Member")',
+            '@Url.Action("PutMemberLevel", "Member")',
+            '@Url.Action("PostMemberFavorite", "Member")',
+            '@Url.Action("GetProductStock", "Mall")',
+            '@Url.Action("PostMemberCarts", "Mall")',
+            '@Url.Action("FavoriteDetail", "Member")',
+            '@Url.Action("DeleteCart", "Cart")',
+            '@Url.Action("DeleteCarts", "Cart")',
+            '@Url.Action("UpdateCart", "Cart")'
+         );
+         jQuantity = parseInt('@stock');
+    });
+</script>
+<script language="javascript" type="text/javascript">
+    $(document).on("keydown", function (e) {
+        if (e.key == "F5" || e.key == "F11" ||
+            (e.ctrlKey == true && (e.key == 'r' || e.key == 'R')) ||
+            e.keyCode == 116 || e.keyCode == 82) {
+            e.preventDefault();
+        }
+    });
+    window.addEventListener('beforeunload', function (e) {
+        // Cancel the event
+        e.preventDefault();
+        // Chrome requires returnValue to be set
+        e.returnValue = '';
+    });
+  
+
+</script>

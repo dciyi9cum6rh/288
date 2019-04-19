@@ -1,0 +1,52 @@
+﻿@using DataModel
+@model ProductStockListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int id = 0;
+}
+@*9-8.系統在View【Views/Shared/Components/ProductStockList/Default.cshtml】中判斷9-7傳回之listProductStockListViewModel!=null and Count>0。*@
+@if (Model.listProductStockListViewModel != null && Model.listProductStockListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/ProductStockList/Default.cshtml】中顯示[目前商品分類清單] (含盤整，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>#</th>
+                    <th>尺寸</th>
+                    <th>顏色</th>
+                    <th>庫存</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ProductStockListViewModel MLVM in Model.listProductStockListViewModel)
+                {
+                    id += 1;
+                    <tr>
+                        <td>@id</td>
+                        <td>@MLVM.ProductSize</td>
+                        <td>@MLVM.ProductColor</td>
+                        <td>@MLVM.Stock</td>
+                        <td>
+                            @*20181213 ---棋*@
+                            @*新增 - 變更盤整庫存量*@
+                            @if (tR.Contains(26))
+                            {
+                                <a class="btn btn-default btn-stock" role="button" data-productsizeid="@MLVM.ProducSizeId" data-productcollorid="@MLVM.ProductColorId"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="盤整"></span></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/ProductStockList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetProductStockList", "Product")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有商品庫存</h3>
+}

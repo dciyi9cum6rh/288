@@ -1,0 +1,69 @@
+﻿@using DataModel
+@model List<DevelopmentBonusViewModel>
+@{
+    ViewData["Title"] = "發展獎金設定";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【DevelopmentBonus/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>發展獎金設定</h2>
+    </div>
+    // 6.系統在View【DevelopmentBonus/Index】判斷ViewBag.HavePrivilege=true。
+    <form class="form" id="qFrom">
+        <div class="form-horizontal">
+            @foreach (DevelopmentBonusViewModel item in Model)
+            {
+                <div class="form-group row">
+                    <label class="col-xs-2 control-label left">@item.Operator</label>
+                    <div class="col-xs-2"><input id="@item.DevelopmentBonusId" type="text" name="@item.DevelopmentBonusId" class="form-control BonusLimit" value='@item.DevelopmentBonusLimit' /></div>
+                    @if (item.All == 0)
+                    {
+                        <label class="col-xs-2 control-label left">全部</label>
+                    }
+                    else
+                    {
+                        <label class="col-xs-2 control-label left">每個人</label>
+                    }
+                    <div class="col-xs-2"><input id="@item.DevelopmentBonusId" type="text" name="@item.DevelopmentBonusId" class="form-control BonusValue" value='@item.DevelopmentBonusValue' /></div>
+                </div>
+            }
+            <hr />
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-default" id="btnReset">重設發展獎金</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr />
+    // 8.系統在查詢元件下方安置<Div DevelopmentBonusList>以便用來顯示發展獎金設定查詢結果清單。
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/DevelopmentBonus.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/DevelopmentBonus.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+
+            $(function () {
+                DevelopmentBonusfunction({
+                    GetDevelopmentBonusListUrl: '@Url.Action("GetDevelopmentBonusList", "DevelopmentBonus")',
+                    PutDevelopmentBonusUrl: '@Url.Action("PutDevelopmentBonus", "DevelopmentBonus")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【DevelopmentBonus/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

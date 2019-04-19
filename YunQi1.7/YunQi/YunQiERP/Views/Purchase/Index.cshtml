@@ -1,0 +1,169 @@
+﻿@{
+    ViewData["Title"] = "進貨管理";
+    DateTime dt = DateTime.Now;
+    //string sdt = $"{dt.Year}/{dt.Month}/{dt.Day} 00";
+    //string edt = $"{dt.Year}/{dt.Month}/{dt.Day} 23";
+    string jasdt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} {dt.Hour:00}:{dt.Minute:00}:{dt.Second:00}";
+    //string jaedt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} 23:59:59";
+    ////string vsdt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} 00";
+    ////string vedt = $"{dt.Year}/{dt.Month:00}/{dt.Day:00} 23";
+    //DateTime jsdt = new DateTime(dt.Year, dt.Month, dt.Day, 0, 0, 0);
+    //DateTime jedt = new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59);
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Purchase/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>進貨管理</h2>
+    </div>
+    // 7.系統在View【Purchase/Index】顯示進貨管理查詢元件。
+    <form class="form-inline" id="qFrom">
+        <div class="form-group">
+            <input id="PurchaseId" type="text" name="PurchaseId" class="form-control input-sm" title="進貨單號" placeholder="進貨單號...." />
+            <input id="sDate" type="text" name="sDate" class="form-control input-sm" title="啟始日期" placeholder="啟始日期...." />
+            <input id="eDate" type="text" name="eDate" class="form-control input-sm" title="終止日期" placeholder="終止日期...." />
+            <input id="Product" type="text" name="Product" class="form-control input-sm" title="商品名稱" placeholder="商品名稱...." />
+        </div>
+        <button type="submit" class="btn btn-default" id="btnSearchPurchase" title="輸入條件後查詢">查詢</button>
+        <button type="submit" class="btn btn-default" id="btnAddPurchase" title="新增進貨單">新增</button>
+    </form>
+    <hr />
+    // 8.系統在查詢元件下方安置<Div Purchase List>以便用來顯示進貨單查詢結果清單。
+    <div id="PurchaseList"></div>
+    <div id="add-one" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" style="width:90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改進貨單</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostPurchase" asp-controller="Purchase" method="post" id="CreateForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="PurchaseIdP" class="col-xs-2 control-label">進貨單號</label>
+                                <div class="col-xs-2"><input id="PurchaseIdP" type="text" name="PurchaseIdP" class="form-control" readonly /></div>
+                                <label asp="PurchaseTime" class="col-xs-2 control-label">進貨日期</label>
+                                <div class="col-xs-4"><input id="PurchaseTime" type="text" name="PurchaseTime" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="Freight" class="col-xs-2 control-label">運費</label>
+                                <div class="col-xs-2"><input id="Freight" type="text" name="Freight" class="form-control" /></div>
+                                <label asp="miscellaneous" class="col-xs-2 control-label">雜費</label>
+                                <div class="col-xs-2"><input id="miscellaneous" type="text" name="miscellaneous" class="form-control" /></div>
+                                <label asp="ProductFeeT" class="col-xs-2 control-label">商品總費用</label>
+                                <div class="col-xs-2"><input id="ProductFeeT" type="text" name="ProductFeeT" class="form-control" readonly value="0" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="CurrencyId" class="col-xs-2 control-label">幣別</label>
+                                <div class="col-xs-2"><Select id="CurrencyId" type="text" name="CurrencyId" class="form-control"></Select></div>
+                                <label asp="ExchangeRate" class="col-xs-2 control-label">滙率</label>
+                                <div class="col-xs-2"><input id="ExchangeRate" type="text" name="ExchangeRate" class="form-control" /></div>
+                                <label asp="TotalExpenseNT" class="col-xs-2 control-label">進貨總費用(台幣)</label>
+                                <div class="col-xs-2"><input id="TotalExpenseNT" type="text" name="TotalExpenseNT" class="form-control" readonly value="0" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-2 button-right">
+                                    <button type="submit" id="CreateSubmit" class="btn btn-primary">新增進貨單</button>
+                                </div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="submit" id="EditSubmit" class="btn btn-primary">修改進貨單</button>
+                                </div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PostPurchaseDetail" asp-controller="Purchase" method="post" id="CreateFormDetail" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-xs-2"><input id="ProductId" type="text" name="ProductId" class="form-control" placeholder="商品代碼" /></div>
+                                <div class="col-xs-2"><input id="ProductP" type="text" name="ProductP" class="form-control" placeholder="商品名稱" /></div>
+                                <div class="col-xs-2">
+                                    <a class="btn btn-default" role="button" id="ValidateProduct"><span class="glyphicon glyphicon-check" aria-hidden="true" title="驗証商品"></span></a>
+                                </div>
+                                <div class="col-xs-2"><Select id="ProducSizeId" type="text" name="ProducSizeId" class="form-control" placeholder="商品尺寸"></Select></div>
+                                <div class="col-xs-2"><Select id="ProductColorId" type="text" name="ProductColorId" class="form-control" placeholder="商品顏色"></Select></div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="PurchasePrice" class="col-xs-2 control-label">商品進價</label>
+                                <div class="col-xs-2"><input id="PurchasePrice" type="text" name="PurchasePrice" class="form-control" /></div>
+                                <label asp="Quantity" class="col-xs-2 control-label">進貨數量</label>
+                                <div class="col-xs-2"><input id="Quantity" type="text" name="Quantity" class="form-control" /></div>
+                                <label asp="ProductFee" class="col-xs-2 control-label">商品費用</label>
+                                <div class="col-xs-2"><input id="ProductFee" type="text" name="ProductFee" class="form-control" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="ProductFeeNT" class="col-xs-2 control-label">商品費用(台幣)</label>
+                                <div class="col-xs-2"><input id="ProductFeeNT" type="text" name="ProductFeeNT" class="form-control" readonly /></div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="submit" id="InsertProduct" class="btn btn-primary">新增商品</button>
+                                </div>
+                                <div class="col-xs-6"></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12" id="PurcaseProductList"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/DatatimeSetting.js" asp-append-version="true"></script>
+            <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.js"></script>
+            <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+            <script src="~/js/jquery-ui-timepicker-addon.js" asp-append-version="true"></script>
+            <script src="~/js/jquery-ui-sliderAccess.js" asp-append-version="true"></script>
+            <script src="~/js/PurchaseN.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/DatatimeSetting.min.js" asp-append-version="true"></script>
+            <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.min.css" rel="stylesheet">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.min.css" />
+            <script src="~/js/jquery-ui-timepicker-addon.min.js" asp-append-version="true"></script>
+            <script src="~/js/jquery-ui-sliderAccess.min.js" asp-append-version="true"></script>
+            <script src="~/js/PurchaseN.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+            $('#sDate').datetimepicker(opt1);
+            $('#eDate').datetimepicker(opt1);
+            $('#PurchaseTime').datetimepicker(opt1);
+            $(function () {
+                Purchasefunction(
+                    {
+                        dt:'@jasdt',
+                        GetPurchaseListUrl: '@Url.Action("GetPurchaseList", "Purchase")',
+                        GetPurchaseDetailListUrl: '@Url.Action("GetPurchaseDetailList", "Purchase")',
+                        GetPurchaseDetailListNoButtonUrl: '@Url.Action("GetPurchaseDetailListNoButton", "Purchase")',
+                        GetCurrencyUrl: '@Url.Action("GetCurrency", "Purchase")',
+                        GetNewPurchaseIdUrl: '@Url.Action("GetNewPurchaseId", "Purchase")',
+                        PostPurchaseUrl: '@Url.Action("PostPurchase", "Purchase")',
+                        ValidateProductUrl: '@Url.Action("ValidateProduct", "Purchase")',
+                        PostPurchaseDetailUrl: '@Url.Action("PostPurchaseDetail", "Purchase")',
+                        GetCurrencyAndPurchaseUrl: '@Url.Action("GetCurrencyAndPurchase", "Purchase")',
+                        PutPurchaseUrl: '@Url.Action("PutPurchase", "Purchase")',
+                        DeletePurchaseUrl: '@Url.Action("DeletePurchase", "Purchase")',
+                        DeletePurchaseDetailUrl: '@Url.Action("DeletePurchaseDetail", "Purchase")'
+                   }
+                );
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Purchase/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

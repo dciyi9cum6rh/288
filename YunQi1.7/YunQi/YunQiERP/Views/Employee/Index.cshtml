@@ -1,0 +1,425 @@
+﻿@{
+    ViewData["Title"] = "部門員工管理";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Employee/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>部門員工管理</h2>
+    </div>
+    // 7.系統在View【Employee/Index】顯示部門員工管理查詢元件。
+    <form class="form-inline" id="qFrom">
+        <div class="form-group">
+            <input id="Department" type="text" name="Department" class="form-control input-sm" placeholder="部門名稱...." />
+        </div>
+        <button type="submit" class="btn btn-default" id="btnSearchEmployee" title="輸入條件後查詢">查詢</button>
+        <button type="submit" class="btn btn-default" id="btnAddEmployee" title="新增部門">新增</button>
+    </form>
+    <hr />
+    // 8.系統在View【Product/Index】以<Div id="DepartmentLevelPath">顯示ViewComponent【DepartmentLevelPathViewComponent】(目前部門階層，
+    //  格式為[總公司\子部門\子子類別)，並傳送DepartmentId=ViewBag回傳DepartmentId。
+    <hr />
+    <Div id="DepartmentLevelPath">@await Component.InvokeAsync("DepartmentLevelPath", new { DepartmentId = ViewBag.DepartmentId })</Div>
+    // 9.系統安置<Div DepartmentList>顯示ViewComponent【DepartmentListViewComponent】(目前部門之子部門清單)，並傳送DepartmentId=ViewBag回傳DepartmentId。
+    <Div id="DepartmentList">@await Component.InvokeAsync("DepartmentList", new { DepartmentId = ViewBag.DepartmentId })</Div>
+    <hr />
+    <form class="form-inline" id="qFromE">
+        <div class="form-group">
+            <input id="DepartmentEF" type="text" name="DepartmentEF" class="form-control input-sm" placeholder="部門名稱...." />
+            <input id="PositionEF" type="text" name="PositionEF" class="form-control input-sm" placeholder="職務名稱...." />
+            <input id="EmployeeNameEF" type="text" name="EmployeeNameEF" class="form-control input-sm" placeholder="員工姓名...." />
+        </div>
+        <button type="submit" class="btn btn-default" id="btnSearchEmployeeEF" title="輸入條件後查詢">查詢</button>
+    </form>
+    <hr />
+    <Div id="EmployeeList"></Div>
+    <div id="add-one" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改部門</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostDepartment" asp-controller="Employee" method="post" id="CreateForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="DepartmentC" class="col-xs-2 control-label">部門名稱*</label>
+                                <div class="col-xs-10"><input id="DepartmentC" type="text" name="DepartmentC" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="DepartmentDescription" class="col-xs-2 control-label">部門描述</label>
+                                <div class="col-xs-10"><textarea rows="5" id="DepartmentDescription" name="DepartmentDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-3 button-left">
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                    <button type="submit" id="CreateSubmit" class="btn btn-primary">新增部門</button>
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutDepartment" asp-controller="Employee" method="post" id="EditForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="DepartmentCEdit" class="col-xs-2 control-label">部門名稱*</label>
+                                <div class="col-xs-10"><input id="DepartmentCEdit" type="text" name="DepartmentCEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="DepartmentDescriptionEdit" class="col-xs-2 control-label">部門描述</label>
+                                <div class="col-xs-10"><textarea rows="5" id="DepartmentDescriptionEdit" name="DepartmentDescriptionEdit" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-2 button-right">
+                                    <button type="submit" id="EditSubmit" class="btn btn-primary">修改部門</button>
+                                </div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改職務</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostPosition" asp-controller="Employee" method="post" id="CreateFormP" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="DepartmentP" class="col-xs-2 control-label">部門名稱</label>
+                                <div class="col-xs-10"><input id="DepartmentP" type="text" name="DepartmentP" class="form-control" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="PositionC" class="col-xs-2 control-label">職務名稱</label>
+                                <div class="col-xs-10"><input id="PositionC" type="text" name="PositionC" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="PositionDescription" class="col-xs-2 control-label">職務描述</label>
+                                <div class="col-xs-10"><textarea rows="5" id="PositionDescription" name="PositionDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-3 button-left">
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                    <button type="submit" id="CreateSubmitP" class="btn btn-primary">新增職務</button>
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutPosition" asp-controller="Employee" method="post" id="EditFormP" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="DepartmentPEdit" class="col-xs-2 control-label">部門名稱</label>
+                                <div class="col-xs-10"><input id="DepartmentPEdit" type="text" name="DepartmentPEdit" class="form-control" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="PositionCEdit" class="col-xs-2 control-label">職務名稱</label>
+                                <div class="col-xs-10"><input id="PositionCEdit" type="text" name="PositionCEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="PositionDescription" Edit class="col-xs-2 control-label">職務描述</label>
+                                <div class="col-xs-10"><textarea rows="5" id="PositionDescriptionEdit" name="PositionDescriptionEdit" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-3 button-left">
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                    <button type="submit" id="EditSubmitP" class="btn btn-primary">修改職務</button>
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改員工</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostEmployee" asp-controller="Employee" method="post" id="CreateFormE" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="PositionE" class="col-xs-2 control-label">職務名稱</label>
+                                <div class="col-xs-3"><input id="PositionE" type="text" name="PositionE" class="form-control" readonly /></div>
+                                <label asp="EmployeeName" class="col-xs-2 control-label">員工姓名*</label>
+                                <div class="col-xs-5"><input type="text" id="EmployeeName" name="EmployeeName" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="Birthday" class="col-xs-2 control-label">生日*</label>
+                                <div class="col-xs-3"><input id="Birthday"  placeholder="EX:2019/04/15" type="text" name="Birthday" class="form-control" /></div>
+                                <label asp="Duedate" class="col-xs-2 control-label">到職日*</label>
+                                <div class="col-xs-5"><input type="text" id="Duedate" name="Duedate" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="sex" class="col-xs-2 control-label">性別*</label>
+                                <div class="col-xs-3">
+                                    <Select id="sex" type="text" name="sex" class="form-control">
+                                        <option selected value="0">女性</option>
+                                        <option selected value="1">男性</option>
+                                    </Select>
+                                </div>
+                                <label asp="EmployeeMobile" class="col-xs-2 control-label">員工編號*</label>
+                                <div class="col-xs-5"><input type="text" id="EmployeeMobile" name="EmployeeMobile" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="BaseSalary" class="col-xs-2 control-label">本薪*</label>
+                                <div class="col-xs-3"><input id="BaseSalary" type="text" name="BaseSalary" class="form-control" /></div>
+                                <label asp="ID" class="col-xs-2 control-label">身份字號*</label>
+                                <div class="col-xs-5"><input type="text" id="ID" name="ID" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="LineId" class="col-xs-2 control-label">LineId</label>
+                                <div class="col-xs-3"><input type="text" id="LineId" name="LineId" class="form-control" /></div>
+                                <label asp="eMail" class="col-xs-2 control-label">eMail*</label>
+                                <div class="col-xs-5"><input id="eMail" type="text" name="eMail" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="ContactPhone" class="col-xs-2 control-label">聯絡電話*</label>
+                                <div class="col-xs-3"><input id="ContactPhone" type="text" name="ContactPhone" class="form-control" /></div>
+                                <label asp="ContactAddress" class="col-xs-2 control-label">聯絡地址*</label>
+                                <div class="col-xs-5"><input type="text" id="ContactAddress" name="ContactAddress" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="EmergencyContact" class="col-xs-2 control-label">緊急聯絡人</label>
+                                <div class="col-xs-3"><input id="EmergencyContact" type="text" name="EmergencyContact" class="form-control" /></div>
+                                <label asp="EmergencyContactPhone" class="col-xs-2 control-label">緊急聯絡電話</label>
+                                <div class="col-xs-5"><input type="text" id="EmergencyContactPhone" name="EmergencyContactPhone" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-3 button-left">
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                    <button type="submit" id="CreateSubmitE" class="btn btn-primary">新增員工</button>
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutEmployee" asp-controller="Employee" method="post" id="EditFormE" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="PositionEEdit" class="col-xs-2 control-label">職務名稱</label>
+                                <div class="col-xs-3"><input id="PositionEEdit" type="text" name="PositionEEdit" class="form-control" readonly /></div>
+                                <label asp="EmployeeNameEdit" class="col-xs-2 control-label">員工姓名*</label>
+                                <div class="col-xs-5"><input type="text" id="EmployeeNameEdit" name="EmployeeNameEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="BirthdayEdit" class="col-xs-2 control-label">生日*</label>
+                                <div class="col-xs-3"><input id="BirthdayEdit" type="text" name="BirthdayEdit" class="form-control" /></div>
+                                <label asp="DuedateEdit" class="col-xs-2 control-label">到職日*</label>
+                                <div class="col-xs-5"><input type="text" id="DuedateEdit" name="DuedateEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="sexEdit" class="col-xs-2 control-label">性別*</label>
+                                <div class="col-xs-3">
+                                    <Select id="sexEdit" type="text" name="sexEdit" class="form-control">
+                                        <option selected value="0">女性</option>
+                                        <option selected value="1">男性</option>
+                                    </Select>
+                                </div>
+                                <label asp="EmployeeMobileEdit" class="col-xs-2 control-label">手機*</label>
+                                <div class="col-xs-5"><input type="text" id="EmployeeMobileEdit" name="EmployeeMobileEdit" class="form-control" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="BaseSalaryEdit" class="col-xs-2 control-label">本薪*</label>
+                                <div class="col-xs-3"><input id="BaseSalaryEdit" type="text" name="BaseSalaryEdit" class="form-control" /></div>
+                                <label asp="IDEdit" class="col-xs-2 control-label">身份字號*</label>
+                                <div class="col-xs-5"><input type="text" id="IDEdit" name="IDEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="LineIdEdit" class="col-xs-2 control-label">LineId</label>
+                                <div class="col-xs-3"><input type="text" id="LineIdEdit" name="LineIdEdit" class="form-control" /></div>
+                                <label asp="eMailEdit" class="col-xs-2 control-label">eMail*</label>
+                                <div class="col-xs-5"><input id="eMailEdit" type="text" name="eMailEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="ContactPhoneEdit" class="col-xs-2 control-label">聯絡電話*</label>
+                                <div class="col-xs-3"><input id="ContactPhoneEdit" type="text" name="ContactPhoneEdit" class="form-control" /></div>
+                                <label asp="ContactAddressEdit" class="col-xs-2 control-label">聯絡地址*</label>
+                                <div class="col-xs-5"><input type="text" id="ContactAddressEdit" name="ContactAddressEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="EmergencyContactEdit" class="col-xs-2 control-label">緊急聯絡人</label>
+                                <div class="col-xs-3"><input id="EmergencyContactEdit" type="text" name="EmergencyContactEdit" class="form-control" /></div>
+                                <label asp="EmergencyContactPhoneEdit" class="col-xs-2 control-label">緊急聯絡電話</label>
+                                <div class="col-xs-5"><input type="text" id="EmergencyContactPhoneEdit" name="EmergencyContactPhoneEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-3 button-left">
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                    <button type="submit" id="EditSubmitE" class="btn btn-primary">修改員工</button>
+                                </div>
+                                <div class="col-xs-3 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-3 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-onePO" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">變更員工職務</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PutEmployeePosition" asp-controller="Employee" method="post" id="CreateFormE" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="EmployeeNamePO" class="col-xs-2 control-label">員工姓名</label>
+                                <div class="col-xs-4"><input type="text" id="EmployeeNamePO" name="EmployeeNamePO" class="form-control" readonly /></div>
+                                <label asp="DepartmentPO" class="col-xs-2 control-label">部門名稱</label>
+                                <div class="col-xs-4"><input type="text" id="DepartmentPO" name="DepartmentPO" class="form-control" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="PositionPO" class="col-xs-2 control-label">職務名稱*</label>
+                                <div class="col-xs-4"><input id="PositionPO" type="text" name="PositionPO" class="form-control" /></div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="submit" id="ValidatePosition" class="btn btn-primary">驗証職務</button>
+                                </div>
+                                <div class="col-xs-4 button-right"></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-2 button-left">
+                                </div>
+                                <div class="col-xs-4 button-left">
+                                    <button type="submit" id="CreateSubmitPO" class="btn btn-primary" disabled>變更職務</button>
+                                </div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-4 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">設定員工權限</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PutEmployeeRight" asp-controller="Employee" method="post" id="CreateFormR" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row" id="rights">
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <div class="col-xs-2 button-left">
+                                </div>
+                                <div class="col-xs-4 button-left">
+                                    <button type="submit" id="CreateSubmitR" class="btn btn-primary">重設權限</button>
+                                </div>
+                                <div class="col-xs-2 button-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">結束作業</button>
+                                </div>
+                                <div class="col-xs-4 button-left">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/DatatimeSetting.js" asp-append-version="true"></script>
+            <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.js"></script>
+            <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+            <script src="~/js/jquery-ui-timepicker-addon.js" asp-append-version="true"></script>
+            <script src="~/js/jquery-ui-sliderAccess.js" asp-append-version="true"></script>
+            <script src="~/js/Employee.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/DatatimeSetting.min.js" asp-append-version="true"></script>
+            <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.min.css" rel="stylesheet">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.min.css" />
+            <script src="~/js/jquery-ui-timepicker-addon.min.js" asp-append-version="true"></script>
+            <script src="~/js/jquery-ui-sliderAccess.min.js" asp-append-version="true"></script>
+            <script src="~/js/Employee.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+            $(function () {
+                $('#Birthday').datetimepicker(opt1);
+                $('#Duedate').datetimepicker(opt1);
+                $('#BirthdayEdit').datetimepicker(opt1);
+                $('#DuedateEdit').datetimepicker(opt1);
+                Employeefunction(
+                    {
+                        jDepartmentId:@ViewBag.DepartmentId,
+                        GetDepartmentListUrl: '@Url.Action("GetDepartmentList", "Employee")',
+                        GetDepartmentLevelPathUrl: '@Url.Action("GetDepartmentLevelPath", "Employee")',
+                        DeleteDepartmentUrl: '@Url.Action("DeleteDepartment", "Employee")',
+                        GetPositionListUrl: '@Url.Action("GetPositionList", "Employee")',
+                        DeletePositionUrl: '@Url.Action("DeletePosition", "Employee")',
+                        GetEmployeeListUrl: '@Url.Action("GetEmployeeList", "Employee")',
+                        DeleteEmployeeUrl: '@Url.Action("DeleteEmployee", "Employee")',
+                        ValidatePositionUrl: '@Url.Action("ValidatePosition", "Employee")',
+                        PutEmployeePositionUrl: '@Url.Action("PutEmployeePosition", "Employee")',
+                        GetEmployeeRightUrl: '@Url.Action("GetEmployeeRight", "Employee")',
+                        PutEmployeeRightsUrl:'@Url.Action("PutEmployeeRights", "Employee")'
+                   }
+                );
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Department/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

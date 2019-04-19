@@ -1,0 +1,140 @@
+@using DataModel
+@model ProductDetailMallViewModel
+@{
+    int stock = 0;
+    if (@Model.ProductStock != null)
+    {
+        stock = Model.ProductStock.Stock;
+    }
+}
+<button id="btnProductDetailClose" type="button" class="btn btn-close btn-maintype">關閉</button>
+<div class="set-box">
+    <div class="detail-box container">
+        <div class="row">
+            <div class="detailpic-box col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <img src="@Url.Action("GetProductImage", "Mall", new { ProeuctId = Model.Product.ProductId })" alt="" class="detail-pic" />
+            </div>
+            <div class="detailinfo-box col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <div class="detailinfo-item row pt-1 pb-1">
+                    <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">品名</div>
+                    <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8" id="productD">@Model.Product.Product</div>
+                </div>
+                <div class="detailinfo-item row pt-1 pb-1">
+                    <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">零售價</div>
+                    <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8" id="priceD">@Model.Product.Price</div>
+                </div>
+                @if (Model.MemberLevelId < 3)
+                {
+                    <div class="detailinfo-item row pt-1 pb-1">
+                        <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">批發價</div>
+                        <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8"><a href="#" class="joinus-link">加入我們</a></div>
+                    </div>
+                    <div class="detailinfo-item row pt-1 pb-1">
+                        <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">量批價</div>
+                        <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8"><a href="#" class="joinus-link">加入我們</a></div>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="detailinfo-item row pt-1 pb-1">
+                        <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">批發價</div>
+                        <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">@Model.Product.SaleLimitPrice</div>
+                    </div>
+                    <div class="detailinfo-item row pt-1 pb-1">
+                        <div class="detailinfo-title col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">量批價</div>
+                        <div class="detailinfo-value col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">@Model.Product.OfferPrice</div>
+                    </div>
+
+                }
+                <div class="detailinfo-item row" id="product-item">
+                    <div class="responsive col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="accordion" id="accordionChoose">
+                            <div class="card border">
+                                <div class="card-header" id="headingOne">
+                                    <div class="row">
+                                        <div class="border border-dark col-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center pt-2 pb-2">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <label class="col-5 col-sm-5 col-md-12 col-lg-12 col-xl-12 col-form-label">尺寸</label>
+                                                    <div class="col-7 col-sm-7 col-md-12 col-lg-12 col-xl-12">
+                                                        <select id="sizeD" class="form-control">
+                                                            @foreach (var item in Model.ProductSize)
+                                                            {
+                                                                <option value="@item.ProducSizeId">@item.ProductSize</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-dark col-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center pt-2 pb-2">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <label class="col-5 col-sm-5 col-md-12 col-lg-12 col-xl-12 col-form-label">顏色</label>
+                                                    <div class="col-7 col-sm-7 col-md-12 col-lg-12 col-xl-12">
+                                                        <select id="colorD" class="form-control">
+                                                            @foreach (var item in Model.ProductColor)
+                                                            {
+                                                                <option value="@item.ProductColorId">@item.ProductColor</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-dark col-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center pt-2 pb-2">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <label class="col-6 col-sm-6 col-md-12 col-lg-12 col-xl-12 col-form-label" id="lblQuantityD">數量(@stock)</label>
+                                                    <div class="col-6 col-sm-6 col-md-12 col-lg-12 col-xl-12">
+                                                        <input id="quantityD" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-dark col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pt-2 pb-2">
+                                            <div class="container">
+                                                <div class="row  justify-content-between">
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-1 pb-1">
+                                                        <button class="btn btn-maintype" type="button" data-toggle="collapse" data-target="#collapseChoose" aria-expanded="true" aria-controls="collapseChoose">展開</button>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-1 pb-1">
+                                                        <button type="button" class="btn btn-addcart btn-maintype" id="btnAddQuantity">新增</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="collapseChoose" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionChoose">
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detailinfo-item row" id="divmyfavorite">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <button type="button" class="btn btn-favorite btn-maintype" data-productid="@Model.Product.ProductId"><i class="fas fa-star"></i>儲存至我的最愛</button>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <button type="button" class="btn btn-addcart btn-maintype"><i class="fas fa-cart-plus"></i>前往購物車</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="morepic-box">
+        @foreach (var item in Model.ProductImage)
+        {
+            <div class="morepic-item mb-3">
+                <img src="@Url.Action("GetOneProductImage", "Mall", new { ProeuctId = item.ProductId, ProductImageId= item.ProductImageId})" alt="" class="morepic-pic" />
+            </div>
+        }
+    </div>
+</div>
+<script>
+    jQuantity = parseInt('@stock');
+</script>

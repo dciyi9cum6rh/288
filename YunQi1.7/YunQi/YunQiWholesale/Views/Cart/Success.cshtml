@@ -1,0 +1,57 @@
+@using DataModel
+@model PostOrderViewModel1
+@{
+    Layout = null;
+}
+@*8.系統在View【Cart/Success】判斷16回傳之ContactData!= null。*@
+@if (Model.ContactData != null)
+{
+    <div class="success-content pt-5">
+        <div class="container">
+            <div class="border border-warning p-3 mb-3">
+                <h3 class="title-box mb-3">
+                    <span class="mb-3">訂購完成</span>
+                    <span>感謝您的訂購</span>
+                </h3>
+                <div class="info-box d-flex justify-content-center pt-2 pb-2">訂單資訊和相關注意事項已經EMail到您的電子郵件信箱內，訂單代碼為@(Model.OrderId)，請記得收信查看！</div>
+            </div>
+            <div class="function-box d-flex justify-content-center">
+                <button type="button" class="btn btn-maintype" id="GetGoMember">回到會員中心</button>
+                <input type="hidden" id="jMemberMobile" data-MemberMobile="@Model.MemberMobile" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //20181226 ---棋 清空client購物車資訊
+        carts = [];
+    </script>
+
+}
+else
+{
+    <div class="success-content">
+        <div class="container pt-5">
+            <div class="border border-warning p-3 mb-3">
+                <h3 class="title-box mb-3">
+                    <span class="mb-3">訂購失敗 </span>
+                </h3>
+                @if (Model.OCPSE != null)
+                {
+                    foreach (var o in @Model.OCPSE)
+                    {
+                <div class="info-box d-flex justify-content-center pt-2 pb-2">目前 @o.Product  顏色: @o.ProductColor  尺寸: @o.ProductSize 的庫存量為 @o.Stock ， <br> 商品補貨中，如有問題請洽客服人員！ </div>
+                    }
+                }
+                else
+                {
+                    <div class="info-box d-flex justify-content-center pt-2 pb-2">訂購失敗，如有問題請洽客服人員！</div>
+                }
+                <div class="function-box d-flex justify-content-center">
+                    <button type="button" class="btn btn-maintype" id="GetGoMember">回到會員中心</button>
+                    <input type="hidden" id="jMemberMobile" data-MemberMobile="@Model.MemberMobile" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

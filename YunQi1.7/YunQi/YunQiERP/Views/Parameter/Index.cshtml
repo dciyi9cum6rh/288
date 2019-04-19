@@ -1,0 +1,59 @@
+﻿@using DataModel
+@model List<ParameterViewModel>
+@{
+    ViewData["Title"] = "參數設定";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Parameter/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>參數設定</h2>
+    </div>
+    // 6.系統在View【Parameter/Index】判斷ViewBag.HavePrivilege=true。
+    <form class="form" id="qFrom">
+        <div class="form-horizontal">
+            @foreach (ParameterViewModel item in Model)
+            {
+                <div class="form-group row">
+                    <label asp="@item.ParameterId" class="col-xs-2 control-label left">@item.Parameter*</label>
+                    <div class="col-xs-2"><input id="@item.ParameterId" type="text" name="@item.ParameterId" class="form-control" value='@String.Format("{0:####}",item.ParameterValue)' /></div>
+                </div>
+            }
+            <hr />
+            <div class="form-group row">
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-default pull-right" id="btnReset">重設參數值</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr />
+    // 8.系統在查詢元件下方安置<Div ParameterList>以便用來顯示參數設定查詢結果清單。
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/Parameter.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging.Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/Parameter.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+
+            $(function () {
+                Parameterfunction({
+                    GetParameterListUrl: '@Url.Action("GetParameterList", "Parameter")',
+                    PutParameterUrl: '@Url.Action("PutParameter", "Parameter")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Parameter/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

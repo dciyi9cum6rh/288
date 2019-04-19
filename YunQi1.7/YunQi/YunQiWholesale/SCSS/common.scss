@@ -1,0 +1,63 @@
+@mixin centering-elements($horizontal: true, $vertical: true) {
+    position: absolute;
+
+    @if $horizontal and $vertical {
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    @else if $horizontal {
+        left: 50%;
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+    }
+
+    @else if $vertical {
+        top: 50%;
+        -webkit-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+    }
+}
+
+.formobile {
+    display: none;
+}
+
+.flexcenter {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.submenu-box {
+    background-color: #851a1f;
+
+    .nav {
+        .nav-item {
+            .nav-link {
+                &.active {
+                    color: $navColor3 !important;
+                }
+            }
+        }
+    }
+}
+
+.btn-maintype {
+    background-color: #fff;
+    border: 1px solid #851a1f;
+    color: #851a1f;
+
+    &:hover {
+        color: #851a1f;
+        font-weight: 700;
+    }
+}
+
+.form-control {
+    background-color: #fff;
+    border: 1px solid #851a1f;
+    color: #851a1f;
+}

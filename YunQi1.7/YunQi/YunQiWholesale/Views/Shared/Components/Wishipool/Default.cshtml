@@ -1,0 +1,166 @@
+@using DataModel
+@model WishipoolManageViewModel
+
+<div class="membermove-component">
+    <div class="container">
+        <div class="title-box border-bottom d-flex align-items-center mb-3">
+            <h2 class="mr-3">許願池</h2>
+            <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+        </div>
+        <div class="search-box row mb-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <input id="sDateO" type="text" placeholder="日期(起)" class="form-control" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <input id="eDateO" type="text" placeholder="日期(迄)" class="form-control" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <input id="MessageValue" type="text" placeholder="留言" class="form-control" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <input id="NickName" type="text" placeholder="發布者暱稱" class="form-control" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <button id="btnSerrchWishipool" type="button" class="btn btn-block btn-maintype">搜尋</button>
+            </div>
+        </div>
+        <div class="control-box row mb-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-flex align-items-center pt-1 pb-1">
+                <button type="button" class="btn btn-block btn-maintype" data-toggle="modal" data-target="#newModal">新增留言</button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-1 pb-1">
+                <button type="button" class="btn btn-block btn-maintype" data-toggle="modal" data-target="#noticeModal">注意事項</button>
+            </div>
+        </div>
+
+        @if (@Model.listMemberExchangeListViewModel != null && @Model.listMemberExchangeListViewModel.Count > 0)
+        {
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 pt-1 pb-1">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-maintype" id="WishipoolPrePage"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage/@Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-maintype" id="WishipoolNextPage"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-1 pb-1">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-maintype" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="WishipoolPageList">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @foreach (var o in Model.listMemberExchangeListViewModel)
+            {
+                <div class="bbslist-box">
+                    <div class="bbslist-item bg-light mb-3 p-3">
+                        <div class="media">
+                            @*80px × 80px*@
+                            <img class="main-pic mr-3" src="~/images/member.png" alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0">@o.MessageTitle</h5>
+                                <hr />
+                                <div>@o.MessageValue</div>
+
+                                @*@*20181219 ---棋  留言內容*@
+                                @await Component.InvokeAsync("MessageManagementData", new { MessageId = o.MessageId })
+                            </div>
+                        </div>
+                        <div class="function-box">
+                            <button type="button" class="btn btn-maintype newReplyModal" data-messageid="@o.MessageId">回復</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h3>沒有許願池內容</h3>
+        }
+
+        @*Model 新增留言*@
+        <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">新留言</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">標題:</label>
+                            <input type="text" class="form-control" id="newMembermoveMessageTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">內容:</label>
+                            <textarea class="form-control" id="newMembermoveMessageValue"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-maintype" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-maintype" data-versionid="2" id="btn-NewMembermove">送出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Model 新增回復*@
+        <div class="modal fade" id="newReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">新增回復</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="ReplyVersionid" />
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">內容:</label>
+                            <textarea class="form-control" id="newReplyMessageValue"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-maintype" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-maintype" id="btn-NewReplyMessage">送出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Model 注意事項*@
+        <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">注意事項</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="imgMember" src="@Url.Action("GetCagegoryImage", "Member", new { VersionId = 2})" style="margin:0px auto; width:100%" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-maintype" data-dismiss="modal">同意</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // 10.系統設定jCurrentPage=9-7回傳CurrentPage，系統設定jTotallPages=9-7回傳TotalPages。
+        jCurrentPage =@Model.CurrentPage;
+        jTotallPages =@Model.TotalPages;
+    });
+</script>

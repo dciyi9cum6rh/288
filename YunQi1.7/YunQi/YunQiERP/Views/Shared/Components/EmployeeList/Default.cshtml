@@ -1,0 +1,82 @@
+﻿@using DataModel
+@model EmployeeListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*9-8.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中判斷9-7傳回之listEmployeeListViewModel!=null and Count>0。*@
+@if (Model.listEmployeeListViewModel != null && Model.listEmployeeListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示[目前部門員工清單] (含修改與刪除與權限，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    @*<th>#</th>*@
+                    <th>員工手機</th>
+                    <th>員工姓名</th>
+                    <th>性別</th>
+                    <th>生日</th>
+                    <th>到職日</th>
+                    <th>繴急聯絡人</th>
+                    <th>繴急聯絡電話</th>
+                    <th>職務名稱</th>
+                    <th>本薪</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EmployeeListViewModel MLVM in Model.listEmployeeListViewModel)
+                {
+                    DateTime dt = (DateTime)MLVM.Duedate;
+                    DateTime dtb = (DateTime)MLVM.Birthday;
+                    id += 1;
+                    <tr>
+                        @*<td>@id</td>*@
+                        <td>@MLVM.EmployeeMobile</td>
+                        <td>@MLVM.EmployeeName</td>
+                        @if (MLVM.sex == 0)
+                        {
+                            <td>女性</td>
+                        }
+                        else
+                        {
+                            <td>男性</td>
+                        }
+                        @*20181228 ---棋 DateTime補0*@
+                        <td>@dtb.ToLongDateString()</td>
+                        <td>@dt.ToLongDateString()</td>
+                        <td>@MLVM.EmergencyContact</td>
+                        <td>@MLVM.EmergencyContactPhone</td>
+                        <td>@MLVM.Position</td>
+                        <td>@MLVM.BaseSalary</td>
+                        <td>
+                            <a class="btn btn-default btn-edit-Employee" role="button" title="修改"
+                               data-id="@MLVM.ID" data-contactphone="@MLVM.ContactPhone" data-contactaddress="@MLVM.ContactAddress"
+                               data-email="@MLVM.eMail" data-lineid="@MLVM.LineId" data-sex="@MLVM.sex" data-positionid="@MLVM.PositionId">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>
+                            <a class="btn btn-default btn-delete-Employee" role="button" title="刪除"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            <a class="btn btn-default btn-employee-position" role="button" title="更換職務"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                            @if (tR.Contains(6))
+                            {
+                                <a class="btn btn-default btn-employee-right" role="button" title="員工權限"><span class="glyphicon glyphicon-object-align-right" aria-hidden="true"></span></a>
+                            }
+                        </td>
+                    </tr>
+                    <tr></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetEmployeeList", "Employee")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listEmployeeListViewModel!=null and Count>0)。
+    <h3>沒有員工</h3>
+}

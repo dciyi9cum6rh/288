@@ -1,0 +1,56 @@
+﻿@using DataModel
+@model StockListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int id = 0;
+}
+@*9-8.系統在View【Views/Shared/Components/StockList/Default.cshtml】中判斷9-7傳回之listStockListViewModel!=null and Count>0。*@
+@if (Model.listStockListViewModel != null && Model.listStockListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/ProductStockList/Default.cshtml】中顯示[目前商品分類清單] (含盤整，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    @*<th>#</th>*@
+                    <th>盤整代碼</th>
+                    <th>盤整日期</th>
+                    <th>商品代碼</th>
+                    <th>商品名稱</th>
+                    <th>尺寸</th>
+                    <th>顏色</th>
+                    <th>原庫存</th>
+                    <th>新庫存</th>
+                    <th>盤整量</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (StockListViewModel MLVM in Model.listStockListViewModel)
+                {
+                    id += 1;
+                    <tr>
+                        @*<td>@id</td>*@
+                        <td>@MLVM.ProductStockConsolidationId</td>
+                        <td>@MLVM.StockConsolidationTime</td>
+                        <td>@MLVM.ProductId</td>
+                        <td>@MLVM.Product</td>
+                        <td>@MLVM.ProductSize</td>
+                        <td>@MLVM.ProductColor</td>
+                        <td>@MLVM.Stock</td>
+                        <td>@MLVM.StockConsolidatio</td>
+                        <td>@MLVM.Consolidation</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/StockList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetStockList", "Stock")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listStockListViewModel!=null and Count>0)。
+    <h3>沒有盤整記錄</h3>
+}

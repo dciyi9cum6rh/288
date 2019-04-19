@@ -1,0 +1,53 @@
+﻿@using DataModel
+@model LedgerListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*9-8.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中判斷9-7傳回之listEmployeeListViewModel!=null and Count>0。*@
+@if (Model.listLedgerListViewModel != null && Model.listLedgerListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示[目前部門員工清單] (含修改與刪除與權限，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>日期</th>
+                    <th>科目名稱</th>
+                    <th>單據號碼</th>
+                    <th>說明</th>
+                    <th>金額</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.listLedgerListViewModel)
+                {
+                <tr>
+                    <td>@o.Month.ToString().Substring(0, 6)</td>
+                    <td>@o.AccountingSubject</td>
+                    <td>@o.InvoiceId</td>
+                    <td>@o.LedgerDescription</td>
+                    <td>@o.Money</td>
+                    <td style="display:none;">@o.LedgerId</td>
+                    <td style="display:none;">@o.AccountingId</td>
+                    <td>
+                        <a class="btn btn-default btn-edit-AccountingId" role="button" title="修改"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                        <a class="btn btn-default btn-delete-AccountingId" role="button" data-AccountingId="@o.AccountingId" data-LedgerId="@o.LedgerId" title="刪除"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/EmployeeList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages"  page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listEmployeeListViewModel!=null and Count>0)。
+    <h3>沒有分類帳管理</h3>
+}

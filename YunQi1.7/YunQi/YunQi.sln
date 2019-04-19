@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YunQiWholesale", "YunQiWholesale\YunQiWholesale.csproj", "{A6E860AB-5BCB-4134-A866-A847F117E2A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataEntity", "DataEntity\DataEntity.csproj", "{E66A93D9-15C0-4F9B-9C67-FCBE2006C984}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRepository", "IRepository\IRepository.csproj", "{8E80CFB6-BA9E-4B15-98D4-A295B6EFF1E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel.csproj", "{23244832-3C70-48B0-9EB8-F1B57A38AF5B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YunQiERP", "YunQiERP\YunQiERP.csproj", "{666B31DA-2736-46C4-B60B-13F872236DBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{2E502581-1486-4308-9360-6186086CE510}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenAPI", "GreenAPI\GreenAPI.csproj", "{BCFC5A4C-5333-49DC-8CFF-FAE71454E91B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6E860AB-5BCB-4134-A866-A847F117E2A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6E860AB-5BCB-4134-A866-A847F117E2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6E860AB-5BCB-4134-A866-A847F117E2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6E860AB-5BCB-4134-A866-A847F117E2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E66A93D9-15C0-4F9B-9C67-FCBE2006C984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66A93D9-15C0-4F9B-9C67-FCBE2006C984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66A93D9-15C0-4F9B-9C67-FCBE2006C984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66A93D9-15C0-4F9B-9C67-FCBE2006C984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E80CFB6-BA9E-4B15-98D4-A295B6EFF1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E80CFB6-BA9E-4B15-98D4-A295B6EFF1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E80CFB6-BA9E-4B15-98D4-A295B6EFF1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E80CFB6-BA9E-4B15-98D4-A295B6EFF1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23244832-3C70-48B0-9EB8-F1B57A38AF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23244832-3C70-48B0-9EB8-F1B57A38AF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23244832-3C70-48B0-9EB8-F1B57A38AF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23244832-3C70-48B0-9EB8-F1B57A38AF5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{666B31DA-2736-46C4-B60B-13F872236DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{666B31DA-2736-46C4-B60B-13F872236DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{666B31DA-2736-46C4-B60B-13F872236DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{666B31DA-2736-46C4-B60B-13F872236DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E502581-1486-4308-9360-6186086CE510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E502581-1486-4308-9360-6186086CE510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E502581-1486-4308-9360-6186086CE510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E502581-1486-4308-9360-6186086CE510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCFC5A4C-5333-49DC-8CFF-FAE71454E91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFC5A4C-5333-49DC-8CFF-FAE71454E91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCFC5A4C-5333-49DC-8CFF-FAE71454E91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCFC5A4C-5333-49DC-8CFF-FAE71454E91B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7774DF5-5F89-4F3D-89CF-EF1293843B85}
+	EndGlobalSection
+EndGlobal

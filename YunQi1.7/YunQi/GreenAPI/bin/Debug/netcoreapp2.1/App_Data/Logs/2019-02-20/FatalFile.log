@@ -1,0 +1,5 @@
+2019-02-20 12:44:39.5680 | ERROR | GreenAPI.Controllers.PaymeentController | model |  
+
+2019-02-20 13:02:36.6392 | ERROR | GreenAPI.Controllers.PaymeentController | Value cannot be null.
+Parameter name: addresses |  
+

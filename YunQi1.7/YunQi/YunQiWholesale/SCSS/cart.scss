@@ -1,0 +1,142 @@
+.cart-content {
+    .flowpath-box {
+        align-items: center;
+        border-bottom: 4px double #000;
+        display: flex;
+        font-size: 1.6rem;
+        justify-content: center;
+        padding: 1.6rem 0;
+
+        .flowpath-item {
+            text-align: center;
+
+            &.active {
+                color: #851a1f;
+                font-weight: 700;
+            }
+        }
+
+        .fas {
+            margin: 0 1rem;
+        }
+    }
+
+    .paybill-box {
+        .paybill-panel {
+            display: none;
+            padding: 0.75rem;
+
+            &.active {
+                display: block;
+            }
+
+            .title-box {
+                align-items: center;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+
+                .title {
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                    width: 100%;
+
+                    .fas {
+                        margin-right: 1rem;
+                    }
+                }
+
+                .form-check {
+                    flex: 1;
+                    padding: 0.375rem 0;
+                }
+
+                .titlefunction-box {
+                    width: 100%;
+                }
+            }
+
+            .function-box {
+                .btn-back,
+                .btn-next,
+                .btn-pay {
+                    position: relative;
+
+                    .fas {
+                        @include centering-elements(false,true);
+                    }
+                }
+
+                .btn-back,
+                .btn-pay {
+                    .fas {
+                        left: 1rem;
+                    }
+                }
+
+                .btn-next {
+                    .fas {
+                        right: 1rem;
+                    }
+                }
+            }
+
+            .carttable-box {
+                margin-bottom: 1rem;
+
+                .cart-table {
+                    word-break: keep-all;
+
+                    .table-header {
+                        background-color: #851a1f;
+                        color: #fff;
+                    }
+
+                    select {
+                        width: auto;
+                    }
+                }
+            }
+
+            .personal-box {
+                background-color: #851a1f;
+                border-radius: calc(0.4rem - 1px);
+                padding: 0.75rem;
+
+                .title-box {
+                    color: #b4b3b4;
+                }
+
+                .form-group {
+                    .col-form-label {
+                        color: #fff;
+                    }
+                }
+            }
+
+            .deliver-box {
+                background-color: #851a1f;
+                border-radius: calc(0.4rem - 1px);
+                margin-bottom: 1rem;
+                padding: 0.75rem;
+
+                .title-box {
+                    color: #b4b3b4;
+                }
+
+                .form-group {
+                    .col-form-label {
+                        color: #fff;
+                    }
+                }
+            }
+
+            .payway-box {
+                .form-check {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+}

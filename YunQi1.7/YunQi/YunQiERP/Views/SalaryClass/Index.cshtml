@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "薪資類別";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【SalaryClass/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>薪資類別</h2>
+    </div>
+    // 7.系統在View【SalaryClass/Index】顯示薪資類別查詢元件。
+    <form class="form-inline" id="qFrom">
+        <div class="form-group">
+            <input type="text" class="form-control" id="SalaryClass" name="SalaryClass" placeholder="薪資類別..">
+        </div>
+        <button type="submit" class="btn btn-default" id="btnSearch">查詢</button>
+        <button type="submit" class="btn btn-default" id="btnAdd" title="新增薪資類別">新增</button>
+    </form>
+    <hr />
+    // 8.系統在查詢元件下方安置<Div SalaryClassList>以便用來顯示薪資類別查詢結果清單。
+    <Div id="SalaryClassList"></Div>
+    <div id="add-one" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改薪資類別</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostSalaryClass" asp-controller="SalaryClass" method="post" id="CreateForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="SalaryClassS" class="col-xs-2 control-label">類別名稱*</label>
+                                <div class="col-xs-10"><input id="SalaryClassS" type="text" name="SalaryClassS" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="ClassSalary" class="col-xs-2 control-label">薪資*</label>
+                                <div class="col-xs-10"><input id="ClassSalary" type="text" name="ClassSalary" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="SalaryClassDescription" class="col-xs-2 control-label">說明</label>
+                                <div class="col-xs-10"><textarea rows="3" name="SalaryClassDescription" id="SalaryClassDescription" class="form-control" ></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmit" class="btn btn-primary">新增</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutSalaryClass" asp-controller="SalaryClass" method="post" id="EditForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="SalaryClassSEdit" class="col-xs-2 control-label">薪資類別*</label>
+                                <div class="col-xs-10"><input id="SalaryClassSEdit" type="text" name="SalaryClassSEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="ClassSalaryEdit" class="col-xs-2 control-label">薪資*</label>
+                                <div class="col-xs-10"><input id="ClassSalaryEdit" type="text" name="ClassSalaryEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="SalaryClassDescriptionEdit" class="col-xs-2 control-label">說明</label>
+                                <div class="col-xs-10"><textarea rows="3" name="SalaryClassDescriptionEdit" id="SalaryClassDescriptionEdit" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="EditSubmit" class="btn btn-primary">修改</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/SalaryClass.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/SalaryClass.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+            $(function () {
+                SalaryClassfunction({
+                    GetSalaryClassListUrl: '@Url.Action("GetSalaryClassList", "SalaryClass")',
+                    DeleteSalaryClassUrl: '@Url.Action("DeleteSalaryClass", "SalaryClass")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Salary/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

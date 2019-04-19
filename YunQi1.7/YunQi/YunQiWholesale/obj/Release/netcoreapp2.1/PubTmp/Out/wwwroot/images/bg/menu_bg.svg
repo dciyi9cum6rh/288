@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2 40" preserveAspectRatio="none">
+    <defs>
+        <style>.a{fill:url(#a);}.b{fill:url(#b);}</style>
+        <linearGradient id="a" x1="1" y1="22.78" x2="1" y2="37.34" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#e62080"/>
+            <stop offset="0.22" stop-color="#e2207d"/>
+            <stop offset="0.45" stop-color="#d52176"/>
+            <stop offset="0.68" stop-color="#c12269"/>
+            <stop offset="0.91" stop-color="#a42458"/>
+            <stop offset="1" stop-color="#972550"/>
+        </linearGradient>
+        <linearGradient id="b" x1="1" y1="24.23" x2="1" y2="5.88" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#2190ca"/>
+            <stop offset="0.12" stop-color="#2190ca"/>
+            <stop offset="0.36" stop-color="#208cc7"/>
+            <stop offset="0.62" stop-color="#1c7fbd"/>
+            <stop offset="0.88" stop-color="#156bac"/>
+            <stop offset="1" stop-color="#115ea2"/>
+        </linearGradient>
+    </defs>
+    <title>漸層</title>
+    <rect class="a" width="2" height="40"/>
+    <rect class="b" width="2" height="20"/>
+</svg>

@@ -1,0 +1,52 @@
+﻿@using DataModel
+@model OrderDetailListNoButtonManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*9-8.系統在View【Views/Shared/Components/OrderDetailListNoButton/Default.cshtml】中判斷9-7傳回之listOrderDetailListViewModel!=null and Count>0。*@
+@if (Model.listOrderDetailListViewModel != null && Model.listOrderDetailListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/OrderDetailListNoButton/Default.cshtml】中顯示[目前銷貨清單] (含修改與刪除，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered table-condensed" id="tableProduct">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>#</th>
+                    <th>商品代碼</th>
+                    <th>商品名稱</th>
+                    <th>尺寸</th>
+                    <th>顏色</th>
+                    <th>零售</th>
+                    <th>數量</th>
+                    <th>小計</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CartListViewModel MLVM in Model.listOrderDetailListViewModel)
+                {
+                    id += 1;
+                    <tr>
+                        <td>@id</td>
+                        <td>@MLVM.Product</td>
+                        <td>@MLVM.ProductId</td>
+                        <td>@MLVM.ProductSize</td>
+                        <td>@MLVM.ProductColor</td>
+                        <td>@String.Format("{0:0}", MLVM.Price)</td>
+                        <td>@MLVM.Quantity</td>
+                        <td>@String.Format("{0:#,###}", MLVM.SubTotal)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/OrderDetailListNoButton/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetOrderDetailListNoButton", "Order")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有銷貨明細</h3>
+}

@@ -1,0 +1,113 @@
+@using DataModel
+@model MyfollowerManageViewModel
+@*20181120 ---棋*@
+@*9-8.系統在View【Views/Shared/Components/Myfollower/Default.cshtml】中判斷9-7傳回之listMyfollowerViewModel!=null and Count>0。*@
+@if (@Model.listMyfollowerViewModel != null && @Model.listMyfollowerViewModel.Count > 0)
+{
+
+    <div class="myfollower-component">
+        <div class="container">
+            <div class="title-box border-bottom d-flex align-items-center mb-3">
+                <h2 class="mr-3">我的下線</h2>
+                <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+            </div>
+            <div class="search-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <input id="sDateO" name="sDateO" type="text" placeholder="VIP日(起)" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <input id="eDateO" type="text" placeholder="VIP日(迄)" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+                    <input id="MemberMobileWhere" type="text" placeholder="下線手機(帳號)" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnSerrchMyFollower">搜尋</button>
+                </div>
+            </div>
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            <button type="button" class="btn btn-block btn-maintype" id="MyfollowerPrePageO"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage/@Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            <button type="button" class="btn btn-block btn-maintype" id="MyfollowerNextPageO"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-maintype" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="MFPageListO">
+
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="followerlist-box">
+                @foreach (var item in @Model.listMyfollowerViewModel)
+                {
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="d-flex align-items-center">姓名 :  @item.MemberName</div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="d-flex align-items-center">電話 : @item.MemberMobile</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="d-flex align-items-center">Email&nbsp;: @item.eMail</div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="d-flex align-items-center">LineID&nbsp;:@item.LineId</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="d-flex align-items-center">入會日期&nbsp;:&nbsp;&nbsp;@item.Duedate</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="d-flex align-items-center">準VIP日期&nbsp;:&nbsp;@item.VipApplyDate</div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="d-flex align-items-center">VIP日期&nbsp;:&nbsp;@item.VipDate</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="d-flex align-items-center"> 我的發展獎金&nbsp;:600元</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h3> 沒有下線 </h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+
+<script>
+    // 10.系統設定jCurrentPage=9-7回傳CurrentPage，系統設定jTotallPages=9-7回傳TotalPages。
+    jCurrentPage =@Model.CurrentPage;
+    jTotallPages =@Model.TotalPages;
+</script>

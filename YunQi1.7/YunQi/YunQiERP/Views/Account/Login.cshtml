@@ -1,0 +1,55 @@
+﻿@using PaulMiami.AspNetCore.Mvc.Recaptcha
+@model YunQiERP.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "登入";
+}
+@*4.系統在View【Account/Login】中顯示登入介面。*@
+<h2>登入</h2>
+@*7.系統呼叫POST【Home/Login】，並傳送5輸入的資料(LoginViewModel)。*@
+<form asp-action="Login" method="post">
+    @*5.使用者輸入資料。
+        		EmployeeMobile(帳號)：必要欄位。
+        	Password(密碼)：必要欄位。
+        	captchaValue(圖形驗証碼)：必要欄位，須與圖形相等。*@
+    <div class="form-horizontal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="EmployeeMobile" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EmployeeMobile" class="form-control" value="1111111111" />
+                <span asp-validation-for="EmployeeMobile" class="text-danger" />
+            </div>
+        </div>
+        <div></div>
+        <div class="form-group">
+            <label asp-for="Password" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Password" class="form-control" value="1111111111" />
+                <span asp-validation-for="Password" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<recaptcha />*@
+                <span class="text-danger" id="recaptchaErrorMessage"></span>
+            </div>
+        </div>
+        @*6.使用者按登入。*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="登入" class="g-recaptcha btn btn-default"
+                    data-sitekey="6LcJZiUUAAAAAJ30dpGgs13iWjgiuC9whtiCfMCQ"
+                    data-callback="YourOnSubmitFn" />*@
+                <input type="submit" value="登入" class="btn btn-default" />
+            </div>
+        </div>
+        @*11a - 3.系統在View【Account/Login】顯示ViewBag.Error。*@
+        <h3>@ViewBag.Error</h3>
+    </div>
+</form>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <recaptcha-script />
+}

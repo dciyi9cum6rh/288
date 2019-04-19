@@ -1,0 +1,48 @@
+﻿@using DataModel
+@model SalaryClassManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+}
+@*9-8.系統在View【Views/Shared/Components/SalaryClass/Default.cshtml】中判斷9-7傳回之listSalaryClassListViewModel!=null and Count>0。*@
+@if (Model.listSalaryClassListViewModel != null && Model.listSalaryClassListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/SalaryClassList/Default.cshtml】中顯示[目前薪資類別清單] (含修改與刪除，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>類別代碼</th>
+                    <th>類別名稱</th>
+                    <th>類別薪資</th>
+                    <th>說明</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (SalaryClassListViewModel MLVM in Model.listSalaryClassListViewModel)
+                {
+                    <tr id="@MLVM.SalaryClassId">
+                        <td>@MLVM.SalaryClassId</td>
+                        <td>@MLVM.SalaryClass</td>
+                        <td>@MLVM.ClassSalary</td>
+                        <td>@MLVM.SalaryClassDescription</td>
+                        <td>
+                            <a class="btn btn-default btn-edit" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>
+                            <a class="btn btn-default btn-delete" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/SalaryClassList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetSalaryClassList", "SalaryClass")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listSalaryClassListViewModel!=null and Count>0)。
+    //  9-8a-1.回10。
+    <h3>沒有符合條件之薪資類別</h3>
+}

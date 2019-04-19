@@ -1,0 +1,187 @@
+﻿@using DataModel
+@model MemberListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int ret = 0;
+}
+
+@*9-8.系統在View【Views/Shared/Components/Member/Default.cshtml】中判斷9-7傳回之listMemberListViewModel!=null and Count>0。*@
+@if (Model.listMemberListViewModel != null && Model.listMemberListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/MemberList/Default.cshtml】中顯示[目前會員分類清單] (含停權與準批發與批發，但應依ViewBag.TR之權限顯示)。
+    <div class="container container-fluid">
+        <table class=" table table-sm table-nowrap card-table">
+
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>會員手機</th>
+                    <th>會員姓名</th>
+                    <th>會員等級</th>
+                    <th>紅利點數</th>
+                    
+                    <th>推薦人手機</th>
+                    <th>停權狀態</th>
+                    <th>入會日期</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                @foreach (MemberViewModel MLVM in Model.listMemberListViewModel)
+                {
+                    
+                    DateTime dt = (DateTime)MLVM.Duedate;
+                    <tr>
+                        <td>@MLVM.MemberMobile</td>
+                        <td>@MLVM.MemberName</td>
+                        <td>@MLVM.MemberLevel</td>
+                        <td><input type="text" size="6" value='@MLVM.Bonus' id='bonus_@MLVM.MemberMobile' name='bonus_@MLVM.MemberMobile' style='text-align:right;' /><input type="text" size="20" value='' id='memo_@MLVM.MemberMobile' name='memo_@MLVM.MemberMobile' placeholder="請輸入變更原因..." /> <a class="btn btn-default btn-success" role="button"><span class="glyphicon glyphicon-usd" aria-hidden="true" title="變更點數"></span></a></td>
+                        
+                        
+
+                        <td>@MLVM.ReferrerMobile</td>
+                        @if (MLVM.Enabled == 0)
+                        {
+                            <td>停權中</td>
+                        }
+                        else
+                        {
+                            <td>使用中</td>
+                        }
+                        @{ret++ ;}
+
+                        <td>@dt.ToLongDateString()</td>
+                        <td>
+                            @if (tR.Contains(15))
+                            {
+
+                                @if (MLVM.Enabled == 1)
+                                {
+                                    <a class="btn btn-default btn-enabled" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true" title="停權"></span></a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-default btn-enabled" role="button"><span class="glyphicon glyphicon-ok" aria-hidden="true" title="復權"></span></a>
+                                }
+                            }
+
+                            @if (tR.Contains(17))
+                            {
+                                <a class="btn btn-default btn-bonus" role="button"><span class="glyphicon glyphicon-usd" aria-hidden="true" title="點數"></span></a>
+                                //20181212更新 ---棋
+                                if (MLVM.MemberLevelId == 2)
+                                {
+                                    <a class="btn btn-default btn-vip" role="button"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true" title="升級為批發會員"></span></a>
+                                }
+                            }
+                            @if (MLVM.PictureContent != null)
+                            {
+                                //20181213 ---棋
+                                //暫時不另外設定權限
+                                <a class="btn btn-default btn-MemberMobileImg" role="button" data-MemberMobile="@MLVM.MemberMobile"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" title="資料"></span></a>
+                            }
+                            <!-- Modal -->
+                            <div class="modal fade" id="@MLVM.MemberMobile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                                <div class="modal-dialog " role="document" style="max-width: 1000px !important;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">範例</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3>銀行帳號:@MLVM.Bank@MLVM.AccountNunber</h3>
+                                            <h3>EMAIL: @MLVM.eMail</h3>
+                                            <h3>VIP會員起始日:@MLVM.VipDate</h3>
+                                            
+                                            
+                                            <img id="imgMember" src="@Url.Action("GetCagegoryImage", "VipMember", new { MemberMobile = @MLVM.MemberMobile })" style="margin:0px auto; width:100%" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary ml-auto p-2" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">關閉</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    // 9-10.系統在View【Views/Shared/Components/MemberList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetMemberList", "Member")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+
+    @*<div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color: black;background-color:powderblue;">
+
+                    <th>會員帳號</th>
+                    <th>會員姓名</th>
+                    <th>會員點數</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.listMemberBonusListViewModel)
+                {
+                    <tr>
+                        <td>@i.MemberMobile</td>
+                        <td>@i.MemberName</td>
+                        <td>@i.MemberBonus</td>
+                        <td>
+                            <a class="btn btn-default " role="button"><span class="glyphicon glyphicon-usd" aria-hidden="true" title="點數"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>*@  
+       
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listMemberListViewModel!=null and Count>0)。
+    //  9-8a-1.回10。
+<h3> 沒有符合條件之會員 </h3>
+}
+
+
+@*<script>
+        $(document).on('click', '.btn-bonus', function (event) {
+            event.preventDefault();
+            var $this = $(this);
+            jMemberMobile = ($(this).closest('tr').find("td:eq(0)").text()).toString();
+            //jMemberName = ($(this).closest('tr').find("td:eq(1)").text()).toString();
+            //$tr = $this.clos("tr");
+            console.log(jMemberMobile)
+            //console.log(jMemberName)
+            $.ajax({
+                type: 'Post',
+                cache: false,
+                dataType: 'json',
+                url: '@Url.Action("GetMember", "VipMember")',
+                data: {
+                    'MemberMobile': jMemberMobile
+                },
+                beforeSend: LoadBefore,
+                success: GetBonusSuccess,
+                error: SystemError
+            });
+            function GetBonusSuccess(response) {
+                // 10.系統在3啟動之ajax回呼函式中將下一列<tr>的Html內容更新為9-7.系統回傳View。
+                $this.closest("tr").next().html('<td colspan="10">' + response + '</td>');
+                // 10-1.系統設定javascript變數IsSpread=true。
+                //isSpread = true;
+                // 10-2.系統設定展開按鈕圖示為-(隱藏)。
+                $this.find("span").attr('title', '隠藏');
+                $this.find("span").first().removeClass();
+                $this.find("span").first().addClass('glyphicon glyphicon-minus');
+                // 11.結束。
+            };
+        });
+    </script>*@

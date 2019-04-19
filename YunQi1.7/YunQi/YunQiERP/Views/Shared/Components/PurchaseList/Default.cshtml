@@ -1,0 +1,70 @@
+﻿@using DataModel
+@model PurchaseListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*99-8.系統在View【Views/Shared/Components/PurchaseList/Default.cshtml】中判斷9-7傳回之listPurchaseListViewModel!=null and Count>0。*@
+@if (Model.listPurchaseListViewModel != null && Model.listPurchaseListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/PurchaseList/Default.cshtml】中顯示[進貨單清單]。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>#</th>
+                    <th>進貨單號</th>
+                    <th>進貨日期</th>
+                    <th>幣別</th>
+                    <th>滙率</th>
+                    <th>運費</th>
+                    <th>雜費</th>
+                    <th>商品總額</th>
+                    <th>進貨成本</th>
+                    <th>進貨成本(台幣)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (PurchaseListViewModel MLVM in Model.listPurchaseListViewModel)
+                {
+                    id += 1;
+                    <tr>
+                        <td>@id</td>
+                        <td>@MLVM.PurchaseId</td>
+                        <td>@MLVM.PurchaseTime</td>
+                        <td>@MLVM.Currency</td>
+                        <td>@MLVM.ExchangeRate</td>
+                        <td>@MLVM.Freight</td>
+                        <td>@MLVM.miscellaneous</td>
+                        <td>@MLVM.ProductFee</td>
+                        <td>@MLVM.TotalExpense</td>
+                        <td>@MLVM.TotalExpenseNT</td>
+                        <td>
+                            @if (tR.Contains(19))
+                            {
+                                <a class="btn btn-default btn-edit" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>
+                            }
+                            @if (tR.Contains(20))
+                            {
+                                <a class="btn btn-default btn-delete" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                            }
+                            <a class="btn btn-default btn-detail" role="button"><span class="glyphicon glyphicon-th-list" aria-hidden="true" title="進貨清單"></span></a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/PurchaseList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetPurchaseList", "Purchase")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listPurchaseListViewModel!=null and Count>0)。
+    <h3>沒有進貨單</h3>
+}

@@ -1,0 +1,19 @@
+//20190108  ---棋
+//WebEssentials.AspNetCore.PWA
+{
+    "name": "艾寶寶網購",
+    "short_name": "YunQi Wholesale",
+    "description": "網購，是現今最普遍的消費方式",
+    "icons": [
+        {
+            "src": "images/icon192x192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "images/icon512x512.png",
+            "sizes": "512x512"
+        }
+    ],
+    "display": "standalone",
+    "start_url": "/"
+}

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="YunQiERP" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\lab\\YunQi1\.7\\YunQi\\YunQiERP\\obj\\Release\\netcoreapp2\.1\\win-x64\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>

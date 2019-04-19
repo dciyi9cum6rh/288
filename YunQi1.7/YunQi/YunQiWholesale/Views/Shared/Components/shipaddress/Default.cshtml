@@ -1,0 +1,117 @@
+@using DataModel
+@model ShipaddressManageViewModel
+
+@{
+    Layout = null;
+}
+@if (@Model.listMemberDeliveryAddressListViewModel != null && @Model.listMemberDeliveryAddressListViewModel.Count > 0)
+{
+    <div class="shipaddress-component">
+        <div class="container">
+            <div class="title-box border-bottom d-flex align-items-center mb-3">
+                <h2 class="mr-3">送貨地址</h2>
+                <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+            </div>
+            <div class="shipsearch-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <input id="SerrchMemberName" type="text" placeholder="姓名" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <input id="SerrchPhone" type="text" placeholder="手機" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <input id="SerrchDeliveryAddress" type="text" placeholder="地址" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <button id="btnSerrchMemberAddress" type="button" class="btn btn-block btn-maintype">搜尋</button>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <button type="button" id="addMemberDeliveryAddress" class="btn btn-block btn-maintype">新增</button>
+                </div>
+            </div>
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-page btn-maintype" id="MemberAddressPrePage"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage / @Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-page btn-maintype" id="MemberAddressNextPage"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-pageselect btn-maintype" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="MemberAddressPageList">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="newship-box border-top pt-2" id="InsertMemberDeliveryAddress"></div>
+
+            <hr />
+
+            <div class="shiplist-box pb-2" style="margin-top: 30px;" id="MemberDeliveryAddressList">
+                @foreach (var o in @Model.listMemberDeliveryAddressListViewModel)
+                {
+                    <div class="card text-white mb-3">
+                        <div class="card-header">#1</div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">姓名：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control MemberName" value="@o.MemberName">
+                                </div>
+                            </div>
+                            @*<div class="form-group row">
+                                    <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">手機(帳號)：</label>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                        <input type="text"  class="form-control" id="" value="@o.MemberMobile">
+                                    </div>
+                                </div>*@
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">信箱：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control eMail" value="@o.eMail">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">住家/公司電話：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control Phone" value="@o.Phone">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">送貨地址：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control DeliveryAddress" value="@o.DeliveryAddress">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" data-MemberAddressId="@o.MemberAddressId" id="UpdateMemberDeliveryAddress" class="btn btn-update btn-maintype">更新</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h3>沒有送貨地址</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+
+<script>
+    // 10.系統設定jCurrentPage=9-7回傳CurrentPage，系統設定jTotallPages=9-7回傳TotalPages。
+    jCurrentPage =@Model.CurrentPage;
+    jTotallPages =@Model.TotalPages;
+</script>

@@ -1,0 +1,199 @@
+@using DataModel
+@model MemberOrderListManageViewModel
+@{
+    //string tmp = Model.Product;
+}
+@*9-8.系統在View【Views/Shared/Components/MemberOrderList/Default.cshtml】中判斷9-7傳回之listOrderListViewModel!=null and Count>0。*@
+@if (Model.listOrderListViewModel != null && Model.listOrderListViewModel.Count > 0)
+{
+    <div class="myorder-component">
+        <div class="container">
+            <div class="title-box border-bottom d-flex align-items-center mb-3">
+                <h2 class="mr-3">我的訂單</h2>
+                <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+            </div>
+            @*9-11.系統在View【Views/Shared/Components/MemberOrderList/Default.cshtml】中顯示查詢元件。*@
+            <div class="shipsearch-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <input id="OrderId" type="text" placeholder="訂單編號" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <input id="ProductO" type="text" placeholder="商品名稱" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+                    <input id="sDateO" type="text" placeholder="訂購日期(起)" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+                    <input id="eDateO" type="text" placeholder="訂購日期(迄)" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnSearchMyOrder">搜尋</button>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+                    @*<input id="OrderStateId" type="text" placeholder="處理狀態" class="form-control" />*@
+                </div>
+            </div>
+            @*9-10.系統在View【Views/Shared/Components/MemberOrderList/Default.cshtml】中顯示換頁超連結。*@
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-page btn-maintype" id="MybtnPrePageO"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage/@Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <button type="button" class="btn btn-block btn-page btn-maintype" id="MybtnNextPageO"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-pageselect btn-maintype" type="button" id="dropdownPageListO" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="FPageListO">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 align-self-center">總額：1,000,000</div>*@
+            </div>
+            @foreach (OrderListViewModel item in Model.listOrderListViewModel)
+            {
+                <div class="ordelist-box" data-orderid="@item.OrderId">
+                    <div class="card text-white mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="OrderId col-4">訂單編號： @item.OrderId</div>
+                                <div class="col-6"></div>
+                                @if (item.OrderStateId < 3)
+                                {
+                                <button class="pull-right btn-sm col-2 btn-maintype UserCancelOrderbtn" type="button" aria-expanded="false" data-cancelorderid="@item.OrderId">取消訂單</button>
+                                }
+                                
+                                    
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg- col-xl-3">訂購人：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value="@item.MemberName">
+                                </div>
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">連絡電話：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value="@item.MemberMobile">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg- col-xl-3">付款方式：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value="@item.PaymentTypeDescription">
+                                </div>
+                                @if (item.PaymentType != null)
+                                {
+                                    @if (item.PaymentType.Substring(0, 3) == "CVS")
+                                    {
+                                        <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">超商繳款代碼：</label>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-4">
+                                            <input type="text" readonly class="form-control-plaintext" id="" value="@item.PaymentNo">
+                                        </div>
+                                    }
+                                    else if (item.PaymentType.Substring(0, 3) == "ATM")
+                                    {
+                                        <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">繳費虛擬帳號：</label>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                            <input type="text" readonly class="form-control-plaintext" id="" value="@item.vAccount">
+                                        </div>
+                                    }
+                                    else if (item.PaymentType.Substring(0, 3) == "288")
+                                    {
+                                        <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">滙款帳號：</label>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                            @*<input type="text" readonly class="form-control-plaintext" id="" value="郵局代號 : 700 帳號 : 00310220499344">*@
+                                            <p>郵局代號 : 700 帳號 : 00310220499344</p>
+                                        </div>
+
+                                    }
+                                }
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">送貨地址：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value="@item.ContactAddress">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg- col-xl-3">處理狀態：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    <input type="text" readonly class="form-control-plaintext OrderState" id="" value="@item.OrderState">
+                                </div>
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">繳款期限：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value="@item.ExpireDate">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg- col-xl-3">訂購日期：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value="@item.OrderTime">
+                                </div>
+                                <label for="staticEmail" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">出貨日期：</label>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-3">
+                                    @if (item.ShipTime != null)
+                                    {
+                                        <input type="text" readonly class="form-control-plaintext" id="" value="@item.ShipTime">
+                                    }
+                                </div>
+                            </div>
+                            <div>
+                                <button class="OrderDetail btn btn-maintype" type="button" data-toggle="collapse" data-target="@String.Format("#collapse{0}",item.OrderId)" aria-expanded="false" aria-controls="collapseExample">訂購明細</button>
+                                @*1.系統在訶單明細按鈕下方以<div class="collapse" id="collapseExample">@await Component.InvokeAsync("OrderDetail", new { OrderId = item.OrderId })</Div>。來顯示訂單明細。*@
+                                @*2.系統呼叫ViewComponent【OrderDetail】，並傳送@item.OrderId。*@
+                                <div class="collapse" id="@String.Format("collapse{0}",item.OrderId)">@await Component.InvokeAsync("OrderDetail", new { OrderId = item.OrderId })</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-form-label col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3">訂購總額：</label>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-8 col-xl-9">
+                                    <input type="text" readonly class="form-control-plaintext" id="" value='@String.Format("{0:#,###}",item.TotalExpense)'>
+                                </div>
+                            </div>
+                            <div class="row">
+                                @*<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                        <button type="button" class="btn btn-primary btn-block">再買一次</button>
+                                    </div>*@
+                                @if (item.OrderStateId < 3)
+                                {
+                                    //20181206更新 ---棋
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                        <button type="button" class="btn btn-block btn-maintype UudateOrderState">通知已付款</button>
+                                    </div>
+                                }
+                                @*<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                        <button type="button" class="btn btn-primary btn-block">取消購買</button>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <h3>沒有訂單</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+<script>
+    // 10.系統設定jCurrentPage=9-7回傳CurrentPage，系統設定jTotallPages=9-7回傳TotalPages。
+    jCurrentPage =@Model.CurrentPage;
+    jTotallPages =@Model.TotalPages;
+    $("#OrderId").val('@Html.Raw(Model.OrderId)');
+    $("#ProductO").val('@Html.Raw(Model.Product)');
+    $("#sDateO").val('@Html.Raw(Model.sDate)');
+    $("#eDateO").val('@Html.Raw(Model.eDate)');
+</script>

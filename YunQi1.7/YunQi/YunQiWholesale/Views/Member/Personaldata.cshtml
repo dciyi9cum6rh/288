@@ -1,0 +1,271 @@
+@using DataModel
+@model MemberViewModel
+
+@{
+    Layout = null;
+    DateTime dtDuedate = (DateTime)Model.Duedate;
+}
+
+<div class="personaldata-component">
+    <div class="container">
+        <div class="title-box border-bottom d-flex align-items-center mb-3">
+            <h2 class="mr-3">我的會員資料</h2>
+            <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+        </div>
+        @*4.系統在View【Member/Personaldata】中依3傳回值顯示我的會員資料介面。*@
+        <form id="CreateForm" asp-action="PutMemberLevel" asp-controller="Member" method="post" enctype="multipart/form-data">
+            <div class="form-box mb-3">
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">手機(帳號)：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="MemberMobile" name="MemberMobile" type="text" value="@Model.MemberMobile" readonly class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">姓名*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="MemberName" name="MemberName" type="text" value="@Model.MemberName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">暱稱*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="NickName" name="NickName" type="text" value="@Model.NickName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">性別*</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <select id="sex" class="form-control">
+                            @if (Model.sex == 0)
+                            {
+                                <option value="0" selected>女性</option>
+                                <option value="1">男性</option>
+                                <option value="2">暫不告知</option>
+                            }
+                            else if (Model.sex == 1)
+                            {
+                                <option value="0">女性</option>
+                                <option value="1" selected>男性</option>
+                                <option value="2">暫不告知</option>
+                            }
+                            else
+                            {
+                                <option value="0">女性</option>
+                                <option value="1">男性</option>
+                                <option value="2" selected>暫不告知</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">E-Mail*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="eMail" name="eMail" type="text" value="@Model.eMail" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">住址*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="ContactAddress" name="ContactAddress" type="text" value="@Model.ContactAddress" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">Line ID：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="LineId" type="text" name="LineId" value="@Model.LineId" class="form-control" placeholder="英數字" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">住家/公司電話：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="Phone" type="text" name="Phone" value="@Model.Phone" class="form-control" placeholder="10個數字" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">生日(西元yyyy/mm/dd)：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+
+                        <input id="Birthday" type="text" name="Birthday" value="@(Model.Birthday == null ? "" : ((DateTime)Model.Birthday).ToLongDateString())" class="form-control" placeholder="yyyy/mm/dd" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">入會日期：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="Duedate" type="text" name="Duedate" value="@dtDuedate.ToLongDateString()" readonly class="form-control" />
+                    </div>
+                </div>
+                <div class="function-box">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnUpdateMember">更新會員資料</button>
+                </div>
+            </div>
+            <div class="form-box">
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">會員等級：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="MemberLevel" type="text" name="MemberLevel" value="@Model.MemberLevel" readonly class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">推薦人手機(帳號)*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="ReferrerMobile" type="text" name="ReferrerMobile" value="@Model.ReferrerMobile" class="form-control" placeholder="10個數字" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">身份字號(統一編號)*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="ID" type="text" name="ID" value="@Model.ID" class="form-control" placeholder="10位數，第1位大寫英文，其餘數字" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">銀行*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="Bank" type="text" name="Bank" value="@Model.Bank" class="form-control" placeholder="中英文字" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">分行*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="Branch" type="text" name="Branch" value="@Model.Branch" class="form-control" placeholder="中英文字" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">帳戶名稱*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="AccountName" type="text" name="AccountName" value="@Model.MemberName" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">帳號*：</label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <input id="AccountNunber" type="text" name="AccountNunber" value="@Model.AccountNunber" class="form-control" placeholder="11~14位數字" />
+                    </div>
+                </div>
+                @*20190109更新  ---棋*@
+                @if (Model.VipApplyDate != null)
+                {
+                    DateTime dt = (DateTime)Model.VipApplyDate;
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">批發會員申請日期：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="VipApplyDate" type="text" name="VipApplyDate" value="@dt.ToLongDateString()" readonly class="form-control" />
+                        </div>
+                    </div>
+                }
+                @if (Model.VipDate != null)
+                {
+                    DateTime dtt = (DateTime)Model.VipDate;
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">批發會員核准日期：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="VipDate" type="text" name="VipDate" value="@dtt.ToLongDateString()" class="form-control" readonly />
+                        </div>
+                    </div>
+                }
+                @if (Model.MemberLevelId == 1)
+                {
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">批發會員申請日期：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="VipApplyDate" type="text" name="VipApplyDate" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">批發會員核准日期：</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input id="VipDate" type="text" name="VipDate" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div for="" class="col-form-label col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            請上傳銀行帳號：
+                           <button type="button" id="imgExample" class="btn btn-info">範例看這裡</button> 
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <input type="file" name="UpImgExample" id="UpImgExample"class=" btn btn-secondary"  />
+                            <span>請上傳銀行存摺</span>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="function-box">
+                        <button type="button" class="btn btn-block btn-maintype" id="btnUpgradeMemberLevel">升級批發會員</button>
+                        <button style="display: none;" id="refbutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" />
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog " role="document" style="max-width: 1000px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">範例</h5>
+            </div>
+            <div class="modal-body">
+                <img src="~/images/fanli.png" style="margin:0px auto; width:100%" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn ml-auto p-2 btn-maintype" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">關閉</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog " role="document" style="max-width: 910px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">加盟合約</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalOff">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                台端自願加盟 允奇行銷有限公司（以下簡稱本公司） 旗下 艾寶寶暢貨平台經銷系統並願遵守以下規定履行會員應盡義務。
+                <br />
+                <br />
+                1. 認同本公司之經營理念並願意遵守經銷會員須知的各項規定。
+                <br />
+                2. 經銷會員需保證註冊資料之真實性並需與現況相符，本公司有權查核。同意本公司自主使用其註冊資料及驗證其真實性。
+                <br />
+                3. 經銷會員之帳號限註冊本人（公司、行號）自己使用，不得借用、租賃、轉讓及一切非本人自行使用之情事。
+                <br />
+                4. 本公司加盟之經銷會員應遵守商業道德及善盡保密義務，不得任意透露本公司經銷價格給予任意第三人。
+                <br />
+                5. 接受本公司市場保護機制，於任何市場銷售價格不得低本公司規定價格以確保全體經銷會員合理利潤。
+                <br />
+                6. 同意本公司安排促銷活動並積極參與且遵守相關規定。
+                <br />
+                7. 如有違反上述情事經查證屬實同意本公司無條件單方面終止經銷關係。
+                <br />
+                8. 本合約雙方議定若因本合約涉訟,以台灣台中地方法院為第一審管轄法院。
+                <br />
+                9. 本公司保有合約最終解釋權。
+                <br />
+            </div>
+
+            <div class="modal-footer">
+                <input class="p-2" type="checkbox" id="checkboxOK">
+                <div class="p-2">已閱讀</div>
+                <button id="ref_confirm_button" type="button" class="btn btn-primary ml-auto p-2">同意</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //20181212 ---使用者升級批發會員上傳資料
+    $("#imgExample").mouseenter(function () {
+        $('#Example').modal({ backdrop: "static" });
+    });
+</script>

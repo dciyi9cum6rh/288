@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DataEntity</id>
+    <version>1.0.0</version>
+    <authors>DataEntity</authors>
+    <owners>DataEntity</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.1">
+        <dependency id="DataModel" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="IRepository" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Dapper" version="1.50.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\IBOBO網站\YunQi\DataEntity\bin\Debug\netcoreapp2.1\DataEntity.dll" target="lib\netcoreapp2.1\DataEntity.dll" />
+  </files>
+</package>

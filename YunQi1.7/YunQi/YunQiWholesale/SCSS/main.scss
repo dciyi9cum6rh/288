@@ -1,0 +1,79 @@
+@import 'basis.scss';
+
+body {
+    background-color: #fdf2f7 !important;
+    font-family: 'Microsoft JhengHei UI', '微軟正黑體', 'Microsoft JhengHei', Arial !important;
+}
+
+@import 'common.scss';
+
+.header-box {
+    &.bg-dark {
+        background-color: #F8F0C7 !important;
+    }
+
+    .navbar-brand {
+        img {
+            height: 40px;
+            width: auto;
+        }
+    }
+}
+
+.navbar-nav {
+    .nav-link {
+        padding: 0 1rem !important;
+        position: relative;
+
+        &.unread {
+            &::before {
+                background-color: #78c2ad;
+                border-radius: 50%;
+                content: '';
+                display: block;
+                height: 1rem;
+                left: 0.8rem;
+                position: absolute;
+                top: 50%;
+                transform: translate(0, -50%);
+                width: 1rem;
+            }
+        }
+
+        svg {
+            display: block;
+            height: (42/16) * 1rem;
+            width: auto;
+        }
+
+        .badge {
+            margin-left: -0.5rem;
+        }
+    }
+}
+
+.main-content {
+    padding: 4rem 0;
+
+    .mobiletype {
+        display: none;
+    }
+
+    @import 'home.scss';
+
+    @import 'login.scss';
+
+    @import 'mall.scss';
+
+    @import 'cart.scss';
+
+    @import 'success.scss';
+
+    @import 'member.scss';
+
+    @import 'helpe.scss';
+}
+
+@import 'footer.scss';
+
+@import 'media.scss';

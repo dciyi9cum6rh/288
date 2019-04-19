@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ACCPlatformModelStoreContainer" CdmEntityContainer="ACCPlatformEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ACCPlatformModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Admin">
+      <EntityTypeMapping TypeName="ACCPlatformModel.t_Admin">
+        <MappingFragment StoreEntitySet="t_Admin">
+          <ScalarProperty Name="AdminAccount" ColumnName="AdminAccount" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+          <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="UpdateAdminAccount" ColumnName="UpdateAdminAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_Member">
+      <EntityTypeMapping TypeName="ACCPlatformModel.t_Member">
+        <MappingFragment StoreEntitySet="t_Member">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
+          <ScalarProperty Name="MemberPassword" ColumnName="MemberPassword" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UpMemberID" ColumnName="UpMemberID" />
+          <ScalarProperty Name="MemberLevelId" ColumnName="MemberLevelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_MemberLevels">
+      <EntityTypeMapping TypeName="ACCPlatformModel.t_MemberLevels">
+        <MappingFragment StoreEntitySet="t_MemberLevels">
+          <ScalarProperty Name="MemberLevelId" ColumnName="MemberLevelId" />
+          <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_MemberLog">
+      <EntityTypeMapping TypeName="ACCPlatformModel.t_MemberLog">
+        <MappingFragment StoreEntitySet="t_MemberLog">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="EditMemberId" ColumnName="EditMemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

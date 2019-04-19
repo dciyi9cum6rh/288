@@ -1,0 +1,204 @@
+.mall-content {
+    .productsale-box {
+        margin-bottom: 2rem;
+    }
+
+    .product-box {
+        position: relative;
+    }
+
+    .alltype-box {
+        background-color: #851a1f;
+
+        .btn-close,
+        .btn-subcategory,
+        .btn-alltype {
+            background-color: #fff;
+            color: #851a1f;
+        }
+
+        .breadcrumb {
+            background-color: #fff;
+            padding: 0;
+        }
+
+        .nav {
+            .nav-item {
+                .nav-link {
+                    &.active {
+                        color: $navColor3 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .productpanel-box {
+        overflow: hidden;
+        position: relative;
+
+        .productsearch-box {
+            margin-bottom: 2rem;
+
+            .groupaddon {
+                color: #851a1f;
+            }
+
+            .form-control {
+                background-color: #fff;
+                border: 1px solid #851a1f;
+                color: #851a1f;
+            }
+
+            .to {
+                color: #851a1f;
+            }
+
+            .btn-searchproduct {
+                background-color: #fff;
+                border: 1px solid #851a1f;
+                color: #851a1f;
+            }
+        }
+
+        .pagination-box {
+            margin-bottom: 2rem;
+
+            .btn-page,
+            .btn-pageselect {
+                background-color: #fff;
+                border: 1px solid #851a1f;
+                color: #851a1f;
+            }
+        }
+
+        .productlist-box {
+            .productlist-item {
+                cursor: pointer;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+
+                &:hover {
+                    background-color: #851a1f;
+                    color: $txtColor1;
+                }
+
+                .product-pic {
+                    display: block;
+                    object-fit: cover;
+                    object-position: center top;
+                    height: auto;
+                    width: 100%;
+                }
+
+                .product-name {
+                    color: #b4b3b4;
+                    text-align: center;
+                }
+
+                .product-pricing {
+                    color: #b4b3b4;
+                    text-align: center;
+                }
+
+                .product-special {
+                    color: $txtcolor2;
+                    text-align: center;
+
+                    .joinus-link {
+                        color: #f8f0c7;
+                    }
+                }
+
+                .product-upset {
+                    margin-bottom: 1rem;
+                    text-align: center;
+
+                    .joinus-link {
+                        color: #f8f0c7;
+                    }
+                }
+
+                .function-box {
+                    .btn {
+                        background-color: #fff;
+                        border: 1px solid #851a1f;
+                        color: #851a1f;
+                    }
+                }
+            }
+        }
+
+        .productdetail-box {
+            /*background-color: $mainBg2;*/
+            bottom: 0;
+            height: 100%;
+            left: 0;
+            position: fixed;
+            transform: translate(0, 100%);
+            transition: all 1000ms cubic-bezier(0.000, 0.750, 0.250, 1.000); /* custom */
+            width: 100%;
+            z-index: 2000;
+
+            &.active {
+                transform: translate(0,0);
+            }
+
+            .btn-close {
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                z-index: 500;
+            }
+
+            .set-box {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                overflow-y: auto;
+                width: 100%;
+
+                .detail-box {
+                    .detailpic-box {
+                        align-items: center;
+                        display: flex;
+                        justify-content: center;
+
+                        .detail-pic {
+                            display: block;
+                            height: auto;
+                            width: 80%;
+                        }
+                    }
+
+                    .detailinfo-box {
+                        .detailinfo-item {
+                            margin-bottom: 1rem;
+
+                            .detailinfo-title,
+                            .detailinfo-value {
+                                align-items: center;
+                                display: flex;
+                            }
+
+                            .fas {
+                                margin-right: 0.5rem;
+                            }
+                        }
+                    }
+                }
+
+                .morepic-box {
+                    .morepic-item {
+                        .morepic-pic {
+                            display: block;
+                            height: auto;
+                            margin: 0 auto;
+                            width: 60%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

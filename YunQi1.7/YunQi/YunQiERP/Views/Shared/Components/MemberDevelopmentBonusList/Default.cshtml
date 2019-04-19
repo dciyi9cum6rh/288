@@ -1,0 +1,63 @@
+﻿@using DataModel
+@model MemberDevelopmentBonusListManageViewModel
+@{
+    List<int>
+    tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+
+@*9-8.系統在View【Views/Shared/Components/MemberBonusList/Default.cshtml】中判斷9-7傳回之listMemberBonusListViewModel!=null and Count>0。*@
+@*// 9-9.系統在View【Views/Shared/Components/MemberBonusList/Default.cshtml】中顯示[批發會員獎金清單]。*@
+
+@if (Model.listMemberDevelopmentBonusListViewModel != null && Model.listMemberDevelopmentBonusListViewModel.Count > 0)
+{
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>會員手機 </th>
+                    <th>會員姓名</th>
+                    <th>會員發展獎金</th>
+                    <th>己入帳</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var o in Model.listMemberDevelopmentBonusListViewModel)
+                {
+                    <tr>
+                        <td>@o.MemberMobile</td>
+                        <td>@o.MemberName</td>
+                        <td>@o.Bonus</td>
+                        <td>@o.IsRecorded</td>
+                        <td>
+                            <a class="btn btn-default btn-detail" role="button" title="直屬會員"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @foreach (var o in Model.listMemberDevelopmentBonusListViewModel)
+    {
+        <input type="hidden" name="MerberList" value="@o.MemberMobile" />
+    }
+
+    // 9-10.系統在View【Views/Shared/Components/MemberBonusList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" page-link-size="pagination-md" a-class="page-link" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    //9-8a.系統判斷!(9-7傳回之listMemberBonusListViewModel!=null and Count>0)。
+    //9 - 8a - 1.回11。
+    <h3>
+    沒有批發會員發展獎金
+    </h3>
+}

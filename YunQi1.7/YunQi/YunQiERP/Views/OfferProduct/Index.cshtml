@@ -1,0 +1,131 @@
+﻿@using DataModel
+@model List<ProductListViewModel>
+@{
+    ViewData["Title"] = "準批發會員優惠商品管理";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 5-1.系統在View【OfferProduct/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>準批發會員優惠商品管理</h2>
+    </div>
+    <form class="form-inline" id="qFrom">
+        <button type="submit" class="btn btn-default" id="btnAdd">新增優惠商品</button>
+    </form>
+    <hr />
+    // 6.系統在View【OfferProduct/Index】顯示準批發會員優惠商品清單。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>商品代碼</th>
+                    <th>商品名稱</th>
+                    <th>商品圖示</th>
+                    <th>商品說明</th>
+                    <th>零售價</th>
+                    <th>批發價</th>
+                    <th>量批價</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ProductListViewModel MLVM in Model)
+                {
+                    <tr>
+                        <td>@MLVM.ProductId</td>
+                        <td>@MLVM.Product</td>
+                        <td class="item-pic"><img src="@Url.Action("GetProductImage", "OfferProduct", new { ProeuctId = MLVM.ProductId })" alt="@MLVM.Product" class="img-responsive" style="max-width:200px;max-height:200px;" /></td>
+                        <td>@MLVM.ProductDescription</td>
+                        <td>@MLVM.Price</td>
+                        <td>@MLVM.SaleLimitPrice</td>
+                        <td>@MLVM.OfferPrice</td>
+                        <td>
+                            @*<a class="btn btn-default btn-edit" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>*@
+                            <a class="btn btn-default btn-delete" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    //Model
+    <div id="add-one" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改優惠商品</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostOfferProduct" asp-controller="OfferProduct" method="post" id="CreateForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="ProductId" class="col-xs-2 control-label">商品代碼</label>
+                                <div class="col-xs-4"><input type="text" name="ProductId" id="ProductId" class="form-control" /></div>
+                                <label for="Product" class="col-xs-2 control-label">商品名稱</label>
+                                <div class="col-xs-4"><input type="text" name="Product" id="Product" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmit" class="btn btn-primary">新增</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutOfferProduct" asp-controller="OfferProduct" method="post" id="EditForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="ProductIdEdit" class="col-xs-2 control-label">商品代碼</label>
+                                <div class="col-xs-4"><input type="text" name="ProductIdEdit" id="ProductIdEdit" class="form-control" /></div>
+                                <label for="ProductEdit" class="col-xs-2 control-label">商品名稱</label>
+                                <div class="col-xs-4"><input type="text" name="ProductEdit" id="ProductEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="EditSubmit" class="btn btn-primary">修改</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+        @*<environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/OfferProduct.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging.Production">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/OfferProduct.js" asp-append-version="true"></script>
+        </environment>*@
+        <script src="~/lib/jquery.form.js"></script>
+        <script src="~/js/OfferProduct.js"></script>
+        <script>
+
+            $(function () {
+                OfferProductfunction({
+                    DeleteOfferProductUrl: '@Url.Action("DeleteOfferProduct", "OfferProduct")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 5-1a.系統在View【Member/Index】判斷ViewBag.HavePrivilege=false。
+    //  5-1a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

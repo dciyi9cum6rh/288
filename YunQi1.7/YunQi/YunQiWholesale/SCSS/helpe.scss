@@ -1,0 +1,37 @@
+.helpe-content {
+    .helppanel-box {
+        .register-component {
+            .title-box {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .qanda-component {
+            .card {
+                .card-header {
+                    background-color: #c1e2d4;
+                    color: #fff;
+                }
+
+                .card-body {
+                    background-color: #fdf2f7;
+
+                    span {
+                        padding: 0.75rem 0;
+                    }
+
+                    div {
+                        padding: 0.75rem 1.25rem
+                    }
+
+                    .list-group {
+                        .list-group-item {
+                            background-color: #fdf2f7;
+                            border: 0 none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

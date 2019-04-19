@@ -1,0 +1,32 @@
+@using DataModel
+@model MessageManagementDataManageViewModel
+
+@if (@Model.listReplyMessageManagementDataListviewModel != null && @Model.listReplyMessageManagementDataListviewModel.Count > 0)
+{
+    @foreach (var o in Model.listReplyMessageManagementDataListviewModel)
+    {
+        <div class="media mt-3">
+            <a class="pr-3" href="#">
+                @*60px × 60px*@
+                <img src="~/images/hs2.jpg" alt="Generic placeholder image" class="other-pic">
+            </a>
+            <div class="media-body">
+                <h5 class="mt-0"></h5>
+                <div>@o.ReplyMessageValue</div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h3>沒有回覆內容</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+
+<script>
+    $(document).ready(function () {
+        // 10.系統設定jCurrentPage=9-7回傳CurrentPage，系統設定jTotallPages=9-7回傳TotalPages。
+        jCurrentPage =@Model.CurrentPage;
+        jTotallPages =@Model.TotalPages;
+    });
+</script>

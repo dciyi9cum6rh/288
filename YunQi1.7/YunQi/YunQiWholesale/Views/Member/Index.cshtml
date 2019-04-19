@@ -1,0 +1,62 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = null;
+}
+<div class="member-content">
+    <div class="container">
+        <div class="row">
+            <div id="memberMenu" class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-3 membermenu-box submenu-box">
+                <div class="container mb-3">
+                    <button id="btnMenuClose" type="button" class="btn btn-close btn-maintype mobiletype">關閉</button>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark active " href="#" data-member="mail">訊息中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="data">我的會員資料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="level">會員等級</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="wholesale">批發需知</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="ship">送貨地址</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="order">我的訂單</a>
+                    </li>                  
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="favorite">我的最愛</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="follower">我的下線</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="triymph">我的下線業績</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="point">點數異動記錄</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="membermove">會員調撥區</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" data-member="wishipool">許願池</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="memberPanel" class="memberpanel-box col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9  pt-2">
+                @*20181219 ---棋  訊息中心*@
+                @await Component.InvokeAsync("Mailcenter", new { MemberMobile = @HttpContextAccessor.HttpContext.Session.GetString("MemberMobile") })
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //20190102 ---棋
+    window.scrollTo(0,0)
+</script>

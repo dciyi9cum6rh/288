@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ACCPlatformModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="t_Admin">
+    <Key>
+      <PropertyRef Name="AdminAccount" />
+    </Key>
+    <Property Name="AdminAccount" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LoginTimes" Type="Int32" Nullable="false" />
+    <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+    <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateAdminAccount" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="t_Member">
+    <Key>
+      <PropertyRef Name="MemberId" />
+    </Key>
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <Property Name="MemberAccount" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MemberPassword" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UpMemberID" Type="Int32" />
+    <Property Name="MemberLevelId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="t_MemberLevels" Relationship="Self.FK_t_Member_t_MemberLevels" FromRole="t_Member" ToRole="t_MemberLevels" />
+    <NavigationProperty Name="t_MemberLog" Relationship="Self.FK_t_MemberLog_t_Member" FromRole="t_Member" ToRole="t_MemberLog" />
+  </EntityType>
+  <EntityType Name="t_MemberLevels">
+    <Key>
+      <PropertyRef Name="MemberLevelId" />
+    </Key>
+    <Property Name="MemberLevelId" Type="Int32" Nullable="false" />
+    <Property Name="MemberLevel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="t_Member" Relationship="Self.FK_t_Member_t_MemberLevels" FromRole="t_MemberLevels" ToRole="t_Member" />
+  </EntityType>
+  <EntityType Name="t_MemberLog">
+    <Key>
+      <PropertyRef Name="MemberId" />
+      <PropertyRef Name="UpdateTime" />
+    </Key>
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EditMemberId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="t_Member" Relationship="Self.FK_t_MemberLog_t_Member" FromRole="t_MemberLog" ToRole="t_Member" />
+  </EntityType>
+  <Association Name="FK_t_Member_t_MemberLevels">
+    <End Role="t_MemberLevels" Type="Self.t_MemberLevels" Multiplicity="1" />
+    <End Role="t_Member" Type="Self.t_Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_MemberLevels">
+        <PropertyRef Name="MemberLevelId" />
+      </Principal>
+      <Dependent Role="t_Member">
+        <PropertyRef Name="MemberLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_t_MemberLog_t_Member">
+    <End Role="t_Member" Type="Self.t_Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="t_MemberLog" Type="Self.t_MemberLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_Member">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="t_MemberLog">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ACCPlatformEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="t_Admin" EntityType="Self.t_Admin" />
+    <EntitySet Name="t_Member" EntityType="Self.t_Member" />
+    <EntitySet Name="t_MemberLevels" EntityType="Self.t_MemberLevels" />
+    <EntitySet Name="t_MemberLog" EntityType="Self.t_MemberLog" />
+    <AssociationSet Name="FK_t_Member_t_MemberLevels" Association="Self.FK_t_Member_t_MemberLevels">
+      <End Role="t_MemberLevels" EntitySet="t_MemberLevels" />
+      <End Role="t_Member" EntitySet="t_Member" />
+    </AssociationSet>
+    <AssociationSet Name="FK_t_MemberLog_t_Member" Association="Self.FK_t_MemberLog_t_Member">
+      <End Role="t_Member" EntitySet="t_Member" />
+      <End Role="t_MemberLog" EntitySet="t_MemberLog" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

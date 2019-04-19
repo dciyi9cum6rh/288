@@ -1,0 +1,100 @@
+﻿@using DataModel
+@model List<MallImageViewModel>
+@{
+    ViewData["Title"] = "商城行銷圖示";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 5-1.系統在View【MallImage/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>商城行銷圖示</h2>
+    </div>
+    <hr />
+    // 6.系統在View【MallImage/Index】顯示商城行銷圖示新增圖示元件。
+    <form class="form-inline" id="qFrom">
+        <button type="submit" class="btn btn-default" id="btnAdd">新增圖示</button>
+    </form>
+    <hr />
+    // 7.系統安置<Div MallImageList>顯示ViewComponent【MallImageListViewComponent】。
+    <Div id="MallImageList">@await Component.InvokeAsync("MallImageList")</Div>
+    <div id="add-oneI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改商城行銷圖示</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostMallImage" asp-controller="MallImage" method="post" id="CreateFormI" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="PictureContentI" class="col-xs-2 control-label">商城行銷圖示*</label>
+                                <div class="col-xs-10"><input type="file" name="PictureContentI" id="PictureContentI" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MallImageDescription" class="col-xs-2 control-label">說明</label>
+                                <div class="col-xs-10"><textarea rows="5" type="file" name="MallImageDescription" id="MallImageDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmitI" class="btn btn-primary">新增</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutMallImage" asp-controller="MallImage" method="post" id="EditFormI" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="PictureContentIEdit" class="col-xs-2 control-label">商城行銷圖示*</label>
+                                <div class="col-xs-10"><input type="file" name="PictureContentIEdit" id="PictureContentIEdit" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MallImageDescriptionEdit" class="col-xs-2 control-label">說明</label>
+                                <div class="col-xs-10"><textarea rows="5" type="file" name="MallImageDescriptionEdit" id="MallImageDescriptionEdit" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="EditSubmitI" class="btn btn-primary">修改</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        @*<environment names="Development">
+                <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+                <script src="~/js/MallImage.js" asp-append-version="true"></script>
+            </environment>
+            <environment names="Staging.Prodcution">
+                <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+                <script src="~/js/MallImage.js" asp-append-version="true"></script>
+            </environment>*@
+        <script src="~/lib/jquery.form.js"></script>
+        <script src="~/js/MallImage.js"></script>
+        <script>
+            $(function () {
+                MallImagefunction({
+                    GetMallImageListUrl: '@Url.Action("GetMallImageList", "MallImage")',
+                    DeleteMallImageUrl: '@Url.Action("DeleteMallImage", "MallImage")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 5-1a.系統在View【Member/Index】判斷ViewBag.HavePrivilege=false。
+    //  5-1a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

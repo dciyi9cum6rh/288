@@ -1,0 +1,132 @@
+@using DataModel
+@model PostOrderViewModel1
+@{
+    Layout = null;
+
+
+    @*@foreach (var item in Model.listGetMemberBonusChangeRecordListViewModel)
+    {
+        id += 1;
+        <div class="row mb-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="d-flex align-items-center">項次：@id</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="d-flex align-items-center">異動時間：@item.ChangeTime</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="d-flex align-items-center">異動類型：@item.Event</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="d-flex align-items-center">異動前：@item.BeforeBonus 點</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="d-flex align-items-center">異動：@item.ChangeBonus 點</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="d-flex align-items-center">異動後：@item.AfterBonus 點</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="d-flex align-items-center">異動原因：@item.Memo </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>*@
+    }
+}
+@*717.系統在View【Cart/PostOrder】判斷16回傳之OrderDetail != null。*@
+@if (Model.OrderDetail != null && Model.OrderDetail.Count > 0)
+{
+    // 18.系統顯示連絡資料，訂購明細(含運費/合計/訂單編號)。
+    // 19.系統設定orderId=16回傳OrderId。
+    // 20.系統顯示金流公司付款方式。
+    if (Model.CartTobal <= 10000)
+    {
+
+        // 當訂單總額超過20000時不透過綠界，超過6000不顯示超商代碼。
+        @*<script src="https://payment-stage.ecpay.com.tw/Scripts/SP/ECPayPayment_1.0.0.js"
+                    data-MerchantID="@Model.RtnModel.MerchantID"
+                    data-SPToken="@Model.RtnModel.SPToken"
+                    data-PaymentType="CREDIT"
+                    data-PaymentName="信用卡"
+                    data-CustomerBtn="1">
+            </script>*@
+        @*<button onclick="checkOut('CREDIT');">信用卡</button>*@
+
+        //<script src="https://payment-stage.ecpay.com.tw/Scripts/SP/ECPayPayment_1.0.0.js"
+        //正式
+        <script src="https://payment.ecpay.com.tw/Scripts/SP/ECPayPayment_1.0.0.js"
+                data-MerchantID="@Model.RtnModel.MerchantID"
+                data-SPToken="@Model.RtnModel.SPToken"
+                data-PaymentType="ATM"
+                data-PaymentName="ATM"
+                data-CustomerBtn="1">
+        </script>
+        <button onclick="checkOut('ATM');">ATM</button>
+        if (Model.CartTobal <= 6000)
+        {
+            //<script src="https://payment-stage.ecpay.com.tw/Scripts/SP/ECPayPayment_1.0.0.js"
+            //正式
+
+            <script src="https://payment.ecpay.com.tw/Scripts/SP/ECPayPayment_1.0.0.js"
+                    data-MerchantID="@Model.RtnModel.MerchantID"
+                    data-SPToken="@Model.RtnModel.SPToken"
+                    data-PaymentType="CVS"
+                    data-PaymentName="CVS"
+                    data-CustomerBtn="1">
+            </script>
+            <button onclick="checkOut('CVS');">CVS</button>
+        }
+    }
+    else
+    {
+        <div>
+            金額超過1萬元，請直接匯款至本公司帳戶  : 郵局代號 : 700 帳號 : 00310220499344 ，<br />
+            匯款完成後請至[會員中心/我的訂單]提出己付款，或電洽服務人員(04)24260263，謝謝！
+        </div>
+        <div>
+            <button id="FinishCart">完成</button>
+        </div>
+    }
+}
+else
+{
+    // 17a.系統在View【Cart/PostOrder】判斷16回傳之OrderDetail == null。
+    //  17a-1.系統顯示"系統錯誤，請連絡客服人員！”。
+    <div class="container">
+        <h3>系統錯誤，請連絡客服人員！</h3>
+    </div>
+    //  17a-2.結束。
+}
+<script>
+    // 19.系統設定orderId=16回傳OrderId。
+    orderId =@Model.OrderId;
+    //// 點按結帳時
+    //$(document).on("click", "#btnPay", () => {
+    //    if ($("#CardRadio").prop("checked")) {
+    //        checkOut('CREDIT');
+    //    }
+    //    else if ($("#ATMRadio").prop("checked")) {
+    //        checkOut('ATM');
+    //    }
+    //    else if ($("#CVSRadio").prop("checked")) {
+    //        checkOut('CVS');
+    //    }
+    //});
+</script>

@@ -1,0 +1,66 @@
+﻿@using DataModel
+@model YoutubeVideoViewModel
+@{
+    ViewData["Title"] = "Youtube影片設定";
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Youtube/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>Youtube影片設定</h2>
+    </div>
+    // 6.系統在View【Youtube/Index】判斷ViewBag.HavePrivilege=true。
+    <form class="form" id="qFrom">
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <label asp="YouTubeVideo" class="col-xs-2 control-label left">Youtube影片網址</label>
+                <div class="col-xs-7"><input id="YouTubeVideo" type="text" name="YouTubeVideo" class="form-control" value='@Model.YouTubeVideo' /></div>
+                <div class="col-xs-3">
+                    <button type="submit" class="btn btn-default" id="btnReset" data-youtubevideoid="@Model.YouTubeVideoId">重設Youtube影片值</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-10">
+                    <h4 style="color:blue;">PS.Youtube連結如何取得：</h4>
+                    <ul class="list-unstyled">
+                        <li>1.在電腦上前往您要嵌入的 YouTube 影片所在頁面。</li>
+                        <li>2.按一下影片下方的「分享」圖示 。</li>
+                        <li>3.按一下 [嵌入]。</li>
+                        <li>4.複製方塊中src="{網址}"中的網址。</li>
+                        <li>4.貼上至上方輸入盒。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="embed-responsive embed-responsive-16by9 youtube-box mb-3">
+                <iframe id="youtubeif" class="embed-responsive-item" src="@Model.YouTubeVideo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </form>
+    // 8.系統在查詢元件下方安置<Div YoutubeList>以便用來顯示Youtube影片設定查詢結果清單。
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/YoutubeVedio.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/YoutubeVedio.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+            $(function () {
+                YoutubeVediofunction({
+                    PutYoutubeVedioUrl: '@Url.Action("PutYoutubeVideo", "YoutubeVideo")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Youtube/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

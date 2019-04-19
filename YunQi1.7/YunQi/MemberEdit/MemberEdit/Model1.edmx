@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GamePlatformModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="A_Member">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="MemberAccount" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="MemberPassword" Type="varchar" MaxLength="64" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpMemberID" Type="int" />
+          <Property Name="PauseAccount" Type="tinyint" Nullable="false" />
+          <Property Name="ErrorLoginCount" Type="int" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="LastLoginIp" Type="varchar" MaxLength="15" />
+          <Property Name="Exps" Type="bigint" Nullable="false" />
+          <Property Name="MemberLevel" Type="int" Nullable="false" />
+          <Property Name="MemberLevel2" Type="int" />
+          <Property Name="MemberLevel3" Type="int" />
+          <Property Name="MemberLevel4" Type="int" />
+          <Property Name="MemberLevel5" Type="int" />
+          <Property Name="SportsRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="RealRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="GameRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="LotteryRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="PicURL" Type="varchar" MaxLength="100" />
+          <Property Name="AlarmType" Type="tinyint" Nullable="false" />
+          <Property Name="WarPoints" Type="bigint" Nullable="false" />
+          <Property Name="LockStatus" Type="tinyint" Nullable="false" />
+          <Property Name="EGameTuiShui" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="MemberType" Type="tinyint" Nullable="false" />
+          <Property Name="IsOnline" Type="bit" />
+          <Property Name="Token" Type="varchar" MaxLength="128" />
+          <Property Name="Mobile" Type="varchar" MaxLength="20" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="MemberComeFrom" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberLevels">
+          <Key>
+            <PropertyRef Name="MemberLevel" />
+          </Key>
+          <Property Name="MemberLevel" Type="int" Nullable="false" />
+          <Property Name="MemberLevelDescription" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="GameRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_Admin">
+          <Key>
+            <PropertyRef Name="AdminAccount" />
+          </Key>
+          <Property Name="AdminAccount" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LoginTimes" Type="int" Nullable="false" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="UpdateAdminAccount" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_A_Member_MemberLevels">
+          <End Role="MemberLevels" Type="Self.MemberLevels" Multiplicity="1" />
+          <End Role="A_Member" Type="Self.A_Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberLevels">
+              <PropertyRef Name="MemberLevel" />
+            </Principal>
+            <Dependent Role="A_Member">
+              <PropertyRef Name="MemberLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GamePlatformModelStoreContainer">
+          <EntitySet Name="A_Member" EntityType="Self.A_Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberLevels" EntityType="Self.MemberLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Admin" EntityType="Self.t_Admin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_A_Member_MemberLevels" Association="Self.FK_A_Member_MemberLevels">
+            <End Role="MemberLevels" EntitySet="MemberLevels" />
+            <End Role="A_Member" EntitySet="A_Member" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GamePlatformModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GamePlatformEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_Admin" EntityType="GamePlatformModel.t_Admin" />
+          <EntitySet Name="MemberLevels" EntityType="GamePlatformModel.MemberLevels" />
+          <EntitySet Name="A_Member" EntityType="GamePlatformModel.A_Member" />
+          <AssociationSet Name="FK_A_Member_MemberLevels" Association="GamePlatformModel.FK_A_Member_MemberLevels">
+            <End Role="MemberLevels" EntitySet="MemberLevels" />
+            <End Role="A_Member" EntitySet="A_Member" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="t_Admin">
+          <Key>
+            <PropertyRef Name="AdminAccount" />
+          </Key>
+          <Property Name="AdminAccount" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="LoginTimes" Type="Int32" Nullable="false" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateAdminAccount" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MemberLevels">
+          <Key>
+            <PropertyRef Name="MemberLevel" />
+          </Key>
+          <Property Name="MemberLevel" Type="Int32" Nullable="false" />
+          <Property Name="MemberLevelDescription" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GameRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <NavigationProperty Name="A_Member" Relationship="GamePlatformModel.FK_A_Member_MemberLevels" FromRole="MemberLevels" ToRole="A_Member" />
+        </EntityType>
+        <EntityType Name="A_Member">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="MemberAccount" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="MemberPassword" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpMemberID" Type="Int32" />
+          <Property Name="PauseAccount" Type="Byte" Nullable="false" />
+          <Property Name="ErrorLoginCount" Type="Int32" Nullable="false" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginIp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Exps" Type="Int64" Nullable="false" />
+          <Property Name="MemberLevel" Type="Int32" Nullable="false" />
+          <Property Name="MemberLevel2" Type="Int32" />
+          <Property Name="MemberLevel3" Type="Int32" />
+          <Property Name="MemberLevel4" Type="Int32" />
+          <Property Name="MemberLevel5" Type="Int32" />
+          <Property Name="SportsRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="RealRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="GameRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="LotteryRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="PicURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AlarmType" Type="Byte" Nullable="false" />
+          <Property Name="WarPoints" Type="Int64" Nullable="false" />
+          <Property Name="LockStatus" Type="Byte" Nullable="false" />
+          <Property Name="EGameTuiShui" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="MemberType" Type="Byte" Nullable="false" />
+          <Property Name="IsOnline" Type="Boolean" />
+          <Property Name="Token" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MemberComeFrom" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="MemberLevels" Relationship="GamePlatformModel.FK_A_Member_MemberLevels" FromRole="A_Member" ToRole="MemberLevels" />
+        </EntityType>
+        <Association Name="FK_A_Member_MemberLevels">
+          <End Type="GamePlatformModel.MemberLevels" Role="MemberLevels" Multiplicity="1" />
+          <End Type="GamePlatformModel.A_Member" Role="A_Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberLevels">
+              <PropertyRef Name="MemberLevel" />
+            </Principal>
+            <Dependent Role="A_Member">
+              <PropertyRef Name="MemberLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GamePlatformModelStoreContainer" CdmEntityContainer="GamePlatformEntities">
+          <EntitySetMapping Name="t_Admin">
+            <EntityTypeMapping TypeName="GamePlatformModel.t_Admin">
+              <MappingFragment StoreEntitySet="t_Admin">
+                <ScalarProperty Name="UpdateAdminAccount" ColumnName="UpdateAdminAccount" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AdminAccount" ColumnName="AdminAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberLevels">
+            <EntityTypeMapping TypeName="GamePlatformModel.MemberLevels">
+              <MappingFragment StoreEntitySet="MemberLevels">
+                <ScalarProperty Name="GameRate" ColumnName="GameRate" />
+                <ScalarProperty Name="MemberLevelDescription" ColumnName="MemberLevelDescription" />
+                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_Member">
+            <EntityTypeMapping TypeName="GamePlatformModel.A_Member">
+              <MappingFragment StoreEntitySet="A_Member">
+                <ScalarProperty Name="MemberComeFrom" ColumnName="MemberComeFrom" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+                <ScalarProperty Name="MemberType" ColumnName="MemberType" />
+                <ScalarProperty Name="EGameTuiShui" ColumnName="EGameTuiShui" />
+                <ScalarProperty Name="LockStatus" ColumnName="LockStatus" />
+                <ScalarProperty Name="WarPoints" ColumnName="WarPoints" />
+                <ScalarProperty Name="AlarmType" ColumnName="AlarmType" />
+                <ScalarProperty Name="PicURL" ColumnName="PicURL" />
+                <ScalarProperty Name="LotteryRate" ColumnName="LotteryRate" />
+                <ScalarProperty Name="GameRate" ColumnName="GameRate" />
+                <ScalarProperty Name="RealRate" ColumnName="RealRate" />
+                <ScalarProperty Name="SportsRate" ColumnName="SportsRate" />
+                <ScalarProperty Name="MemberLevel5" ColumnName="MemberLevel5" />
+                <ScalarProperty Name="MemberLevel4" ColumnName="MemberLevel4" />
+                <ScalarProperty Name="MemberLevel3" ColumnName="MemberLevel3" />
+                <ScalarProperty Name="MemberLevel2" ColumnName="MemberLevel2" />
+                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+                <ScalarProperty Name="Exps" ColumnName="Exps" />
+                <ScalarProperty Name="LastLoginIp" ColumnName="LastLoginIp" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="ErrorLoginCount" ColumnName="ErrorLoginCount" />
+                <ScalarProperty Name="PauseAccount" ColumnName="PauseAccount" />
+                <ScalarProperty Name="UpMemberID" ColumnName="UpMemberID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="MemberPassword" ColumnName="MemberPassword" />
+                <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

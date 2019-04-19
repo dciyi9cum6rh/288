@@ -1,0 +1,88 @@
+﻿@using DataModel
+@model MessageManagementManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+
+@*9-8.系統在View【Views/Shared/Components/OrderList/Default.cshtml】中判斷9-7傳回之listOrderListViewModel!=null and Count>0。*@
+@if (Model.listMessageManagementList != null && Model.listMessageManagementList.Count > 0)
+{
+    @* // 9-9.系統在View【Views/Shared/Components/OrderList/Default.cshtml】中顯示[銷貨單清單]。*@
+    <div class="container container-fluid">
+        <table class="table table-bordered table-condensed" id="tableProduct">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>項次</th>
+                    <th>版別</th>
+                    <th>發佈時間</th>
+                    <th>留言者手機</th>
+                    <th>留言者暱稱</th>
+                    <th>留言標題</th>
+                    <th>留言內容</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in @Model.listMessageManagementList)
+                {
+                    <tr>
+                        <td>@o.MessageId</td>
+                        <td>@o.VersionName</td>
+                        <td>@o.MessageTime</td>
+                        <td>@o.MemberMobile</td>
+                        <td>@o.NickName</td>
+                        <td>@o.MessageTitle</td>
+                        <td>@o.MessageValue</td>
+                        <td>
+                            <a class="btn btn-default btn-MessageContent" role="button" title="內容"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></a>
+                            <a class="btn btn-default btn-MessageReply" role="button" title="回復"><span class="glyphicon glyphicon-text-size" aria-hidden="true"></span></a>
+                            <a class="btn btn-default btn-DeleteMessageManagement" role="button" title="刪除"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            @if (@o.MemberMobile != "0911111111" && @o.MemberMobile != "1111111111")
+                            {
+                                <a class="btn btn-default btn-UpdateMemberEnabled" role="button" title="停權"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            }
+                        </td>
+                    </tr>
+                    <tr></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    //Model 新增回復
+    <div class="modal fade" id="newReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增回復</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="ReplyVersionid" />
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">內容:</label>
+                        <textarea class="form-control" id="newReplyMessageValue"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="btn-NewReplyMessage">送出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    // 9-10.系統在View【Views/Shared/Components/OrderList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" page-link-size="pagination-md" a-class="page-link" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listOrderListViewModel!=null and Count>0)。
+    <h3>沒有留言待管理</h3>
+}

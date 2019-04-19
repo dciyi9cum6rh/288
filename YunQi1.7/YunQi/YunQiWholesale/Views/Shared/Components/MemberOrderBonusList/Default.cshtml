@@ -1,0 +1,78 @@
+@using DataModel
+@model MemberOrderBonusListManageViewModel
+
+@if (Model.listMemberOrderBonusListViewModel != null && Model.listMemberOrderBonusListViewModel.Count > 0)
+{
+    <div class="myfavorite-component">
+        <div class="container">
+            <div class="title-box border-bottom d-flex align-items-center mb-3">
+                <h2 class="mr-3">我的紅利</h2>
+                <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+            </div>         
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            <button type="button" class="btn btn-block btn-maintype" id="MybtnPrePage"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage/@Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            <button type="button" class="btn btn-block btn-maintype" id="MybtnNextPage"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-maintype" type="button" id="dropdownPageList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownPageList" id="FPageList">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="favoritelist-box">
+                <div class="accordion" id="accordionExample">
+                    <table class="cart-table table table-hover">
+                        <thead>
+                            <tr class="table-warning">
+                                <th scope="col" class="table-no" style="width: 20%;">訂單編號</th>
+                                <th scope="col" class="table-name" style="width: 20%;">訂單總金額</th>
+                                <th scope="col" class="table-pricing" style="width: 20%;">紅利</th>
+                                <th scope="col" class="table-size" style="width: 40%;">產生時間</th>                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (MemberOrderBonusListViewModel item in Model.listMemberOrderBonusListViewModel)
+                            {                             
+                                <tr> 
+                                    <td>@item.OrderId</td>
+                                    <td>@item.Amount</td>
+                                    <td>@item.OrderBonus</td>
+                                    <td>@item.RecordTime</td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                  
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div id="favoriteDetail" class="favoritedetail-box bg-light p-3"></div>*@
+    <div id="favoriteDetail" class="favoritedetail-box bg-light p-3"></div>
+}
+else
+{
+    <h3>沒有紅利</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+<script>
+    // 10.系統設定jCurrentPage=1，系統設定jTotallPages=9-7回傳TotalPages。
+    jCurrentPage =@Model.CurrentPage;
+    jTotallPages =@Model.TotalPages;  
+</script>

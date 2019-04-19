@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GamePlatformModelStoreContainer" CdmEntityContainer="GamePlatformEntities">
+    <EntitySetMapping Name="t_Admin">
+      <EntityTypeMapping TypeName="GamePlatformModel.t_Admin">
+        <MappingFragment StoreEntitySet="t_Admin">
+          <ScalarProperty Name="UpdateAdminAccount" ColumnName="UpdateAdminAccount" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+          <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="AdminAccount" ColumnName="AdminAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberLevels">
+      <EntityTypeMapping TypeName="GamePlatformModel.MemberLevels">
+        <MappingFragment StoreEntitySet="MemberLevels">
+          <ScalarProperty Name="GameRate" ColumnName="GameRate" />
+          <ScalarProperty Name="MemberLevelDescription" ColumnName="MemberLevelDescription" />
+          <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="A_Member">
+      <EntityTypeMapping TypeName="GamePlatformModel.A_Member">
+        <MappingFragment StoreEntitySet="A_Member">
+          <ScalarProperty Name="MemberComeFrom" ColumnName="MemberComeFrom" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+          <ScalarProperty Name="MemberType" ColumnName="MemberType" />
+          <ScalarProperty Name="EGameTuiShui" ColumnName="EGameTuiShui" />
+          <ScalarProperty Name="LockStatus" ColumnName="LockStatus" />
+          <ScalarProperty Name="WarPoints" ColumnName="WarPoints" />
+          <ScalarProperty Name="AlarmType" ColumnName="AlarmType" />
+          <ScalarProperty Name="PicURL" ColumnName="PicURL" />
+          <ScalarProperty Name="LotteryRate" ColumnName="LotteryRate" />
+          <ScalarProperty Name="GameRate" ColumnName="GameRate" />
+          <ScalarProperty Name="RealRate" ColumnName="RealRate" />
+          <ScalarProperty Name="SportsRate" ColumnName="SportsRate" />
+          <ScalarProperty Name="MemberLevel5" ColumnName="MemberLevel5" />
+          <ScalarProperty Name="MemberLevel4" ColumnName="MemberLevel4" />
+          <ScalarProperty Name="MemberLevel3" ColumnName="MemberLevel3" />
+          <ScalarProperty Name="MemberLevel2" ColumnName="MemberLevel2" />
+          <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+          <ScalarProperty Name="Exps" ColumnName="Exps" />
+          <ScalarProperty Name="LastLoginIp" ColumnName="LastLoginIp" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="ErrorLoginCount" ColumnName="ErrorLoginCount" />
+          <ScalarProperty Name="PauseAccount" ColumnName="PauseAccount" />
+          <ScalarProperty Name="UpMemberID" ColumnName="UpMemberID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="MemberPassword" ColumnName="MemberPassword" />
+          <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

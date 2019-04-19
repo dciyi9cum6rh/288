@@ -1,0 +1,388 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "商品管理";
+    DateTime dt = DateTime.Now;
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Product/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>商品管理</h2>
+    </div>
+    // 7.系統在View【Product / Index】顯示產品類別查詢元件。
+    <div class=" col-md-6">
+        <form class="form-inline" id="qFrom">
+            <div class="form-group">
+                <input type="text" class="form-control" id="ProductCategory" name="ProductCategory" placeholder="商品分類..">
+            </div>
+            <button type="submit" class="btn btn-default" id="btnCategorySearch">查詢</button>
+            <button type="submit" class="btn btn-default" id="btnCategoryAdd" title="為目前選取類別新增子類別">新增</button>
+        </form>
+    </div>
+    <div>
+        <form class="form-inline" id="pFrom">
+            <div class="form-group">
+                <input type="text" class="form-control" id="ProductCategoryProduct" name="ProductCategoryProduct" placeholder="商品分類..">
+                <input type="text" class="form-control" id="Product" name="Product" placeholder="商品名稱..">
+            </div>
+            <button type="submit" class="btn btn-default" id="btnSearch">查詢</button>
+            @*<button type="submit" class="btn btn-default" id="btnAdd" title="為目前選取類別新增子類別">新增</button>*@
+        </form>
+    </div>
+    // 8.系統在View【Product/Index】以<Div id="ProductLevelPath">顯示ViewComponent【ProductLevelPathViewComponent】(目前分類階層，格式為[總分類\子別\子子類別)，並傳送ProductCategoryId=ViewBag回傳ProductCategoryId。
+    <hr />
+    <Div id="ProductLevelPath">@await Component.InvokeAsync("ProductLevelPath", new { ProductCategoryId = ViewBag.ProductCategoryId })</Div>
+    <hr />
+    // 9.系統在View【Product/Index】以 <Div id = "ProductCategory"> 顯示ViewComponent【ProductCategoryViewComponent】(商品分類清單)，並傳送ProductCategoryId = ViewBag回傳ProductCategoryId。
+    <Div id="ProductCategory">@await Component.InvokeAsync("ProductCategory", new { ProductCategoryId = ViewBag.ProductCategoryId })</Div>
+    <hr />
+    <div id="ProductList"></div>
+    <hr />
+    <div id="add-one" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改商品分類</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostProductCategory" asp-controller="Product" method="post" id="CreateForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="ProductCategoryName" class="col-xs-2 control-label">商品分類名稱</label>
+                                <div class="col-xs-10"><input id="ProductCategoryName" type="text" name="ProductCategoryName" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="Memo" class="col-xs-2 control-label">商品分類說明</label>
+                                <div class="col-xs-10"><textarea rows="3" id="ProductCategoryDescription" name="ProductCategoryDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PictureContent" class="col-xs-2 control-label">商品分類圖片</label>
+                                <div class="col-xs-10"><input type="file" name="PictureContent" id="PictureContent" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmit" class="btn btn-primary">新增</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutProductCategory" asp-controller="Product" method="post" id="EditForm" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="EditProductCategoryName" class="col-xs-2 control-label">商品分類名稱</label>
+                                <div class="col-xs-10"><input id="EditProductCategoryName" type="text" name="EditProductCategoryName" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="EditMemo" class="col-xs-2 control-label">商品分類說明</label>
+                                <div class="col-xs-10"><textarea rows="3" id="EditProductCategoryDescription" name="EditProductCategoryDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="EditPictureContent" class="col-xs-2 control-label">商品分類圖片</label>
+                                <div class="col-xs-10"><input type="file" name="EditPictureContent" id="EditPictureContent" class="Editform-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="EditSubmit" class="btn btn-primary">修改</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改商品</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostProduct" asp-controller="Product" method="post" id="CreateFormP" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="ProductCategoryNameP" class="col-xs-2 control-label">商品分類</label>
+                                <div class="col-xs-4"><input id="ProductCategoryNameP" type="text" name="ProductCategoryNameP" class="form-control" disabled /></div>
+                                <label asp="ProductName" class="col-xs-2 control-label">商品名稱</label>
+                                <div class="col-xs-4"><input id="ProductName" type="text" name="ProductName" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="Price" class="col-xs-2 control-label">零售價</label>
+                                <div class="col-xs-2"><input id="Price" type="text" name="Price" class="form-control" /></div>
+                                <label asp="SaleLimitPrice" class="col-xs-2 control-label">批發價</label>
+                                <div class="col-xs-2"><input id="SaleLimitPrice" type="text" name="SaleLimitPrice" class="form-control" /></div>
+                                <label asp="OfferPrice" class="col-xs-2 control-label">量批價</label>
+                                <div class="col-xs-2"><input id="OfferPrice" type="text" name="OfferPrice" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="ProductDescription" class="col-xs-2 control-label">商品簡述</label>
+                                <div class="col-xs-10"><textarea rows="3" id="ProductDescription" name="ProductDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmitP" class="btn btn-primary">新增</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutProduct" asp-controller="Product" method="post" id="EditFormP" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label asp="EditProductCategoryNameP" class="col-xs-2 control-label">商品分類</label>
+                                <div class="col-xs-4"><input id="EditProductCategoryNameP" type="text" name="EditProductCategoryNameP" class="form-control" disabled /></div>
+                                <label asp="EditProductName" class="col-xs-2 control-label">商品名稱</label>
+                                <div class="col-xs-4"><input id="EditProductName" type="text" name="EditProductName" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="EditPrice" class="col-xs-2 control-label">零售價</label>
+                                <div class="col-xs-2"><input id="EditPrice" type="text" name="EditPrice" class="form-control" /></div>
+                                <label asp="EditSaleLimitPrice" class="col-xs-2 control-label">批發價</label>
+                                <div class="col-xs-2"><input id="EditSaleLimitPrice" type="text" name="EditSaleLimitPrice" class="form-control" /></div>
+                                <label asp="EditOfferPrice" class="col-xs-2 control-label">量批價</label>
+                                <div class="col-xs-2"><input id="EditOfferPrice" type="text" name="EditOfferPrice" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp="EditProductDescription" class="col-xs-2 control-label">商品簡述</label>
+                                <div class="col-xs-10"><textarea rows="3" id="EditProductDescription" name="EditProductDescription" class="form-control"></textarea></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="EditSubmitP" class="btn btn-primary">修改</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/修改商品圖示</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostProductImage" asp-controller="Product" method="post" id="CreateFormI" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="PictureContentI" class="col-xs-2 control-label">商品圖示</label>
+                                <div class="col-xs-10"><input type="file" name="PictureContentI" id="PictureContentI" class="form-control" multiple /></div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmitI" class="btn btn-primary">新增</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="PutProductImage" asp-controller="Product" method="post" id="EditFormI" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="EditPictureContentI" class="col-xs-2 control-label">商品圖示</label>
+                                <div class="col-xs-10"><input type="file" name="EditPictureContentI" id="EditPictureContentI" class="form-control" /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="EditSubmitI" class="btn btn-primary">修改</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneS" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">商品庫存盤整</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostProductStock" asp-controller="Product" method="post" id="CreateFormS" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="ProductN" class="col-xs-2 control-label">商品名稱</label>
+                                <div class="col-xs-4"><input id="ProductN" type="text" name="ProductN" class="form-control input-sm" disabled /></div>
+                                <label for="ProductSizeN" class="col-xs-2 control-label">商品尺寸</label>
+                                <div class="col-xs-4"><input id="ProductSizeN" type="text" name="ProductSizeN" class="form-control input-sm" disabled /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ProductColorN" class="col-xs-2 control-label">商品顏色</label>
+                                <div class="col-xs-4"><input id="ProductColorN" type="text" name="ProductColorN" class="form-control input-sm" disabled /></div>
+                                <label for="StockConsolidationTime" class="col-xs-2 control-label">現在時間</label>
+                                <div class="col-xs-4"><input id="StockConsolidationTime" type="text" name="StockConsolidationTime" class="form-control input-sm" disabled /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Stock" class="col-xs-2 control-label">原庫存</label>
+                                <div class="col-xs-2"><input id="Stock" type="text" name="Stock" class="form-control input-sm" readonly /></div>
+                                <label for="StockConsolidatio" class="col-xs-2 control-label">正確庫存</label>
+                                <div class="col-xs-2"><input id="StockConsolidatio" type="text" name="StockConsolidatio" class="form-control input-sm" /></div>
+                                <label for="Consolidation" class="col-xs-2 control-label">盤整量</label>
+                                <div class="col-xs-2"><input id="Consolidation" type="text" name="Consolidation" class="form-control input-sm" readonly /></div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" id="CreateSubmitS" class="btn btn-primary">確定</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneSize" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/刪除商品尺寸</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostProductSize" asp-controller="Product" method="post" id="CreateFormSize" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-xs-6">
+                                    <div class="form-group row">
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-6"><input id="ProductSize" type="text" name="ProductSize" class="form-control" placeholder="尺寸" /></div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-6"><button type="button" class="btn btn-default btn-AddSize">新增</button></div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-6"><button type="button" class="btn btn-default btn-DelSize">刪除</button></div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group row">
+                                        <select class="form-control" id="selSize" name="selSize" size="5"></select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-oneColor" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增/刪除商品顏色</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="PostProductColor" asp-controller="Product" method="post" id="CreateFormColor" enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-xs-6">
+                                    <div class="form-group row">
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-6"><input id="ProductColor" type="text" name="ProductColor" class="form-control" placeholder="顏色" /></div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-6"><button type="button" class="btn btn-default btn-AddColor">新增</button></div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-6"><button type="button" class="btn btn-default btn-DelColor">刪除</button></div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group row">
+                                        <select class="form-control" id="selColor" name="selColor" size="5"></select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/Product.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/Product.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+
+            $(function () {
+                Productfunction({
+                    jProductCategoryId: @ViewBag.ProductCategoryId,
+                    GetProductCategoryUrl: '@Url.Action("GetProductCategory", "Product")',
+                    GetProductLevelPathUrl: '@Url.Action("GetProductLevelPath", "Product")',
+                    DeleteProductCategoryUrl: '@Url.Action("DeleteProductCategory", "Product")',
+                    GetProductListUrl: '@Url.Action("GetProductList", "Product")',
+                    GetProductUrl: '@Url.Action("GetProduct", "Product")',
+                    DeleteProductUrl: '@Url.Action("DeleteProduct", "Product")',
+                    GetProductImageListUrl: '@Url.Action("GetProductImageList", "Product")',
+                    DeleteProductImageUrl: '@Url.Action("DeleteProductImage", "Product")',
+                    SetProductImageUrl: '@Url.Action("SetProductImage", "Product")',
+                    jsDate: '@dt.ToShortDateString()',
+                    GetProductSizeUrl: '@Url.Action("GetProductSize", "Product")',
+                    DeleteProductSizeUrl: '@Url.Action("DeleteProductSize", "Product")',
+                    GetProductColorUrl: '@Url.Action("GetProductColor", "Product")',
+                    DeleteProductColorUrl: '@Url.Action("DeleteProductColor", "Product")',
+                    GetProductStockListUrl: '@Url.Action("GetProductStockList", "Product")',
+                    UpdateProductImageOrderUrl: '@Url.Action("UpdateProductImageOrder", "Product")'
+                });
+            });
+        </script>
+    }
+}
+else
+{
+    // 6a.系統在View【Product/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}

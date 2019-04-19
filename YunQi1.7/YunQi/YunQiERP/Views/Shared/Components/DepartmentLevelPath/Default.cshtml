@@ -1,0 +1,11 @@
+﻿@using DataModel
+@model List<DepartmentLevelPathViewModel>
+@*78-3.系統在View【Views/Shared/Components/DepartmentLevelPath/Default.cshtml】中顯示[目前部門階層]。*@
+<div class="container">
+    <ol class="breadcrumb">
+        @for (int i = Model.Count() - 1; i >= 0; i--)
+        {
+            <li><a href="#" class="DepartmentLevelPathList" title="@Model[i].DepartmentId">@Model[i].Department</a></li>
+        }
+    </ol>
+</div>

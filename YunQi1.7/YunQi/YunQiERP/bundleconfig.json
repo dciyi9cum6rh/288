@@ -1,0 +1,38 @@
+//[
+//  {
+//    "outputFileName": "wwwroot/js/Product.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/Product.js"
+//    ]
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/Accounting.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/Accounting.js"
+//    ]
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/DatatimeSetting.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/DatatimeSetting.js"
+//    ]
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/jquery-ui-sliderAccess.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/jquery-ui-sliderAccess.js"
+//    ]
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/jquery-ui-timepicker-addon.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/jquery-ui-timepicker-addon.js"
+//    ]
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/Stock.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/Stock.js"
+//    ]
+//  }
+//]

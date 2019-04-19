@@ -1,0 +1,54 @@
+﻿@using DataModel
+@model MessageCenterListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*9-8.系統在View【Views/Shared/Components/OrderList/Default.cshtml】中判斷9-7傳回之listOrderListViewModel!=null and Count>0。*@
+@*@if (Model.listOrderListViewModel != null && Model.listOrderListViewModel.Count > 0)*@
+
+@if (Model.listGetMailCenterMessageListViewModel != null && Model.listGetMailCenterMessageListViewModel.Count > 0)
+{
+    @* // if9.系統在View【Views/Shared/Components/OrderList/Default.cshtml】中顯示[銷貨單清單]。*@
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>項次</th>
+                    <th>發布時間</th>
+                    <th>發布對象</th>
+                    <th>主旨</th>
+                    <th>內容</th>
+                    <th>發布人</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in @Model.listGetMailCenterMessageListViewModel)
+                {
+                    <tr>
+                        <td>@o.MessageId</td>
+                        <td>@o.MessageTime</td>
+                        <td>@o.MemberLevel</td>
+                        <td>@o.MessageTitle</td>
+                        <td>@o.MessageValue</td>
+                        <td>@o.EmployeeMobile</td>
+                        <td>
+                            <a class="btn btn-default btn-DelMessage" data-memberlerelid="@o.MemberLevelid" role="button" title="刪除"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @*// 9-10.系統在View【Views/Shared/Components/OrderList/Default.cshtml】中顯示換頁超連結。*@
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    // 9-8a.系統判斷!(9-7傳回之listOrderListViewModel!=null and Count>0)。
+    <h3>沒有訊息</h3>
+}

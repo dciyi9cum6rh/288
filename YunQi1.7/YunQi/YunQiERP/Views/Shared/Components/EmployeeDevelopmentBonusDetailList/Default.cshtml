@@ -1,0 +1,42 @@
+﻿@using DataModel
+@model EmployeeDevelopmentBonusDetailListManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int Page = ViewBag.Page;
+    int id = (Page - 1) * 10;
+}
+@*9-8.系統在View【Views/ShareC:\Users\Tiorn\Desktop\1129_1\YunQi1128\YunQiERP\Views\Shared\Components\MemberBonusDetailList\Default.cshtmld/Components/MemberBonusDetailList/Default.cshtml】中判斷9-7傳回之listMemberBonusDetailListViewModel!=null and Count>0。*@
+
+@if (Model.listEmployeeDevelopmentBonusDetailList != null && Model.listEmployeeDevelopmentBonusDetailList.Count > 0)
+{
+    //9-9.系統在View【Views/Shared/Components/MemberBonusDetailList/Default.cshtml】中顯示[批發會員獎金清單]。
+    <div class="container container-fluid">
+        <table class="table table-bordered table-condensed" id="tableProduct">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>會員手機</th>
+                    <th>會員姓名</th>
+                    <th>日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.listEmployeeDevelopmentBonusDetailList)
+                {
+                    <tr>
+                        <th>@o.MemberMobile</th>
+                        <th>@o.MemberName</th>
+                        <th>@o.VipDate</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    //9-10.系統在View【Views/Shared/Components/MemberBonusDetailList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" page-link-size="pagination-md" a-class="inner-page-link" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有會員發展獎金</h3>
+}

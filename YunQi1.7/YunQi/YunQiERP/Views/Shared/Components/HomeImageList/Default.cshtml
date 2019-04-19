@@ -1,0 +1,48 @@
+﻿@using DataModel
+@model HomeImageManageViewModel
+@{
+    List<int> tR = ViewBag.TR;
+    int id = 0;
+}
+@*9-8.系統在View【Views/Shared/Components/HomeImageList/Default.cshtml】中判斷9-7傳回之listHomeImageListViewModel!=null and Count>0。*@
+@if (Model.listHomeImageListViewModel != null && Model.listHomeImageListViewModel.Count > 0)
+{
+    // 9-9.系統在View【Views/Shared/Components/HomeImageList/Default.cshtml】中顯示[目前首頁行銷圖示清單] (含修改與刪除)。
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>圖示代碼</th>
+                    <th>圖示檔名</th>
+                    <th>圖示</th>
+                    <th>圖示說明</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (HomeImageViewModel MLVM in Model.listHomeImageListViewModel)
+                {
+                    id += 1;
+                    <tr data-HomeImageid="@MLVM.HomeImageId">
+                        <td>@MLVM.HomeImageId</td>
+                        <td>@MLVM.FileName</td>
+                        <td class="item-pic"><img src="@Url.Action("GetOneHomeImage", "HomeImage", new { HomeImageId = MLVM.HomeImageId })" alt="@MLVM.FileName" class="img-responsive" style="max-width:200px;max-height:200px;" /></td>
+                        <td>@Html.Raw(MLVM.HomeImageDescription.Replace("\n", "<br />"))</td>
+                        <td>
+                            <a class="btn btn-default btn-edit" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="修改"></span></a>
+                            <a class="btn btn-default btn-delete" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="刪除"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    // 9-10.系統在View【Views/Shared/Components/HomeImageList/Default.cshtml】中顯示換頁超連結。
+    <div>
+        <pager current-page="@Model.CurrentPage" page-count="@Model.PageCount" parameters="null" start-page="@Model.StartPage" total-pages="@Model.TotalPages" url="@Url.Action("GetHomeImageList", "HomeImage")" page-link-size="pagination-md" a-class="@Model.AClass" link-type="@Model.LinkType"></pager>
+    </div>
+}
+else
+{
+    <h3>沒有首頁行銷圖示</h3>
+}

@@ -1,0 +1,115 @@
+@using DataModel
+@model ProductListManageViewModel
+@{
+    string tmp = Model.ProductCategory;
+}
+@*79-8.系統在View【Views/Shared/Components/OfferProductList/Default.cshtml】中判斷9-7傳回之listOfferProductListViewModel!=null and Count>0。*@
+@if (Model.listProductListViewModel != null && Model.listProductListViewModel.Count > 0)
+{
+    @*99-9.系統在View【Views/Shared/Components/OfferProductList/Default.cshtml】中顯示[商品清單]。*@
+    <div class="productsearch-box row">
+        <div class="formobile col-12 col-sm-12 col-md-12 mb-3">
+            <button id="mobileSide" type="button" class="btn btn-maintype">分類</button>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
+            <form>
+                <div class="input-group">
+                    <span class="input-group-addon" style="color:green;" id="spanProductCategory"></span>
+                    <input id="Product" type="text" class="form-control" name="Product" placeholder="商品名稱">
+                </div>
+            </form>
+        </div>
+        <div class="col-5 col-sm-5 col-md-2 col-lg-3 col-xl-3">
+            <input id="lowPrice" type="text" placeholder="最低價" class="form-control" name="lowPrice" />
+        </div>
+        <div class="flexcenter col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">~</div>
+        <div class="col-5 col-sm-5 col-md-2 col-lg-3 col-xl-3">
+            <input id="hightPrice" type="text" placeholder="最高價" class="form-control" name="hightPrice" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <button type="button" class="btn btn-block btn-maintype" id="btnSerachProduct">搜尋商品</button>
+        </div>
+    </div>
+    @*9-10.系統在View【Views/Shared/Components/ProductList/Default.cshtml】中顯示換頁超連結。*@
+    <div class="pagination-box row justify-content-between">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+            <div class="row mb-3">
+                <div class="col-8 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            @*<button type="button" class="btn btn-secondary btn-block" id="btnPrePage"><i class="fas fa-angle-left"></i></button>*@
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4"></div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            @*<button type="button" class="btn btn-secondary btn-block" id="btnNextPage"><i class="fas fa-angle-right"></i></button>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+                    <div class="dropdown">
+                        @*<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="PageList">
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                                }
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+            <div class="row">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnOfferProduct">優惠商品</button>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnAllProduct">所有商品</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*9-9.系統在View【Views/Shared/Components/ProductList/Default.cshtml】中顯示[商品清單]。*@
+    <div class="productlist-box container">
+        <div class="row">
+            @*9-9.系統在View【Views/Shared/Components/ProductList/Default.cshtml】中顯示[商品清單]。*@
+            @foreach (var item in Model.listProductListViewModel)
+            {
+                <div class="productlist-item col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                    <img src="@Url.Action("GetProductImage", "Mall", new { ProeuctId = item.ProductId })" alt="@item.Product" class="product-pic" data-productid="@item.ProductId" />
+                    <div class="producty-name">@item.Product</div>
+                    <div class="product-pricing">零售價：@($"{item.Price:#,###}")元</div>
+                    <div class="product-upset">批發價：@($"{item.SaleLimitPrice:#,###}")元</div>
+                    <div class="product-special">量批價：@($"{item.OfferPrice:#,###}")元</div>
+                    <div class="function-box container">
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <button type="button" class="btn btn-block btn-maintype"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <button type="button" class="btn btn-block btn-maintype"><i class="fas fa-star"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @*商品詳細資料*@
+    <div id="productDetail" class="productdetail-box bg-light p-3">
+    </div>
+}
+else
+{
+    <h3>沒有商品</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+@*<script>
+        // 10.系統設定jCurrentPage=1，系統設定jTotallPages=9-7回傳TotalPages。
+        jCurrentPage =@Model.CurrentPage;
+        jTotallPages =@Model.TotalPages;
+        jProductCategoryId =@Model.ProductCategoryId;
+        $("#Product").val('@Html.Raw(Model.Product)');
+        $("#lowPrice").val('@Model.lowPrice');
+        $("#hightPrice").val('@Model.hightPrice');
+    </script>*@

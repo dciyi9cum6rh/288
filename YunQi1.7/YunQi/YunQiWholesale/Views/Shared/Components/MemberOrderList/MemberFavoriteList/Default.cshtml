@@ -1,0 +1,100 @@
+@using DataModel
+@model MemberFavoriteListManageViewModel
+@{
+    string tmp = Model.Product;
+}
+@*9-8.系統在View【Views/Shared/Components/MemberFavoriteList/Default.cshtml】中判斷9-7傳回之listMemberFavoriteListViewModel!=null and Count>0。*@
+@if (Model.listMemberFavoriteListViewModel != null && Model.listMemberFavoriteListViewModel.Count > 0)
+{
+    <div class="myfavorite-component">
+        <div class="container">
+            <div class="title-box border-bottom d-flex align-items-center mb-3">
+                <h2 class="mr-3">我的最愛</h2>
+                <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+            </div>
+            <div class="shipsearch-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <input id="fProduct" type="text" placeholder="商品名稱" class="form-control" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <button type="button" class="btn btn-block btn-maintype" id="btnSearchF">搜尋</button>
+                </div>
+            </div>
+            <div class="pagination-box row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            <button type="button" class="btn btn-block btn-maintype" id="MybtnPrePage"><i class="fas fa-angle-left"></i></button>
+                        </div>
+                        <div class="pagination flexcenter col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4">@Model.CurrentPage/@Model.TotalPages</div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-4">
+                            <button type="button" class="btn btn-block btn-maintype" id="MybtnNextPage"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle btn-maintype" type="button" id="dropdownPageList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">第1頁</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownPageList" id="FPageList">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <a class="dropdown-item" href="#" data-page="@(i)">第@(i)頁</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="favoritelist-box">
+                <div class="accordion" id="accordionExample">
+                    @foreach (ProductListViewModel item in Model.listMemberFavoriteListViewModel)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 fcard">
+                                        <a class="btn btn-favoritedetail btn-maintype" role="button" data-productid="@item.ProductId">
+                                            <img src="@Url.Action("GetProductImage", "Home", new { ProeuctId = item.ProductId })" alt="" class="img-fluid" data-productid="@item.ProductId" />
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                        <div class="item-info row">
+                                            <div class="title col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 pt-2 pb-2"> 品名：</div>
+                                            <a class="d-flex align-items-center" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="false" aria-controls="collapseOne">@item.Product</a>
+                                        </div>
+                                        <div class="item-info row">
+                                            <div class="title col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 pt-2 pb-2">編號：@item.ProductId</div>
+                                        </div>
+                                        <div class="item-info row">
+                                            <div class="title col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 pt-2 pb-2">售價：@item.Price</div>
+                                        </div>
+                                        <div class="item-info row">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pt-2 pb-2">
+                                                <button type="button" class="btn btn-favoritedetail btn-maintype" data-productid="@item.ProductId"><i class="fas fa-cart-plus mr-2"></i>加入購物車</button>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pt-2 pb-2">
+                                                <button type="button" class="btn btn-favoritedelete btn-maintype" data-productid="@item.ProductId"><i class="fas fa-minus mr-2"></i>刪除</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div id="favoriteDetail" class="favoritedetail-box bg-light p-3"></div>*@
+    <div id="favoriteDetail" class="favoritedetail-box bg-light p-3"></div>
+}
+else
+{
+    <h3>沒有最愛</h3>
+    <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
+}
+<script>
+    // 10.系統設定jCurrentPage=1，系統設定jTotallPages=9-7回傳TotalPages。
+    jCurrentPage =@Model.CurrentPage;
+    jTotallPages =@Model.TotalPages;
+    $("#fProduct").val('@Html.Raw(Model.Product)');
+</script>

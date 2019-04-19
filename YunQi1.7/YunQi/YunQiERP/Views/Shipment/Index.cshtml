@@ -1,0 +1,51 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "出貨單下載";
+    int id = 0;
+}
+@if (ViewBag.HavePrivilege == true)
+{
+    // 6.系統在View【Order/Index】判斷ViewBag.HavePrivilege=true。
+    <div class="page-header">
+        <h2>出貨單下載</h2>
+    </div>
+    <hr />
+    <div class="container container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="color:gainsboro;background-color:#000000">
+                    <th>#</th>
+                    <th>出貨單Excel檔</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (string MLVM in Model)
+                {
+                    id += 1;
+                    <tr>
+                        <td>@id</td>
+                        <td><a href="~/xlsx/@MLVM">@MLVM</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @section scripts{
+        <environment names="Development">
+            <script src="~/lib/jquery.form.js" asp-append-version="true"></script>
+            <script src="~/js/Order.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery.form.min.js" asp-append-version="true"></script>
+            <script src="~/js/Order.js" asp-append-version="true"></script>
+        </environment>
+    }
+}
+else
+{
+    // 6a.系統在View【Order/Index】判斷ViewBag.HavePrivilege=false。
+    //  6a-1.系統顯示"無此權限"。
+    <div class="page-header">
+        <h2>無此權限</h2>
+    </div>
+}
