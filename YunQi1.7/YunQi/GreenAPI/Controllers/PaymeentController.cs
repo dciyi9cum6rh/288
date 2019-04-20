@@ -62,7 +62,7 @@ namespace GreenAPI.Controllers
                         {
                             // 6.系統判斷4傳回值之CheckMacValue!=""。
                             // 6-1.系統設定OrderStateId=4。
-                            OrderStateId = 5;
+                            OrderStateId = 4;
                         }
                         else
                         {

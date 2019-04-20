@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="Default web Site/dreammaker/GreenApi" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\IBOBO網站\\YunQi\\GreenAPI\\obj\\Release\\netcoreapp2\.1\\PubTmp\\Out\\$" />
+  <parameter name="IIS Web Application Name" description="" value="YunQiWholesale/GreenAPI" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\lab\\288\\YunQi1\.7\\YunQi\\GreenAPI\\obj\\Release\\netcoreapp2\.1\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>
