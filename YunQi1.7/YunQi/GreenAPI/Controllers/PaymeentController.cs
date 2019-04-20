@@ -77,19 +77,19 @@ namespace GreenAPI.Controllers
                         {
                             // 8-1.系統判斷7傳回值=0。
                             // 8-2.系統寄發己付款eMail。
-                            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                            mail.To.Add(cmvm.eMail);
-                            mail.From = new System.Net.Mail.MailAddress($@"{IEC.SmtpUsername}@{IEC.SmtpServer}");
-                            mail.Subject = "288訂購訊息";
-                            mail.Body = "您好，\n";
-                            mail.Body += $"您在288建立的訂單己付款完成，訂單代碼為{cmvm.OrderId}，<br>";
-                            mail.Body += $"若為會員，請至本平台會員中心查詢訂單處理狀態，<br>";
-                            mail.Body += $"若非會員，本平台會寄送eMail告知訂單處理狀況，<br>";
-                            mail.Body += $"288網址：http://288ibobo.com ，<br>";
-                            mail.Body += $"客服專線：04-28825252";
-                            mail.Body += $"288應謝您！";
-                            mail.IsBodyHtml = true;
-                            IES.SendMail(mail);
+                            //System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+                            //mail.To.Add(cmvm.eMail);
+                            //mail.From = new System.Net.Mail.MailAddress($@"{IEC.SmtpUsername}@{IEC.SmtpServer}");
+                            //mail.Subject = "288訂購訊息";
+                            //mail.Body = "您好，\n";
+                            //mail.Body += $"您在288建立的訂單己付款完成，訂單代碼為{cmvm.OrderId}，<br>";
+                            //mail.Body += $"若為會員，請至本平台會員中心查詢訂單處理狀態，<br>";
+                            //mail.Body += $"若非會員，本平台會寄送eMail告知訂單處理狀況，<br>";
+                            //mail.Body += $"288網址：http://288ibobo.com ，<br>";
+                            //mail.Body += $"客服專線：04-28825252";
+                            //mail.Body += $"288應謝您！";
+                            //mail.IsBodyHtml = true;
+                            //IES.SendMail(mail);
                             // 9系統回傳"1|OK"。
                             ret = "1|OK";
                         }
