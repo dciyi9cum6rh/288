@@ -97,7 +97,7 @@ using YunQiWholesale.Models;
                         ");
             EndContext();
             BeginContext(2431, 29, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5179c82c5aeb4a53a242399c9f953d92", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "75f7e1c1f995444aabb0c125229bd980", async() => {
                 BeginContext(2449, 2, true);
                 WriteLiteral("女性");
                 EndContext();
@@ -119,7 +119,7 @@ using YunQiWholesale.Models;
             WriteLiteral("\r\n                        ");
             EndContext();
             BeginContext(2486, 29, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a55f811a7fc54a77b9447af103ee54ef", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "43a4e8ac8f31465899ea2088539c2a90", async() => {
                 BeginContext(2504, 2, true);
                 WriteLiteral("男性");
                 EndContext();
@@ -141,7 +141,7 @@ using YunQiWholesale.Models;
             WriteLiteral("\r\n                        ");
             EndContext();
             BeginContext(2541, 40, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0bad4f395d564732917045ef3c22d967", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c168d15db2334c00877c42b3023ffaf7", async() => {
                 BeginContext(2568, 4, true);
                 WriteLiteral("暫不告知");
                 EndContext();

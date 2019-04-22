@@ -181,7 +181,7 @@ using YunQiWholesale.Models;
                 ");
             EndContext();
             BeginContext(4753, 288, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc3abf5d761945f386d65360a83816a1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3731094f35a24a15ab419c7164cc160b", async() => {
                 BeginContext(4759, 275, true);
                 WriteLiteral(@"
                     <div class=""form-group"">
