@@ -98,8 +98,8 @@ namespace YunQiERP.ViewComponents
                 }
                 ItemName = ItemName.Substring(0, ItemName.Length - 1);
                 PostCollection.Add("ItemName", ItemName);
-                PostCollection.Add("ReturnURL", config.GetConnectionString("ReturnURL"));
-                PostCollection.Add("PaymentInfoURL", config.GetConnectionString("PaymentInfoURL"));
+                PostCollection.Add("ReturnURL", "http://59.126.111.115/GreenApi/api/Paymeent/PostCardInfo");
+                PostCollection.Add("PaymentInfoURL", "http://59.126.111.115/GreenApi/api/Paymeent/PostPaymentInfo");
                 PostCollection.Add("ChoosePayment", "ALL");
                 PostCollection.Add("EncryptType", "1");
                 PostCollection.Add("NeedExtraPaidInfo", "N");
