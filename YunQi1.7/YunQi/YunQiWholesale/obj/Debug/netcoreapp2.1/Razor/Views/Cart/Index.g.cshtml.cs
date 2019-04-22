@@ -238,7 +238,7 @@ using DataModel;
             WriteLiteral("                                                    ");
             EndContext();
             BeginContext(3847, 70, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0c03a0487fba4ac0b94850f69da31248", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c30ae6335fdb40bfb3730837201b2d8f", async() => {
                 BeginContext(3892, 16, false);
 #line 66 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Cart\Index.cshtml"
                                                                                            Write(size.ProductSize);
@@ -284,7 +284,7 @@ using DataModel;
             WriteLiteral("                                                    ");
             EndContext();
             BeginContext(4127, 61, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6233eb8938d047ceafa612f4bc65030e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "29fa3462a80c4a47b637b263dc1b66ec", async() => {
                 BeginContext(4163, 16, false);
 #line 70 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Cart\Index.cshtml"
                                                                                   Write(size.ProductSize);
@@ -347,7 +347,7 @@ using DataModel;
             WriteLiteral("                                                    ");
             EndContext();
             BeginContext(4861, 75, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c1c96a4d9ee415195a5e2670c7ed048", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ad562644f92c411cb104c9a068df075b", async() => {
                 BeginContext(4909, 18, false);
 #line 81 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Cart\Index.cshtml"
                                                                                               Write(color.ProductColor);
@@ -393,7 +393,7 @@ using DataModel;
             WriteLiteral("                                                    ");
             EndContext();
             BeginContext(5146, 66, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f9523c6f012b4054a53d2671e725293d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "da0d20d01d344a1d8f2a2aa02e60b63a", async() => {
                 BeginContext(5185, 18, false);
 #line 85 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Cart\Index.cshtml"
                                                                                      Write(color.ProductColor);
@@ -747,7 +747,7 @@ WriteAttributeValue("", 10908, Model.MVM.eMail, 10908, 16, false);
             WriteLiteral("                            <div class=\"titlefunction-box\">\r\n                                <select class=\"btn btn-maintype\" id=\"CartShipaddress\">\r\n                                    ");
             EndContext();
             BeginContext(11990, 32, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e7d781b8c7e64923ba0b310244297e79", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5fd13f5c24d462a88ffcdd00c7c2b4a", async() => {
                 BeginContext(12007, 6, true);
                 WriteLiteral("選擇送貨資料");
                 EndContext();
@@ -778,7 +778,7 @@ WriteAttributeValue("", 10908, Model.MVM.eMail, 10908, 16, false);
             WriteLiteral("                                        ");
             EndContext();
             BeginContext(12171, 78, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1aff76c1f7f94071860c189e46eaa891", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "097deba3cfb94a7793c3654f9856972d", async() => {
                 BeginContext(12207, 12, false);
 #line 194 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Cart\Index.cshtml"
                                                                       Write(o.MemberName);

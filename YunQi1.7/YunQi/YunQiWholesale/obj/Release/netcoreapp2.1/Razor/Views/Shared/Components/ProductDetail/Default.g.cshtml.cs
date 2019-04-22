@@ -196,7 +196,7 @@ WriteAttributeValue("", 474, Url.Action("GetProductImage", "Mall", new { Proeuct
             WriteLiteral("                                                                ");
             EndContext();
             BeginContext(4158, 61, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0572f7b898a8465eb6ef043df4aa6dd5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "59ec7ede3f0c48f8b52c8f73856daa51", async() => {
                 BeginContext(4194, 16, false);
 #line 64 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Shared\Components\ProductDetail\Default.cshtml"
                                                                                               Write(item.ProductSize);
@@ -257,7 +257,7 @@ WriteAttributeValue("", 474, Url.Action("GetProductImage", "Mall", new { Proeuct
             WriteLiteral("                                                                ");
             EndContext();
             BeginContext(5436, 64, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bc6349ff5e3642e6a66f99813f234560", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "33f5ced593b54d7f9e3202c47a7a8307", async() => {
                 BeginContext(5474, 17, false);
 #line 79 "D:\lab\288\YunQi1.7\YunQi\YunQiWholesale\Views\Shared\Components\ProductDetail\Default.cshtml"
                                                                                                 Write(item.ProductColor);
