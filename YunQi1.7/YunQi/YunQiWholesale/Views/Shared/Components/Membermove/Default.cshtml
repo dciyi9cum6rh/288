@@ -70,9 +70,9 @@
                             @*80px × 80px*@
                             <img class="main-pic mr-3" src="~/images/member.png" alt="Generic placeholder image">
                             <div class="media-body">
-                                <h5 class="mt-0">@o.MessageTitle</h5>
+                                <h5 class="mt-0">@o.MessageTitle @o.NickName</h5>
                                 <hr />
-                                <div>@o.MessageValue</div>
+                                <div>@o.MessageValue </div>
 
                                 @*@*20181219 ---棋  留言內容*@
                                 @await Component.InvokeAsync("MessageManagementData", new { MessageId = o.MessageId })

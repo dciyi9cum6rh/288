@@ -4166,9 +4166,9 @@ function Homepagefunction(
             $('#ShoppingProcess').addClass('active');
         }
         //maichangxuzhi
-        if (linkno === 7) {
-            $('#ShoppingKnows').addClass('active');
-        }
+        //if (linkno === 7) {
+        //    $('#ShoppingKnows').addClass('active');
+        //}
         //操作指南
         if (linkno === 8) {
             $('#caozuozhinan').addClass('active');
@@ -4176,7 +4176,7 @@ function Homepagefunction(
         if (linkno === 9) {
             $('#shoujicaozuo').addClass('active');
         }
-        if (linkno === 10) {
+        if (linkno === 7) {
             $('#shoujishengji').addClass('active');
         }
         //購物車

@@ -91,7 +91,7 @@ using DataModel;
             WriteLiteral("        ");
             EndContext();
             BeginContext(500, 12023, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e965389123c4468a9731ff89790fc69a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9916e7af350642bdae0cd395d33a3e63", async() => {
                 BeginContext(618, 368, true);
                 WriteLiteral(@"
             <div class=""form-box mb-3"">
@@ -159,7 +159,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("                                ");
                 EndContext();
                 BeginContext(2357, 38, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d21b4dabcce344c99052b436ed4ffc1f", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "aaabf2f2a6934c0eb9ba218dbec40e6e", async() => {
                     BeginContext(2384, 2, true);
                     WriteLiteral("女性");
                     EndContext();
@@ -184,7 +184,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(2429, 29, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "71535d3ba8d8470d903520195f8effce", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "264d8c0d4c614fdeaa6d81a95b11de2d", async() => {
                     BeginContext(2447, 2, true);
                     WriteLiteral("男性");
                     EndContext();
@@ -206,7 +206,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(2492, 31, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a46f2ca2676a478d9ec06eb5013b3d17", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7f59100404c04cba949d6063610a9e8f", async() => {
                     BeginContext(2510, 4, true);
                     WriteLiteral("暫不告知");
                     EndContext();
@@ -238,7 +238,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("                                ");
                 EndContext();
                 BeginContext(2673, 29, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "70d7e6aee6f94153bc57f8464f1fc3ab", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6f2b635b77b64d2aa33b5ad7b3a52095", async() => {
                     BeginContext(2691, 2, true);
                     WriteLiteral("女性");
                     EndContext();
@@ -260,7 +260,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(2736, 38, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2f5c164cb30d405ba0b69f6449282945", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1a088c6384054dabb1d2eb4f9acaf6ba", async() => {
                     BeginContext(2763, 2, true);
                     WriteLiteral("男性");
                     EndContext();
@@ -285,7 +285,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(2808, 31, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee684022f1384aeab5d47df258a8d8d3", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f378344b5f8249e7a9c2479aee6a3489", async() => {
                     BeginContext(2826, 4, true);
                     WriteLiteral("暫不告知");
                     EndContext();
@@ -317,7 +317,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("                                ");
                 EndContext();
                 BeginContext(2969, 29, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ff183499c6a4400cb6e50f705f8a85e4", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf25e94840e54bf79a73b2b52a2d7453", async() => {
                     BeginContext(2987, 2, true);
                     WriteLiteral("女性");
                     EndContext();
@@ -339,7 +339,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(3032, 29, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "98c4f2ea741c43d4bfb7385e517fa1e7", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "de6a75b4579a4f7db5069fb23ce37250", async() => {
                     BeginContext(3050, 2, true);
                     WriteLiteral("男性");
                     EndContext();
@@ -361,7 +361,7 @@ WriteAttributeValue("", 1845, Model.NickName, 1845, 15, false);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(3095, 40, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e209584c19ce46d4b89cce4fef27856d", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c9ea174e271d4812b0b08790b5567830", async() => {
                     BeginContext(3122, 4, true);
                     WriteLiteral("暫不告知");
                     EndContext();
@@ -754,7 +754,7 @@ WriteAttributeValue("", 10364, dtt.ToLongDateString(), 10364, 23, false);
                 ");
             EndContext();
             BeginContext(12996, 68, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ec02a868a25e4af6a2aa43d2ff6ad501", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "add1baba45e646418828f27a3c23acf1", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

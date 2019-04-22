@@ -300,9 +300,9 @@ D:\lab\288\YunQi1.7\YunQi\DataModel\bin\Debug\netcoreapp2.1\Microsoft.VisualStud
 D:\lab\288\YunQi1.7\YunQi\DataModel\bin\Debug\netcoreapp2.1\DataModel.deps.json
 D:\lab\288\YunQi1.7\YunQi\DataModel\bin\Debug\netcoreapp2.1\DataModel.dll
 D:\lab\288\YunQi1.7\YunQi\DataModel\bin\Debug\netcoreapp2.1\DataModel.pdb
-D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.csprojAssemblyReference.cache
 D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.csproj.CoreCompileInputs.cache
 D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.AssemblyInfoInputs.cache
 D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.AssemblyInfo.cs
 D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.dll
 D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.pdb
+D:\lab\288\YunQi1.7\YunQi\DataModel\obj\Debug\netcoreapp2.1\DataModel.csprojAssemblyReference.cache

@@ -182,7 +182,7 @@ WriteAttributeValue("", 2107, Model.OrderId, 2107, 14, false);
             WriteLiteral("                ");
             EndContext();
             BeginContext(2724, 344, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f21c2949de204ff29bcd57e78a2ab3b3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9e26df00c0b14dafba5f8e10f2e4cf5e", async() => {
                 BeginContext(3041, 18, true);
                 WriteLiteral("\r\n                ");
                 EndContext();
@@ -231,7 +231,7 @@ WriteAttributeValue("", 2107, Model.OrderId, 2107, 14, false);
             WriteLiteral("                    ");
             EndContext();
             BeginContext(3262, 368, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2321129d36584591ba5cda0ac49507fa", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2bb2a24c75f344a6a1a7956ba6cf04a5", async() => {
                 BeginContext(3599, 22, true);
                 WriteLiteral("\r\n                    ");
                 EndContext();

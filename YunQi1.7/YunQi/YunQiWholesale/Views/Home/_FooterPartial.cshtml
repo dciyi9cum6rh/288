@@ -36,7 +36,7 @@
                 <div class="pt-2 pb-2 mb-2 title ff">會員服務</div>
                 <nav class="nav flex-column">
                     <a class="nav-link text-center " href="#" data-no="5"><span class="ff" />升級經銷會員</a>
-                    <a class="nav-link text-center " href="#" data-no="10"><span class="ff" />手機版升級經銷會員</a>
+                    <a class="nav-link text-center " href="#" data-no="7"><span class="ff" />手機版升級經銷會員</a>
                     <a class="nav-link text-center" href="#" data-no="1"><span class="ff">品牌故事</span></a>
                     <a class="nav-link text-center" style="display:none" href="#" data-no="2"><span class="ff" />會員中心</a>
                     <a class="nav-link text-center" href="#" data-no="3"><span class="ff" />會員等級</a>
@@ -48,8 +48,8 @@
                 <nav class="nav flex-column">
 
                     <a class="nav-link text-center ff" style="display:none" href="#" data-no="6"><span class="ff" />購物車</a>
-                    <a class="nav-link text-center " href="#" data-no="7"><span class="ff" />賣場須知</a>
-                    <a class="nav-link text-center " href="#" data-no="8"><span class="ff" />操作指南</a>
+                    @*<a class="nav-link text-center " href="#" data-no="7"><span class="ff" />賣場須知</a>*@
+                    <a class="nav-link text-center " href="#" data-no="8"><span class="ff" />購物操作指南</a>
                     <a class="nav-link text-center " href="#" data-no="9"><span class="ff" />手機版操作指南</a>
                 </nav>
             </div>
@@ -80,7 +80,7 @@
                     <img src="~/images/公司沿革-02.jpg" class="img-fluid" />
                 </div>
                 <div class=" col-md-4">
-                   
+
                     <img src="~/images/首頁下方的品牌故事-3.jpg" class="img-fluid" />
                 </div>
                 @*<img src="~/images/品牌故事.png" class="img-fluid" />*@
@@ -92,47 +92,43 @@
     </div>
 </div>
 
-@*20181226  ---棋 購物流程*@
+@*shou ji ban sheng ji hui yuan *@
 <div id="shoujishengji" class="footerdetail-box p-3">
     <button type="button" class="btn btn-close btn-maintype btnFooterDetailClose">關閉</button>
     <div class="set-box">
         <div class="container">
             <h2 class=" ff border-bottom mb-3 pb-2">升級經銷會員</h2>
             <div>
-                <img src="~/images/升級經銷會員手機版本.png" class="img-fluid  container-fluid"/>
-                
-
+                <img src="~/images/手機版升級經銷會員.png" class="img-fluid  container-fluid" />
             </div>
         </div>
     </div>
 </div>
-@*20181226  ---棋 購物流程*@
+@*20181226  ---棋 購物流程 升級經銷會員*@
 <div id="ShoppingProcess" class="footerdetail-box p-3">
     <button type="button" class="btn btn-close btn-maintype btnFooterDetailClose">關閉</button>
     <div class="set-box">
         <div class="container">
             <h2 class=" ff border-bottom mb-3 pb-2">升級經銷會員</h2>
             <div>
-                
-                <img src="~/images/升級經銷指南-01.png" alt="" class="img-fluid" />
-
+                <img src="~/images/下排功能列-升級經銷指南.png" alt="" class="img-fluid" />
             </div>
         </div>
     </div>
 </div>
 @*賣場須知*@
-<div id="ShoppingKnows" class="footerdetail-box p-3">
-    <button type="button" class="btn btn-close btn-maintype btnFooterDetailClose">關閉</button>
-    <div class="set-box">
-        <div class="container">
-            <h2 class=" ff border-bottom mb-3 pb-2">賣場須知</h2>
-            <div>
-                <img src="~/images/賣場須知.png" class="img-fluid" />
-                @*<img src="~/images/shoppingflow.jpg" alt="" class="img-fluid" />*@
+@*<div id="ShoppingKnows" class="footerdetail-box p-3">
+        <button type="button" class="btn btn-close btn-maintype btnFooterDetailClose">關閉</button>
+        <div class="set-box">
+            <div class="container">
+                <h2 class=" ff border-bottom mb-3 pb-2">賣場須知</h2>
+                <div>
+                    <img src="~/images/賣場須知.png" class="img-fluid" />
+                    <img src="~/images/shoppingflow.jpg" alt="" class="img-fluid" />
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
 @*czo zuo zhi nan*@
 <div id="caozuozhinan" class="footerdetail-box p-3">
     <button type="button" class="btn btn-close btn-maintype btnFooterDetailClose">關閉</button>
@@ -140,8 +136,7 @@
         <div>
             <h2 class=" ff border-bottom mb-3 pb-2">操作指南</h2>
             <div>
-
-                <img src="~/images/合併版(操作指南&購物流程)-01.png" class="img-fluid container-fluid" />
+                <img src="~/images/下排功能列的操作指南.png" class="img-fluid container-fluid" />
             </div>
         </div>
     </div>
@@ -153,7 +148,7 @@
         <div>
             <h2 class=" ff border-bottom mb-3 pb-2">手機版操作指南</h2>
             <div>
-                <img src="~/images/操作指南手機版(直)-02-01.png" class="img-fluid  container-fluid" />
+                <img src="~/images/操作指南手機版(直)-01.png" class="img-fluid  container-fluid" />
 
             </div>
         </div>
@@ -233,7 +228,9 @@
                     <div class="card-body d-flex">
                         <span>A：</span>
                         <div>
-                            不賣東西的人很多，也可販售商品。
+                            可以的，因為量批價很划算，即使是純買家也能加入購物，
+                            跟外面消費一樣的金額能得到更多，或者買同樣多的東西但花
+                            費更省；真的買多了再轉賣出去也行。
                         </div>
                     </div>
                 </div>
