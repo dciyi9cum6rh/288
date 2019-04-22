@@ -54,7 +54,7 @@ using YunQiWholesale.Models;
             WriteLiteral("\r\n\r\n    <nav class=\"header-box navbar navbar-expand-lg fixed-top navbar-dark bg-dark\" style=\" color : #F8F0C7 !important\">\r\n        <a href=\"#\" class=\"navbar-brand\">");
             EndContext();
             BeginContext(285, 32, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "6904427b9f7e42f385fd7578c8fd73b8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "90143f5a213f427bb7a505b4daf1020b", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

@@ -220,7 +220,7 @@ WriteAttributeValue("", 3481, Model.YoutubeVideo.YouTubeVideo, 3481, 32, false);
             WriteLiteral("            <div class=\"col-md-6\">\r\n                <div class=\"thumbnail\">\r\n                    ");
             EndContext();
             BeginContext(3732, 77, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "34ed814fa70449eaa0371245ac4b0cf9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "dde168f1d38243088152e7bb1ca5fe72", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -280,7 +280,7 @@ WriteAttributeValue("", 4392, Url.Action("GetProductImage", "Home", new { Proeuc
             WriteLiteral("            <div>\r\n                ");
             EndContext();
             BeginContext(5041, 76, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "12aa73421fe248a79d95d896fc2140db", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "1b703bb9151d483b8c16069360d04d28", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
