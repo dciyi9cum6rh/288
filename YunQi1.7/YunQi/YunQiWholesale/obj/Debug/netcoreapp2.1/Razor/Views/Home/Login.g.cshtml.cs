@@ -72,7 +72,7 @@ using PaulMiami.AspNetCore.Mvc.Recaptcha;
             WriteLiteral("<div class=\"login-content container pt-5\">\r\n    ");
             EndContext();
             BeginContext(155, 2573, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2f2a0f28e4484d2396cfa5d10dcbcb82", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "73f6af1eb45845b1ab1ed70f3473bba1", async() => {
                 BeginContext(233, 569, true);
                 WriteLiteral(@"
         <div class=""row justify-content-center"">

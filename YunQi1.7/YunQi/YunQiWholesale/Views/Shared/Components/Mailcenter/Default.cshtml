@@ -10,6 +10,7 @@
             <h2 class="mr-3">訊息中心</h2>
             <button id="mobileSide" type="button" class="btn btn-maintype mb-2 mobiletype">選單</button>
         </div>
+
         @*9-8.系統在View【Views/Shared/Components/MemberFavoriteList/Default.cshtml】中判斷9-7傳回之listMemberFavoriteListViewModel!=null and Count>0。*@
         @if (Model.listMemberMailCenterMessageListViewModel != null && Model.listMemberMailCenterMessageListViewModel.Count > 0)
         {
@@ -45,8 +46,22 @@
                     </div>
                 </div>
             </div>
-           
 
+            <div class="maillist-box">
+                <div class="card text-white mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <div>通知</div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">親愛的會員您好</h4>
+                        <p class="card-text">
+                             歡迎使用下方的連結 ，加入FB官方粉絲團， 以及 LINE@@ 官方帳號，
+                            知識即是權力 、情報等同MONEY，
+                            隨時掌握第一手商品資訊 ， 保證收穫滿滿!
+                        </p>
+                    </div>
+                </div>
+            </div>
             @foreach (var o in @Model.listMemberMailCenterMessageListViewModel)
             {
                 DateTime dtMessageTime = (DateTime)o.MessageTime;
@@ -65,7 +80,21 @@
         }
         else
         {
-            <h3>沒有訊息</h3>
+                <div class="maillist-box">
+                    <div class="card text-white mb-3">
+                        <div class="card-header d-flex justify-content-between">
+                            <div>通知</div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">親愛的會員您好</h4>
+                            <p class="card-text">
+                                歡迎使用下方的連結 ，加入FB官方粉絲團， 以及 LINE@@ 官方帳號，
+                                知識即是權力 、情報等同MONEY，
+                                隨時掌握第一手商品資訊 ， 保證收穫滿滿!
+                            </p>
+                        </div>
+                    </div>
+                </div>
         }
     </div>
 </div>
