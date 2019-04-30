@@ -42,7 +42,7 @@ namespace YunQiWholesale.Controllers
             // 4.系統在Action【Home/Index】讀取youtube影片網址。
             YoutubeVideoViewModel YVVM = await IPR.GetYoutubeVideoList();
             // 5.系統在Action【Home/Index】讀取最新商品清單。
-            List<ProductListViewModel> lPLVM = await IPRR.GetNewProductList(6);
+            List<ProductListViewModel> lPLVM = await IPRR.GetNewProductList(20);
             // 6.系統傳回View【Home/Index】，並回傳new HomeViewModel { HomeImage=3讀取值, YoutubeVideo=4讀取值, NewProduct=5讀取值}。
             ViewBag.MemberMobile = HttpContext.Session.GetString("MemberMobile");
             if (HttpContext.Session.GetInt32("MemberLevelId") != null)
@@ -94,7 +94,7 @@ namespace YunQiWholesale.Controllers
             // 4.系統在Action【Home/Index】讀取youtube影片網址。
             YoutubeVideoViewModel YVVM = await IPR.GetYoutubeVideoList();
             // 5.系統在Action【Home/Index】讀取最新商品清單。
-            List<ProductListViewModel> lPLVM = await IPRR.GetNewProductList(6);
+            List<ProductListViewModel> lPLVM = await IPRR.GetNewProductList(20);
             // 6.系統傳回View【Home/Index】，並回傳new HomeViewModel { HomeImage=3讀取值, YoutubeVideo=4讀取值, NewProduct=5讀取值}。
             ViewBag.MemberMobile = HttpContext.Session.GetString("MemberMobile");
             if (HttpContext.Session.GetInt32("MemberLevelId") != null)
