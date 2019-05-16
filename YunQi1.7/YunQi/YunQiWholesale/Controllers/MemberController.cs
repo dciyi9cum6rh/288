@@ -159,9 +159,9 @@ namespace YunQiWholesale.Controllers
         //20181121 ---棋
         //1.登入之會員點按[會員中心-我的下線業績]。
         //2.系統以ajax呼叫Get Controller Action【Member/Followertriumph】，並傳送jMemberMobile。
-        public async Task<IActionResult> Followertriumph(string MemberMobile, DateTime? sDate, DateTime? eDate, string ReferrerMobile)
+        public async Task<IActionResult> Followertriumph(string MemberMobile, DateTime? sDate, DateTime? eDate, string ReferrerMobile, int Page)
         {
-            return ViewComponent("Followertriumph", new { MemberMobile = MemberMobile, sDate = sDate, eDate = eDate, ReferrerMobile = ReferrerMobile });
+            return ViewComponent("Followertriumph", new { MemberMobile = MemberMobile, sDate = sDate, eDate = eDate, ReferrerMobile = ReferrerMobile, Page });
         }
 
         public async Task<IActionResult> Personaldata(string MemberMobile)
